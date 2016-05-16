@@ -1,5 +1,5 @@
 //
-//  SimilarArtist.swift
+//  LastfmSimilarArtist.swift
 //  Digg
 //
 //  Created by Hanawa Takuro on 2016/05/09.
@@ -9,13 +9,13 @@
 import Foundation
 import Himotoki
 
-struct SimilarArtist: Decodable {
+struct LastfmSimilarArtist: Decodable {
 
     let similarartists: [Artist]
 
-    static func decode(e: Extractor) throws -> SimilarArtist {
+    static func decode(e: Extractor) throws -> LastfmSimilarArtist {
 
-        return try SimilarArtist(similarartists: e.array(["similarartists", "artist"]))
+        return try LastfmSimilarArtist(similarartists: e.array(["similarartists", "artist"]))
     }
 
     struct Artist: Decodable {

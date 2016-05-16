@@ -9,9 +9,7 @@
 import Foundation
 import APIKit
 
-protocol LastfmRequestType: RequestType {
-
-}
+protocol LastfmRequestType: RequestType { }
 
 extension LastfmRequestType {
 
@@ -28,11 +26,11 @@ extension LastfmRequestType {
     }
 }
 
-struct SimilarArtistRequest: LastfmRequestType {
+struct LastfmSimilarArtistRequest: LastfmRequestType {
 
     let artist: String
 
-    typealias Response = SimilarArtist
+    typealias Response = LastfmSimilarArtist
 
     let method: HTTPMethod = .GET
 
@@ -48,7 +46,7 @@ struct SimilarArtistRequest: LastfmRequestType {
 
     func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) -> Response? {
 
-        return try? SimilarArtist.decodeValue(object)
+        return try? LastfmSimilarArtist.decodeValue(object)
     }
 }
 
@@ -57,7 +55,7 @@ struct SimilarTrackRequest: LastfmRequestType {
     let artist: String
     let track: String
 
-    typealias Response = SimilarTrack
+    typealias Response = LastfmSimilarTrack
 
     let method: HTTPMethod = .GET
 
@@ -74,7 +72,7 @@ struct SimilarTrackRequest: LastfmRequestType {
 
     func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) -> Response? {
 
-        do { return try SimilarTrack.decodeValue(object) }
+        do { return try LastfmSimilarTrack.decodeValue(object) }
         catch { print(error); return nil }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  SimilarTrack.swift
+//  LastfmSimilarTrack.swift
 //  Digg
 //
 //  Created by Hanawa Takuro on 2016/05/08.
@@ -9,13 +9,13 @@
 import Foundation
 import Himotoki
 
-struct SimilarTrack: Decodable {
+struct LastfmSimilarTrack: Decodable {
 
     let similartracks: [Track]
 
-    static func decode(e: Extractor) throws -> SimilarTrack {
+    static func decode(e: Extractor) throws -> LastfmSimilarTrack {
 
-        return try SimilarTrack(similartracks: e.array(["similartracks", "track"]))
+        return try LastfmSimilarTrack(similartracks: e.array(["similartracks", "track"]))
     }
 
     struct Track: Decodable {

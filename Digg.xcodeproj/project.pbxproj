@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C4670BE1CE0C5AA00AF10B8 /* SimilarArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4670BD1CE0C5AA00AF10B8 /* SimilarArtist.swift */; };
+		3C4670BE1CE0C5AA00AF10B8 /* LastfmSimilarArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4670BD1CE0C5AA00AF10B8 /* LastfmSimilarArtist.swift */; };
+		3C5866331CE66E95003856AA /* iTunes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5866321CE66E95003856AA /* iTunes.swift */; };
 		3CA086191CDDCEA500504387 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA086181CDDCEA500504387 /* AppDelegate.swift */; };
 		3CA0861B1CDDCEA500504387 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA0861A1CDDCEA500504387 /* ViewController.swift */; };
 		3CA0861E1CDDCEA500504387 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CA0861C1CDDCEA500504387 /* Main.storyboard */; };
@@ -15,7 +16,8 @@
 		3CA086231CDDCEA500504387 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CA086211CDDCEA500504387 /* LaunchScreen.storyboard */; };
 		3CA0862E1CDDCEA500504387 /* DiggTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA0862D1CDDCEA500504387 /* DiggTests.swift */; };
 		3CA0863A1CDF672500504387 /* Lastfm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA086391CDF672500504387 /* Lastfm.swift */; };
-		3CA0863C1CDF748B00504387 /* SimilarTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA0863B1CDF748B00504387 /* SimilarTrack.swift */; };
+		3CA0863C1CDF748B00504387 /* LastfmSimilarTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA0863B1CDF748B00504387 /* LastfmSimilarTrack.swift */; };
+		3CAFF4DE1CE8C55100E4ED8E /* iTunesAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAFF4DD1CE8C55100E4ED8E /* iTunesAlbum.swift */; };
 		93D882B0C3474E840B02631C /* Pods_Digg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7106EF9AB356B713E483A4C /* Pods_Digg.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3C4670BD1CE0C5AA00AF10B8 /* SimilarArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimilarArtist.swift; sourceTree = "<group>"; };
+		3C4670BD1CE0C5AA00AF10B8 /* LastfmSimilarArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastfmSimilarArtist.swift; sourceTree = "<group>"; };
+		3C5866321CE66E95003856AA /* iTunes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iTunes.swift; sourceTree = "<group>"; };
 		3CA086151CDDCEA500504387 /* Digg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Digg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CA086181CDDCEA500504387 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CA0861A1CDDCEA500504387 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -42,7 +45,8 @@
 		3CA0862D1CDDCEA500504387 /* DiggTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiggTests.swift; sourceTree = "<group>"; };
 		3CA0862F1CDDCEA500504387 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3CA086391CDF672500504387 /* Lastfm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lastfm.swift; sourceTree = "<group>"; };
-		3CA0863B1CDF748B00504387 /* SimilarTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimilarTrack.swift; sourceTree = "<group>"; };
+		3CA0863B1CDF748B00504387 /* LastfmSimilarTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastfmSimilarTrack.swift; sourceTree = "<group>"; };
+		3CAFF4DD1CE8C55100E4ED8E /* iTunesAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iTunesAlbum.swift; sourceTree = "<group>"; };
 		9DC737873FC80ADDCECDA84F /* Pods-Digg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Digg.release.xcconfig"; path = "Pods/Target Support Files/Pods-Digg/Pods-Digg.release.xcconfig"; sourceTree = "<group>"; };
 		C0E2BCB0AD44BA2D886FEFDC /* Pods-Digg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Digg.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Digg/Pods-Digg.debug.xcconfig"; sourceTree = "<group>"; };
 		E7106EF9AB356B713E483A4C /* Pods_Digg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Digg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,8 +118,10 @@
 			isa = PBXGroup;
 			children = (
 				3CA086391CDF672500504387 /* Lastfm.swift */,
-				3CA0863B1CDF748B00504387 /* SimilarTrack.swift */,
-				3C4670BD1CE0C5AA00AF10B8 /* SimilarArtist.swift */,
+				3C5866321CE66E95003856AA /* iTunes.swift */,
+				3CA0863B1CDF748B00504387 /* LastfmSimilarTrack.swift */,
+				3C4670BD1CE0C5AA00AF10B8 /* LastfmSimilarArtist.swift */,
+				3CAFF4DD1CE8C55100E4ED8E /* iTunesAlbum.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -190,6 +196,7 @@
 				TargetAttributes = {
 					3CA086141CDDCEA500504387 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = KZUM5X62QG;
 					};
 					3CA086281CDDCEA500504387 = {
 						CreatedOnToolsVersion = 7.3;
@@ -290,9 +297,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CA0861B1CDDCEA500504387 /* ViewController.swift in Sources */,
+				3C5866331CE66E95003856AA /* iTunes.swift in Sources */,
 				3CA0863A1CDF672500504387 /* Lastfm.swift in Sources */,
-				3CA0863C1CDF748B00504387 /* SimilarTrack.swift in Sources */,
-				3C4670BE1CE0C5AA00AF10B8 /* SimilarArtist.swift in Sources */,
+				3CA0863C1CDF748B00504387 /* LastfmSimilarTrack.swift in Sources */,
+				3C4670BE1CE0C5AA00AF10B8 /* LastfmSimilarArtist.swift in Sources */,
+				3CAFF4DE1CE8C55100E4ED8E /* iTunesAlbum.swift in Sources */,
 				3CA086191CDDCEA500504387 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -423,10 +432,13 @@
 			baseConfigurationReference = C0E2BCB0AD44BA2D886FEFDC /* Pods-Digg.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Digg/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.next-group-HanawaTakuro.Digg";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -435,10 +447,13 @@
 			baseConfigurationReference = 9DC737873FC80ADDCECDA84F /* Pods-Digg.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Digg/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.next-group-HanawaTakuro.Digg";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
