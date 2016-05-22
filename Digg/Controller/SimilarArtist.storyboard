@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BAi-cK-j8L">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Similar Artist View Controller-->
+        <scene sceneID="g9T-Qm-HWY">
+            <objects>
+                <viewController id="BAi-cK-j8L" customClass="SimilarArtistViewController" customModule="Digg" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JVS-WV-mI5"/>
+                        <viewControllerLayoutGuide type="bottom" id="rvD-XL-YEl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MPm-tF-fPu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qVK-vE-jLy">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VQR-GO-Q8h">
+                                    <size key="itemSize" width="100" height="100"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SimilarArtistCollectionViewCell" id="BXu-W0-QcM" customClass="SimilarArtistCollectionViewCell" customModule="Digg" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hdT-qJ-fBb">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="hdT-qJ-fBb" secondAttribute="bottom" id="3UI-yE-hWT"/>
+                                            <constraint firstAttribute="trailing" secondItem="hdT-qJ-fBb" secondAttribute="trailing" id="JSF-eK-rfj"/>
+                                            <constraint firstItem="hdT-qJ-fBb" firstAttribute="top" secondItem="BXu-W0-QcM" secondAttribute="top" id="b9y-7w-SYJ"/>
+                                            <constraint firstItem="hdT-qJ-fBb" firstAttribute="leading" secondItem="BXu-W0-QcM" secondAttribute="leading" id="tCu-P4-liT"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="similarArtistImageView" destination="hdT-qJ-fBb" id="3OP-jT-nWS"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BAi-cK-j8L" id="Uc0-rX-Iuj"/>
+                                    <outlet property="delegate" destination="BAi-cK-j8L" id="dtH-Z8-aSj"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qVK-vE-jLy" firstAttribute="top" secondItem="MPm-tF-fPu" secondAttribute="top" id="Nui-Nk-Grg"/>
+                            <constraint firstItem="rvD-XL-YEl" firstAttribute="top" secondItem="qVK-vE-jLy" secondAttribute="bottom" id="bn3-Ki-ugw"/>
+                            <constraint firstItem="qVK-vE-jLy" firstAttribute="leading" secondItem="MPm-tF-fPu" secondAttribute="leading" id="mh2-gc-VEZ"/>
+                            <constraint firstAttribute="trailing" secondItem="qVK-vE-jLy" secondAttribute="trailing" id="nh2-NR-CXt"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="T48-OZ-6Ku"/>
+                    <connections>
+                        <outlet property="collectionView" destination="qVK-vE-jLy" id="02U-70-0ae"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yOd-4c-0Fu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="541" y="193"/>
+        </scene>
+    </scenes>
+</document>

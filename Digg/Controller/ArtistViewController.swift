@@ -11,7 +11,7 @@ import MediaPlayer
 
 class ArtistViewController: UIViewController {
 
-    var artists: [String] = ["The Beatles"]
+    var artists = ["The Beatles"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +28,12 @@ class ArtistViewController: UIViewController {
 
 extension ArtistViewController: UICollectionViewDelegate {
 
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+
+        let viewController = UIStoryboard(name: "SimilarArtist", bundle: nil).instantiateInitialViewController() as! SimilarArtistViewController
+        viewController.artist = artists[indexPath.row]
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
 extension ArtistViewController: UICollectionViewDataSource {

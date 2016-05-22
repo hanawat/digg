@@ -4,6 +4,7 @@ use_frameworks!
 target 'Digg' do
   pod 'APIKit', '~> 1.3.0'
   pod 'Himotoki', '~> 2.0'
+  pod 'Kingfisher', '~> 2.4'
 end
 
 plugin 'cocoapods-keys', {
