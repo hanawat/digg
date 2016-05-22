@@ -8,6 +8,7 @@
 
 import Foundation
 import APIKit
+import Keys
 
 protocol LastfmRequestType: RequestType { }
 
@@ -22,7 +23,7 @@ extension LastfmRequestType {
     }
 
     var apiKey: String {
-        return "78ed1d74ab6d35dfffda7623a03758c9"
+        return DiggKeys().lastfmAPIKey()
     }
 }
 

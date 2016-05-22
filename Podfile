@@ -6,3 +6,10 @@ target 'Digg' do
   pod 'Himotoki', '~> 2.0'
 end
 
+plugin 'cocoapods-keys', {
+  :project => "Digg",
+  :keys => [
+    "LastfmAPIKey"
+  ]
+}
+
