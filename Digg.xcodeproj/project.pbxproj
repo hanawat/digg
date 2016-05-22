@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C3B14091CF1B86B0053F783 /* ArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B14081CF1B86B0053F783 /* ArtistViewController.swift */; };
+		3C3B140C1CF1B8C60053F783 /* Artist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C3B140B1CF1B8C60053F783 /* Artist.storyboard */; };
+		3C3B140F1CF1BBDF0053F783 /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B140E1CF1BBDF0053F783 /* ArtistCollectionViewCell.swift */; };
 		3C4670BE1CE0C5AA00AF10B8 /* LastfmSimilarArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4670BD1CE0C5AA00AF10B8 /* LastfmSimilarArtist.swift */; };
 		3C5866331CE66E95003856AA /* iTunes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5866321CE66E95003856AA /* iTunes.swift */; };
 		3CA086191CDDCEA500504387 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA086181CDDCEA500504387 /* AppDelegate.swift */; };
-		3CA0861B1CDDCEA500504387 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA0861A1CDDCEA500504387 /* ViewController.swift */; };
-		3CA0861E1CDDCEA500504387 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CA0861C1CDDCEA500504387 /* Main.storyboard */; };
 		3CA086201CDDCEA500504387 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CA0861F1CDDCEA500504387 /* Assets.xcassets */; };
 		3CA086231CDDCEA500504387 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CA086211CDDCEA500504387 /* LaunchScreen.storyboard */; };
 		3CA0862E1CDDCEA500504387 /* DiggTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA0862D1CDDCEA500504387 /* DiggTests.swift */; };
@@ -32,12 +33,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C3B14081CF1B86B0053F783 /* ArtistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; };
+		3C3B140B1CF1B8C60053F783 /* Artist.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Artist.storyboard; sourceTree = "<group>"; };
+		3C3B140E1CF1BBDF0053F783 /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
 		3C4670BD1CE0C5AA00AF10B8 /* LastfmSimilarArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastfmSimilarArtist.swift; sourceTree = "<group>"; };
 		3C5866321CE66E95003856AA /* iTunes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iTunes.swift; sourceTree = "<group>"; };
 		3CA086151CDDCEA500504387 /* Digg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Digg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CA086181CDDCEA500504387 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3CA0861A1CDDCEA500504387 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3CA0861D1CDDCEA500504387 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3CA0861F1CDDCEA500504387 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3CA086221CDDCEA500504387 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3CA086241CDDCEA500504387 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -71,6 +73,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3C3B140A1CF1B87F0053F783 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3C3B14081CF1B86B0053F783 /* ArtistViewController.swift */,
+				3C3B140B1CF1B8C60053F783 /* Artist.storyboard */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		3C3B140D1CF1BBA60053F783 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3C3B140E1CF1BBDF0053F783 /* ArtistCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		3CA0860C1CDDCEA400504387 = {
 			isa = PBXGroup;
 			children = (
@@ -95,9 +114,9 @@
 			isa = PBXGroup;
 			children = (
 				3CA086381CDF669700504387 /* Model */,
+				3C3B140A1CF1B87F0053F783 /* Controller */,
+				3C3B140D1CF1BBA60053F783 /* View */,
 				3CA086181CDDCEA500504387 /* AppDelegate.swift */,
-				3CA0861A1CDDCEA500504387 /* ViewController.swift */,
-				3CA0861C1CDDCEA500504387 /* Main.storyboard */,
 				3CA0861F1CDDCEA500504387 /* Assets.xcassets */,
 				3CA086211CDDCEA500504387 /* LaunchScreen.storyboard */,
 				3CA086241CDDCEA500504387 /* Info.plist */,
@@ -230,7 +249,7 @@
 			files = (
 				3CA086231CDDCEA500504387 /* LaunchScreen.storyboard in Resources */,
 				3CA086201CDDCEA500504387 /* Assets.xcassets in Resources */,
-				3CA0861E1CDDCEA500504387 /* Main.storyboard in Resources */,
+				3C3B140C1CF1B8C60053F783 /* Artist.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,10 +315,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CA0861B1CDDCEA500504387 /* ViewController.swift in Sources */,
 				3C5866331CE66E95003856AA /* iTunes.swift in Sources */,
 				3CA0863A1CDF672500504387 /* Lastfm.swift in Sources */,
+				3C3B14091CF1B86B0053F783 /* ArtistViewController.swift in Sources */,
 				3CA0863C1CDF748B00504387 /* LastfmSimilarTrack.swift in Sources */,
+				3C3B140F1CF1BBDF0053F783 /* ArtistCollectionViewCell.swift in Sources */,
 				3C4670BE1CE0C5AA00AF10B8 /* LastfmSimilarArtist.swift in Sources */,
 				3CAFF4DE1CE8C55100E4ED8E /* iTunesAlbum.swift in Sources */,
 				3CA086191CDDCEA500504387 /* AppDelegate.swift in Sources */,
@@ -325,14 +345,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		3CA0861C1CDDCEA500504387 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3CA0861D1CDDCEA500504387 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3CA086211CDDCEA500504387 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
