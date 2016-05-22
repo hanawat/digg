@@ -49,7 +49,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pHp-Og-57i">
-                                                    <rect key="frame" x="29" y="39" width="42" height="21"/>
+                                                    <rect key="frame" x="0.0" y="39" width="100" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -60,7 +60,9 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="pHp-Og-57i" firstAttribute="centerX" secondItem="x4N-cP-Hnv" secondAttribute="centerX" id="5G8-2q-bud"/>
+                                            <constraint firstItem="pHp-Og-57i" firstAttribute="leading" secondItem="x4N-cP-Hnv" secondAttribute="leading" id="BLr-js-k5Z"/>
                                             <constraint firstItem="pHp-Og-57i" firstAttribute="centerY" secondItem="x4N-cP-Hnv" secondAttribute="centerY" id="BYv-JR-fc3"/>
+                                            <constraint firstAttribute="trailing" secondItem="pHp-Og-57i" secondAttribute="trailing" id="NnW-q8-gt3"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="ArtistLabel" destination="pHp-Og-57i" id="oGb-dc-Pei"/>

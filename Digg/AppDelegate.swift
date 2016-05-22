@@ -7,10 +7,6 @@
 //
 
 import UIKit
-import APIKit
-import MediaPlayer
-import StoreKit
-import CloudKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

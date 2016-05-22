@@ -23,7 +23,7 @@ struct LastfmSimilarArtist: Decodable {
         let name: String
         let match: String
         let url: NSURL
-        let image: [Image]
+        let images: [Image]
 
         static func decode(e: Extractor) throws -> Artist {
 
@@ -37,7 +37,7 @@ struct LastfmSimilarArtist: Decodable {
                 name: e.value("name"),
                 match: e.value("match"),
                 url: url,
-                image: e.array("image")
+                images: e.array("image")
             )
         }
     }

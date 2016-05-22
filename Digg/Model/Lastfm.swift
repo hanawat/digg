@@ -51,7 +51,7 @@ struct LastfmSimilarArtistRequest: LastfmRequestType {
     }
 }
 
-struct SimilarTrackRequest: LastfmRequestType {
+struct LastfmSimilarTrackRequest: LastfmRequestType {
 
     let artist: String
     let track: String
