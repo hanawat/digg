@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ybl-df-Stm">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
@@ -48,8 +49,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pHp-Og-57i">
-                                                    <rect key="frame" x="0.0" y="39" width="100" height="21"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fxz-eh-31B">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pHp-Og-57i">
+                                                    <rect key="frame" x="0.0" y="79" width="100" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -59,13 +63,17 @@
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="pHp-Og-57i" firstAttribute="centerX" secondItem="x4N-cP-Hnv" secondAttribute="centerX" id="5G8-2q-bud"/>
-                                            <constraint firstItem="pHp-Og-57i" firstAttribute="leading" secondItem="x4N-cP-Hnv" secondAttribute="leading" id="BLr-js-k5Z"/>
-                                            <constraint firstItem="pHp-Og-57i" firstAttribute="centerY" secondItem="x4N-cP-Hnv" secondAttribute="centerY" id="BYv-JR-fc3"/>
-                                            <constraint firstAttribute="trailing" secondItem="pHp-Og-57i" secondAttribute="trailing" id="NnW-q8-gt3"/>
+                                            <constraint firstItem="pHp-Og-57i" firstAttribute="leading" secondItem="x4N-cP-Hnv" secondAttribute="leading" id="093-cC-FbN"/>
+                                            <constraint firstAttribute="bottom" secondItem="fxz-eh-31B" secondAttribute="bottom" id="3fc-iw-BN6"/>
+                                            <constraint firstAttribute="trailing" secondItem="fxz-eh-31B" secondAttribute="trailing" id="ejZ-yf-L1k"/>
+                                            <constraint firstAttribute="trailing" secondItem="pHp-Og-57i" secondAttribute="trailing" id="niM-d7-P4d"/>
+                                            <constraint firstAttribute="bottom" secondItem="pHp-Og-57i" secondAttribute="bottom" id="rLw-6g-nCQ"/>
+                                            <constraint firstItem="fxz-eh-31B" firstAttribute="leading" secondItem="x4N-cP-Hnv" secondAttribute="leading" id="ued-eZ-oux"/>
+                                            <constraint firstItem="fxz-eh-31B" firstAttribute="top" secondItem="x4N-cP-Hnv" secondAttribute="top" id="w3g-ET-a6Y"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="ArtistLabel" destination="pHp-Og-57i" id="oGb-dc-Pei"/>
+                                            <outlet property="artistLabel" destination="pHp-Og-57i" id="7dY-T1-UJg"/>
+                                            <outlet property="artworkImageView" destination="fxz-eh-31B" id="dtN-KZ-GnQ"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

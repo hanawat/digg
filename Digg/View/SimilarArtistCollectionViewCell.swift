@@ -11,6 +11,7 @@ import UIKit
 class SimilarArtistCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var similarArtistImageView: UIImageView!
+    @IBOutlet weak var similarArtistNameLabel: UILabel!
 
     static let identifier = "SimilarArtistCollectionViewCell"
 }

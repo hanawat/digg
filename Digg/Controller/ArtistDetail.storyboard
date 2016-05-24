@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="oPK-p4-Cyp">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--Artist Detail View Controller-->
+        <scene sceneID="kut-EK-a93">
+            <objects>
+                <viewController id="oPK-p4-Cyp" customClass="ArtistDetailViewController" customModule="Digg" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8kk-5g-Jix"/>
+                        <viewControllerLayoutGuide type="bottom" id="yvU-4w-sDe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tpA-bP-5XP">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t9q-fa-EcU">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArtistDetaiTableViewCell" rowHeight="70" id="FKV-nG-vOK" customClass="ArtistDetaiTableViewCell" customModule="Digg" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FKV-nG-vOK" id="13x-eU-DVL">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="69.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xfn-5V-qSd">
+                                                    <rect key="frame" x="0.0" y="0.0" width="69.5" height="69.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="Xfn-5V-qSd" secondAttribute="height" multiplier="150:150" id="uht-gg-iKS"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yiz-mm-1tX">
+                                                    <rect key="frame" x="119.5" y="24.5" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="Xfn-5V-qSd" secondAttribute="trailing" id="APH-lc-AfD"/>
+                                                <constraint firstItem="Xfn-5V-qSd" firstAttribute="top" secondItem="13x-eU-DVL" secondAttribute="top" id="LKw-LB-0cb"/>
+                                                <constraint firstItem="Xfn-5V-qSd" firstAttribute="leading" secondItem="13x-eU-DVL" secondAttribute="leading" id="bLk-k6-5BY"/>
+                                                <constraint firstItem="Yiz-mm-1tX" firstAttribute="leading" secondItem="Xfn-5V-qSd" secondAttribute="trailing" constant="50" id="iUM-LJ-KJ7"/>
+                                                <constraint firstAttribute="bottom" secondItem="Xfn-5V-qSd" secondAttribute="bottom" id="kdh-N8-BZa"/>
+                                                <constraint firstItem="Yiz-mm-1tX" firstAttribute="centerY" secondItem="13x-eU-DVL" secondAttribute="centerY" id="nZW-ib-8XK"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="APH-lc-AfD"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="artworkImageView" destination="Xfn-5V-qSd" id="vhX-gr-NEI"/>
+                                            <outlet property="trackNameLabel" destination="Yiz-mm-1tX" id="txH-yQ-Pco"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="oPK-p4-Cyp" id="fR7-UC-I0T"/>
+                                    <outlet property="delegate" destination="oPK-p4-Cyp" id="xC9-24-mGk"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="t9q-fa-EcU" firstAttribute="leading" secondItem="tpA-bP-5XP" secondAttribute="leading" id="4AK-y7-0Ee"/>
+                            <constraint firstItem="t9q-fa-EcU" firstAttribute="top" secondItem="tpA-bP-5XP" secondAttribute="top" id="5RR-P5-a3c"/>
+                            <constraint firstItem="yvU-4w-sDe" firstAttribute="top" secondItem="t9q-fa-EcU" secondAttribute="bottom" id="EBh-uD-qZ0"/>
+                            <constraint firstAttribute="trailing" secondItem="t9q-fa-EcU" secondAttribute="trailing" id="zCg-Em-asp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="t9q-fa-EcU" id="jCf-43-hsw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qQl-xJ-3iN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="438" y="331"/>
+        </scene>
+    </scenes>
+</document>

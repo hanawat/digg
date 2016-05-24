@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C0B9C251CF3D6AF003ED34D /* ArtistDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0B9C241CF3D6AF003ED34D /* ArtistDetailViewController.swift */; };
+		3C0B9C271CF3D6D1003ED34D /* ArtistDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C0B9C261CF3D6D1003ED34D /* ArtistDetail.storyboard */; };
+		3C0B9C291CF3D7CD003ED34D /* ArtistDetaiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0B9C281CF3D7CD003ED34D /* ArtistDetaiTableViewCell.swift */; };
 		3C3B14091CF1B86B0053F783 /* ArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B14081CF1B86B0053F783 /* ArtistViewController.swift */; };
 		3C3B140C1CF1B8C60053F783 /* Artist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C3B140B1CF1B8C60053F783 /* Artist.storyboard */; };
 		3C3B140F1CF1BBDF0053F783 /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B140E1CF1BBDF0053F783 /* ArtistCollectionViewCell.swift */; };
@@ -36,6 +39,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C0B9C241CF3D6AF003ED34D /* ArtistDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistDetailViewController.swift; sourceTree = "<group>"; };
+		3C0B9C261CF3D6D1003ED34D /* ArtistDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArtistDetail.storyboard; sourceTree = "<group>"; };
+		3C0B9C281CF3D7CD003ED34D /* ArtistDetaiTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistDetaiTableViewCell.swift; sourceTree = "<group>"; };
 		3C3B14081CF1B86B0053F783 /* ArtistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; };
 		3C3B140B1CF1B8C60053F783 /* Artist.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Artist.storyboard; sourceTree = "<group>"; };
 		3C3B140E1CF1BBDF0053F783 /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -86,6 +92,8 @@
 				3C3B140B1CF1B8C60053F783 /* Artist.storyboard */,
 				3C7A689C1CF1F10E0084F8D9 /* SimilarArtistViewController.swift */,
 				3C7A689E1CF1F1740084F8D9 /* SimilarArtist.storyboard */,
+				3C0B9C241CF3D6AF003ED34D /* ArtistDetailViewController.swift */,
+				3C0B9C261CF3D6D1003ED34D /* ArtistDetail.storyboard */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -95,6 +103,7 @@
 			children = (
 				3C3B140E1CF1BBDF0053F783 /* ArtistCollectionViewCell.swift */,
 				3C7A68A01CF1F2B00084F8D9 /* SimilarArtistCollectionViewCell.swift */,
+				3C0B9C281CF3D7CD003ED34D /* ArtistDetaiTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -258,6 +267,7 @@
 			files = (
 				3CA086231CDDCEA500504387 /* LaunchScreen.storyboard in Resources */,
 				3CA086201CDDCEA500504387 /* Assets.xcassets in Resources */,
+				3C0B9C271CF3D6D1003ED34D /* ArtistDetail.storyboard in Resources */,
 				3C7A689F1CF1F1740084F8D9 /* SimilarArtist.storyboard in Resources */,
 				3C3B140C1CF1B8C60053F783 /* Artist.storyboard in Resources */,
 			);
@@ -327,7 +337,9 @@
 			files = (
 				3C5866331CE66E95003856AA /* iTunes.swift in Sources */,
 				3CA0863A1CDF672500504387 /* Lastfm.swift in Sources */,
+				3C0B9C291CF3D7CD003ED34D /* ArtistDetaiTableViewCell.swift in Sources */,
 				3C3B14091CF1B86B0053F783 /* ArtistViewController.swift in Sources */,
+				3C0B9C251CF3D6AF003ED34D /* ArtistDetailViewController.swift in Sources */,
 				3CA0863C1CDF748B00504387 /* LastfmSimilarTrack.swift in Sources */,
 				3C7A689D1CF1F10E0084F8D9 /* SimilarArtistViewController.swift in Sources */,
 				3C3B140F1CF1BBDF0053F783 /* ArtistCollectionViewCell.swift in Sources */,

@@ -10,7 +10,8 @@ import UIKit
 
 class ArtistCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var ArtistLabel: UILabel!
+    @IBOutlet weak var artworkImageView: UIImageView!
+    @IBOutlet weak var artistLabel: UILabel!
 
     static let identifier = "ArtistCollectionViewCell"
 }

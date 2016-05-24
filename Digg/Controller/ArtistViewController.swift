@@ -12,12 +12,14 @@ import MediaPlayer
 class ArtistViewController: UIViewController {
 
     var artists = ["The Beatles"]
+    var songs: [MPMediaItem] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         if let songs = MPMediaQuery.artistsQuery().items {
             artists = NSOrderedSet(array: songs.flatMap { $0.albumArtist }).array as! [String]
+            self.songs = songs
         }
     }
 
@@ -41,7 +43,9 @@ extension ArtistViewController: UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ArtistCollectionViewCell.identifier, forIndexPath: indexPath) as! ArtistCollectionViewCell
-        cell.ArtistLabel.text = artists[indexPath.row]
+        cell.artistLabel.text = artists[indexPath.row]
+        let artworks = songs.filter { $0.albumArtist == artists[indexPath.row] }.flatMap { $0.artwork }
+        if let artwork = artworks.first { cell.artworkImageView.image = artwork.imageWithSize(cell.frame.size) }
         return cell
     }
 

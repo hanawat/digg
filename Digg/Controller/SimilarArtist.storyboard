@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BAi-cK-j8L">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
@@ -35,17 +36,27 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hdT-qJ-fBb">
                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vDC-Hf-Qad">
+                                                    <rect key="frame" x="0.0" y="79" width="100" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="hdT-qJ-fBb" secondAttribute="bottom" id="3UI-yE-hWT"/>
                                             <constraint firstAttribute="trailing" secondItem="hdT-qJ-fBb" secondAttribute="trailing" id="JSF-eK-rfj"/>
+                                            <constraint firstAttribute="bottom" secondItem="vDC-Hf-Qad" secondAttribute="bottom" id="Xm9-h8-SsV"/>
+                                            <constraint firstItem="vDC-Hf-Qad" firstAttribute="leading" secondItem="BXu-W0-QcM" secondAttribute="leading" id="YDS-Sv-IyI"/>
                                             <constraint firstItem="hdT-qJ-fBb" firstAttribute="top" secondItem="BXu-W0-QcM" secondAttribute="top" id="b9y-7w-SYJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="vDC-Hf-Qad" secondAttribute="trailing" id="jAB-Zi-kF8"/>
                                             <constraint firstItem="hdT-qJ-fBb" firstAttribute="leading" secondItem="BXu-W0-QcM" secondAttribute="leading" id="tCu-P4-liT"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="similarArtistImageView" destination="hdT-qJ-fBb" id="3OP-jT-nWS"/>
+                                            <outlet property="similarArtistNameLabel" destination="vDC-Hf-Qad" id="Tta-cu-Mcg"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
