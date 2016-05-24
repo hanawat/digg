@@ -51,7 +51,7 @@ extension ArtistDetailViewController: UITableViewDelegate {
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         guard let trackId = musics[indexPath.row].trackId else { return }
-        let player = MPMusicPlayerController.applicationMusicPlayer()
+        let player = MPMusicPlayerController.systemMusicPlayer()
         player.setQueueWithStoreIDs([String(trackId)])
         player.play()
     }
