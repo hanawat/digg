@@ -46,6 +46,8 @@ extension ArtistViewController: UICollectionViewDataSource {
         cell.artistLabel.text = artists[indexPath.row]
         let artworks = songs.filter { $0.albumArtist == artists[indexPath.row] }.flatMap { $0.artwork }
         if let artwork = artworks.first { cell.artworkImageView.image = artwork.imageWithSize(cell.frame.size) }
+        let genre = songs.filter { $0.albumArtist == artists[indexPath.row] }.flatMap { $0.genre }
+        if let genre = genre.first { cell.genreLabel.text = genre }
         return cell
     }
 
