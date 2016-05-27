@@ -13,12 +13,12 @@ import StoreKit
 
 class ArtistDetailViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
 
     var artist: LastfmSimilarArtist.Artist?
-    var musics: [iTunesAlbum.Album] = [] {
+    var albums: [iTunesMusic.Album] = [] {
         didSet {
-            tableView.reloadData()
+            collectionView.reloadData()
         }
     }
 
@@ -34,7 +34,7 @@ class ArtistDetailViewController: UIViewController {
             Session.sendRequest(request) { result in
                 switch result {
                 case .Success(let data):
-                    self.musics = data.musics
+                    self.albums = iTunesMusic.albums(data.musics)
                 case .Failure(let error):
                     print(error)
                 }
@@ -47,32 +47,69 @@ class ArtistDetailViewController: UIViewController {
     }
 }
 
-extension ArtistDetailViewController: UITableViewDelegate {
+extension ArtistDetailViewController: UICollectionViewDelegate {
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        guard let trackId = musics[indexPath.row].trackId else { return }
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        guard let trackId = albums[indexPath.section].tracks[indexPath.row].trackId else { return }
         let player = MPMusicPlayerController.systemMusicPlayer()
         player.setQueueWithStoreIDs([String(trackId)])
         player.play()
     }
 }
 
-extension ArtistDetailViewController: UITableViewDataSource {
+extension ArtistDetailViewController: UICollectionViewDataSource {
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return musics.count
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return albums.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return albums[section].tracks.count
+    }
 
-        let cell = tableView.dequeueReusableCellWithIdentifier(ArtistDetaiTableViewCell.identifier) as! ArtistDetaiTableViewCell
-        let music =  musics[indexPath.row]
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ArtistDetaiCollectionViewCell.identifier, forIndexPath: indexPath) as! ArtistDetaiCollectionViewCell
+        let music =  albums[indexPath.section].tracks[indexPath.row]
         cell.trackNameLabel.text = music.trackName
-        if let imageString = music.artworkUrl100 ?? music.artworkUrl60 ?? music.artworkUrl30,
-            imageUrl = NSURL(string: imageString) {
-            cell.artworkImageView.kf_setImageWithURL(imageUrl)
+
+        if let imageUrl = music.artworkUrl100 ?? music.artworkUrl60 ?? music.artworkUrl30,
+            url = NSURL(string: imageUrl) {
+            cell.trackImageView.kf_setImageWithURL(url)
         }
 
         return cell
+    }
+
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+
+        let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: ArtistDetailCollectionReusableView.identifier, forIndexPath: indexPath) as! ArtistDetailCollectionReusableView
+        let album =  albums[indexPath.section]
+        header.albumTitleLabel.text = album.collectionName
+        header.artworkImageView.kf_setImageWithURL(album.artworkUrl)
+
+        return header
+    }
+}
+
+extension ArtistDetailViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+
+        let width = UIScreen.mainScreen().bounds.size.width
+        return CGSize(width: width, height: 50.0)
+    }
+}
+
+extension ArtistDetailViewController: UIScrollViewDelegate {
+
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+
+        guard let visibleHeaders = collectionView.visibleSupplementaryViewsOfKind(UICollectionElementKindSectionHeader) as? [ArtistDetailCollectionReusableView] else { return }
+
+        visibleHeaders.forEach { header in
+            let y = ((collectionView.contentOffset.y - header.frame.origin.y) / header.frame.height) * 25.0
+            header.offset(CGPointMake(0.0, y))
+        }
     }
 }

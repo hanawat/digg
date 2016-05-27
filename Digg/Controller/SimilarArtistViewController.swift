@@ -89,7 +89,7 @@ extension SimilarArtistViewController: UICollectionViewDataSource {
         let similarArtist = similarArtists[indexPath.row]
         cell.similarArtistNameLabel.text = similarArtist.name
         let imageUrl = similarArtist.images.filter { $0.size == "large" }.first?.url ?? similarArtist.images.first?.url
-        if let imageUrl = imageUrl { cell.similarArtistImageView.kf_setImageWithURL(imageUrl, placeholderImage: UIImage(named: "vinyl"), optionsInfo: nil, progressBlock: nil, completionHandler: nil) }
+        if let imageUrl = imageUrl { cell.similarArtistImageView.kf_setImageWithURL(imageUrl) }
         return cell
     }
 

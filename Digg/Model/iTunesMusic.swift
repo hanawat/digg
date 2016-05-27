@@ -1,5 +1,5 @@
 //
-//  iTunesAlbum.swift
+//  iTunesMusic.swift
 //  Digg
 //
 //  Created by Hanawa Takuro on 2016/05/15.
@@ -9,16 +9,42 @@
 import Foundation
 import Himotoki
 
-struct iTunesAlbum: Decodable {
+struct iTunesMusic: Decodable {
 
-    let musics: [Album]
+    let musics: [Music]
 
-    static func decode(e: Extractor) throws -> iTunesAlbum {
+    static func albums(musics: [Music]) -> [Album] {
 
-        return try iTunesAlbum(musics: e.array("results"))
+        let collectionIds = NSOrderedSet(array: musics.flatMap { $0.collectionId }).array as! [Int]
+
+        return collectionIds.flatMap { collectionId -> Album? in
+
+            let tracks =  musics.filter { music in
+                guard let id = music.collectionId else { return false }
+                return id == collectionId
+            }
+
+            guard let collectionName = tracks.first?.collectionName,
+                url = tracks.first?.artworkUrl100 ?? tracks.first?.artworkUrl60 ?? tracks.first?.artworkUrl30,
+                artworkUrl = NSURL(string: url) else { return nil }
+
+            return Album(collectionId: collectionId, collectionName: collectionName, artworkUrl: artworkUrl, tracks: tracks)
+        }
     }
 
-    struct Album: Decodable {
+    struct Album {
+        let collectionId: Int
+        let collectionName: String
+        let artworkUrl: NSURL
+        let tracks: [Music]
+    }
+
+    static func decode(e: Extractor) throws -> iTunesMusic {
+
+        return try iTunesMusic(musics: e.array("results"))
+    }
+
+    struct Music: Decodable {
 
         let wrapperType: String?
         let kind: String?
@@ -52,9 +78,9 @@ struct iTunesAlbum: Decodable {
         let contentAdvisoryRating: String?
         let isStreamable: Bool?
 
-        static func decode(e: Extractor) throws -> Album {
+        static func decode(e: Extractor) throws -> Music {
 
-            return try Album(
+            return try Music(
                 wrapperType: e.valueOptional("wrapperType"),
                 kind: e.valueOptional("kind"),
                 artistId: e.valueOptional("artistId"),

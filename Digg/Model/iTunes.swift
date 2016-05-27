@@ -51,7 +51,7 @@ struct iTunesSearchRequest: iTunesRequestType {
     let limit: Int
     let lang = "ja_jp"
 
-    typealias Response = iTunesAlbum
+    typealias Response = iTunesMusic
 
     let method: HTTPMethod = .GET
 
@@ -68,7 +68,7 @@ struct iTunesSearchRequest: iTunesRequestType {
     }
 
     func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) -> Response? {
-        do { return try iTunesAlbum.decodeValue(object) }
+        do { return try iTunesMusic.decodeValue(object) }
         catch { print(error); return nil }
     }
 }
