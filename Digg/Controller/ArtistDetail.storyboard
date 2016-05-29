@@ -23,7 +23,7 @@
                                     <size key="itemSize" width="599.5" height="50"/>
                                     <size key="headerReferenceSize" width="280" height="180"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ArtistDetaiCollectionViewCell" id="dka-yY-tRB" customClass="ArtistDetaiCollectionViewCell" customModule="Digg" customModuleProvider="target">
@@ -48,9 +48,9 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="599.5" height="50"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUl-UJ-4Ua">
-                                                                            <rect key="frame" x="251.5" y="15" width="95.5" height="21"/>
-                                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUl-UJ-4Ua">
+                                                                            <rect key="frame" x="0.0" y="13.5" width="599.5" height="24"/>
+                                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
@@ -60,6 +60,10 @@
                                                                         <constraint firstItem="BUl-UJ-4Ua" firstAttribute="centerX" secondItem="QO9-kQ-gbg" secondAttribute="centerX" id="J7x-if-FF6"/>
                                                                     </constraints>
                                                                 </view>
+                                                                <constraints>
+                                                                    <constraint firstItem="BUl-UJ-4Ua" firstAttribute="leading" secondItem="w4u-D0-Suf" secondAttribute="leading" id="6Hu-yb-OVE"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="BUl-UJ-4Ua" secondAttribute="trailing" id="lUa-GQ-Qi4"/>
+                                                                </constraints>
                                                                 <vibrancyEffect>
                                                                     <blurEffect style="dark"/>
                                                                 </vibrancyEffect>
@@ -108,8 +112,8 @@
                                             </view>
                                             <blurEffect style="dark"/>
                                         </visualEffectView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h95-9k-gxb">
-                                            <rect key="frame" x="219" y="72" width="162" height="36"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h95-9k-gxb">
+                                            <rect key="frame" x="0.0" y="72" width="600" height="36"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -123,8 +127,10 @@
                                         <constraint firstAttribute="bottom" secondItem="YfC-8e-VFN" secondAttribute="bottom" id="IEE-W1-9TZ"/>
                                         <constraint firstAttribute="bottom" secondItem="dXQ-P7-7aA" secondAttribute="bottom" id="RSh-Kk-Dfy"/>
                                         <constraint firstAttribute="trailing" secondItem="dXQ-P7-7aA" secondAttribute="trailing" id="VQ0-pq-dqg"/>
+                                        <constraint firstAttribute="trailing" secondItem="h95-9k-gxb" secondAttribute="trailing" id="mcK-K4-PK1"/>
                                         <constraint firstItem="h95-9k-gxb" firstAttribute="centerY" secondItem="Y5C-SZ-nxl" secondAttribute="centerY" id="vrw-BD-Gz6"/>
                                         <constraint firstItem="dXQ-P7-7aA" firstAttribute="top" secondItem="Y5C-SZ-nxl" secondAttribute="top" id="wEZ-97-ShC"/>
+                                        <constraint firstItem="h95-9k-gxb" firstAttribute="leading" secondItem="Y5C-SZ-nxl" secondAttribute="leading" id="yCs-7G-kig"/>
                                         <constraint firstItem="YfC-8e-VFN" firstAttribute="leading" secondItem="Y5C-SZ-nxl" secondAttribute="leading" id="zfS-Zs-L6x"/>
                                     </constraints>
                                     <connections>

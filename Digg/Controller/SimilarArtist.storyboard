@@ -40,75 +40,47 @@
                                                         <constraint firstAttribute="width" secondItem="hdT-qJ-fBb" secondAttribute="height" multiplier="1:1" id="JdN-Ii-eZw"/>
                                                     </constraints>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wAo-Fa-gWq" customClass="GradientView" customModule="Digg" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="130" width="200" height="70"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="wAo-Fa-gWq" secondAttribute="height" multiplier="20:7" id="SMx-Yb-YhN"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="topColor">
-                                                            <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="bottomColor">
-                                                            <color key="value" red="0.66666668653488159" green="0.66666668653488159" blue="0.66666668653488159" alpha="0.5" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </view>
-                                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRj-fz-Ye0">
-                                                    <rect key="frame" x="0.0" y="160" width="200" height="40"/>
+                                                <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRj-fz-Ye0">
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="xRv-9e-9Fx">
-                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="40"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vDC-Hf-Qad">
-                                                                <rect key="frame" x="56" y="9.5" width="89.5" height="21"/>
-                                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                        </subviews>
-                                                        <constraints>
-                                                            <constraint firstItem="vDC-Hf-Qad" firstAttribute="centerY" secondItem="xRv-9e-9Fx" secondAttribute="centerY" id="7vh-e5-HaC"/>
-                                                            <constraint firstItem="vDC-Hf-Qad" firstAttribute="centerX" secondItem="xRv-9e-9Fx" secondAttribute="centerX" id="Erd-od-auc"/>
-                                                            <constraint firstItem="vDC-Hf-Qad" firstAttribute="top" secondItem="xRv-9e-9Fx" secondAttribute="top" constant="4" id="Idj-T3-ydd"/>
-                                                            <constraint firstItem="vDC-Hf-Qad" firstAttribute="centerX" secondItem="xRv-9e-9Fx" secondAttribute="centerX" id="neV-ZP-UyR"/>
-                                                        </constraints>
-                                                        <variation key="default">
-                                                            <mask key="constraints">
-                                                                <exclude reference="Idj-T3-ydd"/>
-                                                                <exclude reference="neV-ZP-UyR"/>
-                                                            </mask>
-                                                        </variation>
                                                     </view>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="KRj-fz-Ye0" secondAttribute="height" multiplier="4:1" id="RE2-3a-fI7"/>
                                                         <constraint firstAttribute="width" secondItem="KRj-fz-Ye0" secondAttribute="height" multiplier="20:3" id="jrb-mA-KL6"/>
                                                         <constraint firstAttribute="width" secondItem="KRj-fz-Ye0" secondAttribute="height" multiplier="5:1" id="nER-Kk-hmH"/>
                                                     </constraints>
-                                                    <vibrancyEffect>
-                                                        <blurEffect style="dark"/>
-                                                    </vibrancyEffect>
+                                                    <blurEffect style="dark"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="RE2-3a-fI7"/>
                                                             <exclude reference="jrb-mA-KL6"/>
+                                                            <exclude reference="nER-Kk-hmH"/>
                                                         </mask>
                                                     </variation>
                                                 </visualEffectView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vDC-Hf-Qad">
+                                                    <rect key="frame" x="0.0" y="88.5" width="200" height="24"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="vDC-Hf-Qad" firstAttribute="leading" secondItem="BXu-W0-QcM" secondAttribute="leading" id="2TC-Tg-P3h"/>
+                                            <constraint firstItem="KRj-fz-Ye0" firstAttribute="top" secondItem="BXu-W0-QcM" secondAttribute="top" id="2wm-sJ-STr"/>
+                                            <constraint firstItem="vDC-Hf-Qad" firstAttribute="centerX" secondItem="BXu-W0-QcM" secondAttribute="centerX" id="CUS-4G-Dis"/>
                                             <constraint firstAttribute="trailing" secondItem="hdT-qJ-fBb" secondAttribute="trailing" id="JSF-eK-rfj"/>
-                                            <constraint firstItem="KRj-fz-Ye0" firstAttribute="leading" secondItem="wAo-Fa-gWq" secondAttribute="leading" id="T4r-IG-jc4"/>
-                                            <constraint firstItem="KRj-fz-Ye0" firstAttribute="trailing" secondItem="wAo-Fa-gWq" secondAttribute="trailing" id="VLe-YY-mm6"/>
                                             <constraint firstAttribute="trailing" secondItem="KRj-fz-Ye0" secondAttribute="trailing" id="ZSF-C5-pJM"/>
                                             <constraint firstItem="hdT-qJ-fBb" firstAttribute="top" secondItem="BXu-W0-QcM" secondAttribute="top" id="b9y-7w-SYJ"/>
+                                            <constraint firstItem="vDC-Hf-Qad" firstAttribute="centerY" secondItem="BXu-W0-QcM" secondAttribute="centerY" id="hwr-b0-Li8"/>
                                             <constraint firstItem="KRj-fz-Ye0" firstAttribute="top" secondItem="hdT-qJ-fBb" secondAttribute="bottom" id="j3J-hZ-Eeg"/>
                                             <constraint firstItem="KRj-fz-Ye0" firstAttribute="leading" secondItem="BXu-W0-QcM" secondAttribute="leading" id="nJQ-dl-4RA"/>
                                             <constraint firstAttribute="bottom" secondItem="KRj-fz-Ye0" secondAttribute="bottom" id="oVu-Jz-X0I"/>
-                                            <constraint firstItem="KRj-fz-Ye0" firstAttribute="bottom" secondItem="wAo-Fa-gWq" secondAttribute="bottom" id="s6O-CN-g6X"/>
+                                            <constraint firstAttribute="trailing" secondItem="vDC-Hf-Qad" secondAttribute="trailing" id="qMt-bp-Jqr"/>
                                             <constraint firstItem="KRj-fz-Ye0" firstAttribute="leading" secondItem="BXu-W0-QcM" secondAttribute="leading" id="sbP-A8-DQK"/>
                                             <constraint firstItem="hdT-qJ-fBb" firstAttribute="leading" secondItem="BXu-W0-QcM" secondAttribute="leading" id="tCu-P4-liT"/>
                                             <constraint firstAttribute="trailing" secondItem="KRj-fz-Ye0" secondAttribute="trailing" id="tPn-fu-JpN"/>

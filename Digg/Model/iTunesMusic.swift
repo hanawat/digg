@@ -25,11 +25,19 @@ struct iTunesMusic: Decodable {
             }
 
             guard let collectionName = tracks.first?.collectionName,
-                url = tracks.first?.artworkUrl100 ?? tracks.first?.artworkUrl60 ?? tracks.first?.artworkUrl30,
-                artworkUrl = NSURL(string: url) else { return nil }
+                artworkUrl100 = tracks.first?.artworkUrl100,
+                artworkUrl = artworkUrl512(artworkUrl100) else { return nil }
 
             return Album(collectionId: collectionId, collectionName: collectionName, artworkUrl: artworkUrl, tracks: tracks)
         }
+    }
+
+    static func artworkUrl512(artworkUrl100: String?) -> NSURL? {
+
+        guard let artworkUrl100 = artworkUrl100,
+            artworkUrl512 = NSURL(string: artworkUrl100.stringByReplacingOccurrencesOfString("100x100", withString: "512x512")) else { return nil }
+
+        return artworkUrl512
     }
 
     struct Album {

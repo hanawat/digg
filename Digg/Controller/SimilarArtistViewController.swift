@@ -10,34 +10,6 @@ import UIKit
 import APIKit
 import Kingfisher
 
-@IBDesignable class GradientView: UIView {
-
-    var gradientLayer: CAGradientLayer?
-
-    @IBInspectable var topColor: UIColor = UIColor.whiteColor() {
-        didSet { gradient() }
-    }
-
-    @IBInspectable var bottomColor: UIColor = UIColor.blackColor() {
-        didSet { gradient() }
-    }
-
-    func gradient() {
-
-        gradientLayer?.removeFromSuperlayer()
-        gradientLayer = CAGradientLayer()
-
-        guard let gradientLayer = gradientLayer else { return }
-
-        gradientLayer.colors = [topColor.CGColor, bottomColor.CGColor]
-        gradientLayer.frame.size = frame.size
-        gradientLayer.frame.origin = CGPointMake(0.0, 0.0)
-        gradientLayer.zPosition = -100.0
-        layer.insertSublayer(gradientLayer, atIndex: 0)
-        layer.masksToBounds = true
-    }
-}
-
 class SimilarArtistViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!

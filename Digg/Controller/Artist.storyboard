@@ -52,29 +52,21 @@
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="edA-Rc-dms">
                                                         <rect key="frame" x="0.0" y="0.0" width="600" height="180"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pHp-Og-57i">
-                                                                <rect key="frame" x="215" y="72.5" width="169" height="36"/>
-                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genre" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4x6-dS-QNr">
-                                                                <rect key="frame" x="271" y="118.5" width="56.5" height="24"/>
-                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                        </subviews>
-                                                        <constraints>
-                                                            <constraint firstItem="4x6-dS-QNr" firstAttribute="top" secondItem="pHp-Og-57i" secondAttribute="bottom" constant="10" id="FMu-mA-7gB"/>
-                                                            <constraint firstItem="4x6-dS-QNr" firstAttribute="centerX" secondItem="pHp-Og-57i" secondAttribute="centerX" id="FsS-SJ-ogv"/>
-                                                            <constraint firstItem="pHp-Og-57i" firstAttribute="centerY" secondItem="edA-Rc-dms" secondAttribute="centerY" id="G7w-Rq-dc8"/>
-                                                            <constraint firstItem="pHp-Og-57i" firstAttribute="centerX" secondItem="edA-Rc-dms" secondAttribute="centerX" id="nnL-81-hUk"/>
-                                                        </constraints>
                                                     </view>
                                                     <blurEffect style="dark"/>
                                                 </visualEffectView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pHp-Og-57i">
+                                                    <rect key="frame" x="0.0" y="72" width="600" height="36"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genre" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4x6-dS-QNr">
+                                                    <rect key="frame" x="271" y="118" width="56.5" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -88,6 +80,12 @@
                                             <constraint firstAttribute="bottom" secondItem="byf-O1-tJP" secondAttribute="bottom" id="OqR-KH-Bkr"/>
                                             <constraint firstAttribute="bottom" secondItem="fxz-eh-31B" secondAttribute="bottom" id="Oy0-tz-Tqv"/>
                                             <constraint firstItem="byf-O1-tJP" firstAttribute="leading" secondItem="x4N-cP-Hnv" secondAttribute="leading" id="PK6-Fr-Urd"/>
+                                            <constraint firstItem="pHp-Og-57i" firstAttribute="centerY" secondItem="x4N-cP-Hnv" secondAttribute="centerY" id="Scw-FG-ShX"/>
+                                            <constraint firstItem="pHp-Og-57i" firstAttribute="centerX" secondItem="x4N-cP-Hnv" secondAttribute="centerX" id="jHR-fV-JrT"/>
+                                            <constraint firstAttribute="trailing" secondItem="pHp-Og-57i" secondAttribute="trailing" id="mJ4-7I-QYD"/>
+                                            <constraint firstItem="4x6-dS-QNr" firstAttribute="top" secondItem="pHp-Og-57i" secondAttribute="bottom" constant="10" id="qO7-Hf-7oP"/>
+                                            <constraint firstItem="pHp-Og-57i" firstAttribute="leading" secondItem="x4N-cP-Hnv" secondAttribute="leading" id="vro-iP-h3W"/>
+                                            <constraint firstItem="4x6-dS-QNr" firstAttribute="centerX" secondItem="x4N-cP-Hnv" secondAttribute="centerX" id="yP0-XS-JY3"/>
                                         </constraints>
                                         <size key="customSize" width="600" height="180"/>
                                         <connections>
