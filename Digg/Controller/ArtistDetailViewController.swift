@@ -50,10 +50,15 @@ class ArtistDetailViewController: UIViewController {
 extension ArtistDetailViewController: UICollectionViewDelegate {
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        guard let trackId = albums[indexPath.section].tracks[indexPath.row].trackId else { return }
-        let player = MPMusicPlayerController.systemMusicPlayer()
-        player.setQueueWithStoreIDs([String(trackId)])
-        player.play()
+
+        let music = albums[indexPath.section].tracks[indexPath.row]
+        guard let trackId = music.trackId,
+            isStremable = music.isStreamable where isStremable else { return }
+
+        guard let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers.first as? PlayerViewController else { return }
+
+        playerViewController.player.setQueueWithStoreIDs([String(trackId)])
+        playerViewController.player.play()
     }
 }
 
@@ -72,6 +77,10 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ArtistDetaiCollectionViewCell.identifier, forIndexPath: indexPath) as! ArtistDetaiCollectionViewCell
         let music =  albums[indexPath.section].tracks[indexPath.row]
         cell.trackNameLabel.text = music.trackName
+
+        if let isStremable = music.isStreamable {
+            cell.trackNameLabel.alpha = isStremable ? 1.0 : 0.3
+        }
 
         if let imageUrl = music.artworkUrl100 ?? music.artworkUrl60 ?? music.artworkUrl30,
             url = NSURL(string: imageUrl) {
