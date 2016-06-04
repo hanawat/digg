@@ -28,6 +28,10 @@ class ArtistDetailViewController: UIViewController {
         SKCloudServiceController.requestAuthorization { _ in }
         SKCloudServiceController().requestCapabilitiesWithCompletionHandler { _, _ in }
 
+        if let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController {
+            collectionView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: playerViewController.view.frame.size.height, right: 0.0)
+        }
+
         if let artist = artist {
 
             let request = iTunesSearchRequest(term:artist.name , entity: .Song, attribute: .Artist, limit: 50)
@@ -55,7 +59,7 @@ extension ArtistDetailViewController: UICollectionViewDelegate {
         guard let trackId = music.trackId,
             isStremable = music.isStreamable where isStremable else { return }
 
-        guard let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers.first as? PlayerViewController else { return }
+        guard let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController else { return }
 
         playerViewController.player.setQueueWithStoreIDs([String(trackId)])
         playerViewController.player.play()

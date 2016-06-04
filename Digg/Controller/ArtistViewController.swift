@@ -11,6 +11,9 @@ import MediaPlayer
 
 class ArtistViewController: UIViewController {
 
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer!
+
     var artists = ["The Beatles"]
     var songs: [MPMediaItem] = []
 
@@ -25,6 +28,35 @@ class ArtistViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+
+    @IBAction func showSearchBar(sender: UIBarButtonItem) {
+
+        UIView.animateWithDuration(0.2) {
+            self.searchBar.alpha = self.searchBar.alpha > 0.0 ? 0.0 : 1.0
+        }
+    }
+
+    @IBAction func hiddenKeybord(sender: UITapGestureRecognizer) {
+
+        view.endEditing(true)
+        tapGestureRecognizer.enabled = false
+    }
+}
+
+extension ArtistViewController: UISearchBarDelegate {
+
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+
+        tapGestureRecognizer.enabled = true
+    }
+
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+
+        searchBar.resignFirstResponder()
+        let viewController = UIStoryboard(name: "SimilarArtist", bundle: nil).instantiateInitialViewController() as! SimilarArtistViewController
+        viewController.artist = searchBar.text
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
