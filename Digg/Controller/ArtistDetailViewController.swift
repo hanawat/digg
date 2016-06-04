@@ -76,15 +76,16 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
 
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ArtistDetaiCollectionViewCell.identifier, forIndexPath: indexPath) as! ArtistDetaiCollectionViewCell
         let music =  albums[indexPath.section].tracks[indexPath.row]
+
+        if let trackNumber = music.trackNumber {
+            cell.trackNumberLabel.text = String(trackNumber)
+        }
+
         cell.trackNameLabel.text = music.trackName
+        cell.trackTimeMillis = music.trackTimeMillis
 
         if let isStremable = music.isStreamable {
             cell.trackNameLabel.alpha = isStremable ? 1.0 : 0.3
-        }
-
-        if let imageUrl = music.artworkUrl100 ?? music.artworkUrl60 ?? music.artworkUrl30,
-            url = NSURL(string: imageUrl) {
-            cell.trackImageView.kf_setImageWithURL(url)
         }
 
         return cell
@@ -97,7 +98,21 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         header.albumTitleLabel.text = album.collectionName
         header.artworkImageView.kf_setImageWithURL(album.artworkUrl)
 
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(expandRow))
+        header.addGestureRecognizer(tapGesture)
+
         return header
+    }
+
+    @objc private func expandRow(sender: UITapGestureRecognizer) {
+
+        guard let indexPath = collectionView.indexPathForItemAtPoint(sender.locationInView(view)) else { return }
+
+        guard let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers.first as? PlayerViewController else { return }
+
+        let collectionId = albums[indexPath.section].collectionId
+        playerViewController.player.setQueueWithStoreIDs([String(collectionId)])
+        playerViewController.player.play()
     }
 }
 
