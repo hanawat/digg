@@ -8,6 +8,7 @@
 
 import UIKit
 import APIKit
+import RealmSwift
 import MediaPlayer
 import StoreKit
 
@@ -27,6 +28,8 @@ class ArtistDetailViewController: UIViewController {
 
         SKCloudServiceController.requestAuthorization { _ in }
         SKCloudServiceController().requestCapabilitiesWithCompletionHandler { _, _ in }
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addNewPlaylist))
 
         if let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController {
             collectionView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: playerViewController.view.frame.size.height, right: 0.0)
@@ -48,6 +51,13 @@ class ArtistDetailViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+
+    @objc private func addNewPlaylist() {
+
+        guard let viewController = UIStoryboard(name: "CreatePlaylist", bundle: nil).instantiateInitialViewController() as? CreatePlaylistViewController else { return }
+
+        showViewController(viewController, sender: nil)
     }
 }
 
@@ -81,16 +91,14 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ArtistDetaiCollectionViewCell.identifier, forIndexPath: indexPath) as! ArtistDetaiCollectionViewCell
         let music =  albums[indexPath.section].tracks[indexPath.row]
 
-        if let trackNumber = music.trackNumber {
-            cell.trackNumberLabel.text = String(trackNumber)
-        }
-
         cell.trackNameLabel.text = music.trackName
         cell.trackTimeMillis = music.trackTimeMillis
 
         if let isStremable = music.isStreamable {
             cell.trackNameLabel.alpha = isStremable ? 1.0 : 0.3
         }
+
+        cell.addPlaylistButton.addTarget(self, action: #selector(addPlaylist), forControlEvents: .TouchUpInside)
 
         return cell
     }
@@ -117,6 +125,29 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         let collectionId = albums[indexPath.section].collectionId
         playerViewController.player.setQueueWithStoreIDs([String(collectionId)])
         playerViewController.player.play()
+    }
+
+    @objc private func addPlaylist(sender: UIButton) {
+
+        guard let cell = sender.superview?.superview as? ArtistDetaiCollectionViewCell,
+            indexPath = collectionView.indexPathForCell(cell),
+            realm = try? Realm() else { return }
+
+        let playlist = realm.objects(Playlist).last ?? Playlist()
+        let item = PlaylistItem()
+        let track = albums[indexPath.section].tracks[indexPath.row]
+
+        item.trackName = track.trackName ?? ""
+        item.artworkUrl = track.artworkUrl100
+
+        do {
+            try realm.write() {
+                playlist.items.append(item)
+                realm.add(playlist)
+            }
+        } catch {
+            fatalError()
+        }
     }
 }
 

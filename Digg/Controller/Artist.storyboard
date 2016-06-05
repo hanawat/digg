@@ -268,6 +268,7 @@
                                             </constraints>
                                         </imageView>
                                     </subviews>
+                                    <gestureRecognizers/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="vX7-Ua-2kk" secondAttribute="trailing" id="299-C2-k1V"/>
                                         <constraint firstAttribute="bottom" secondItem="vX7-Ua-2kk" secondAttribute="bottom" id="JNz-hy-MCb"/>
@@ -281,12 +282,16 @@
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Se8-0z-tTe" firstAttribute="leading" secondItem="okz-ek-I17" secondAttribute="leading" id="AIt-A3-DhT"/>
                             <constraint firstAttribute="bottom" secondItem="Se8-0z-tTe" secondAttribute="bottom" id="G0b-Ez-vM6"/>
                             <constraint firstItem="Se8-0z-tTe" firstAttribute="top" secondItem="okz-ek-I17" secondAttribute="top" id="mIc-VK-vXi"/>
                             <constraint firstAttribute="trailing" secondItem="Se8-0z-tTe" secondAttribute="trailing" id="nzy-SO-OSh"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="yKS-d7-CDQ" appends="YES" id="bgc-uo-YaT"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="artistLabel" destination="wmU-EL-qjz" id="DSP-mM-obZ"/>
@@ -296,6 +301,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="plW-e7-stL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="yKS-d7-CDQ">
+                    <connections>
+                        <action selector="showPlayer:" destination="jNT-bG-adG" id="ZH4-Ma-SBy"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1310" y="756"/>
         </scene>

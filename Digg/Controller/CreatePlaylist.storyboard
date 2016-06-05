@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lWI-GE-qdB">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Create Playlist View Controller-->
+        <scene sceneID="PUN-DL-Wbh">
+            <objects>
+                <viewController id="lWI-GE-qdB" customClass="CreatePlaylistViewController" customModule="Digg" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="x8h-sg-RTt"/>
+                        <viewControllerLayoutGuide type="bottom" id="6pb-Yc-83Y"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3iN-hI-sEx">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="H2f-Ou-3dv">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="89v-1L-Fie">
+                                    <size key="itemSize" width="599.5" height="50"/>
+                                    <size key="headerReferenceSize" width="280" height="250"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ArtistDetaiCollectionViewCell" id="47p-oH-9sS" customClass="ArtistDetaiCollectionViewCell" customModule="Digg" customModuleProvider="target">
+                                        <rect key="frame" x="0.5" y="250" width="599.5" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="599.5" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WiA-8S-rRe">
+                                                    <rect key="frame" x="20" y="13" width="504.5" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCJ-Nb-4pN">
+                                                    <rect key="frame" x="534.5" y="16" width="45" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="45" id="Rez-4d-OJx"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="WiA-8S-rRe" firstAttribute="leading" secondItem="47p-oH-9sS" secondAttribute="leading" constant="20" id="4Wc-sU-mOh"/>
+                                            <constraint firstItem="PCJ-Nb-4pN" firstAttribute="centerY" secondItem="47p-oH-9sS" secondAttribute="centerY" id="IOr-jZ-Akm"/>
+                                            <constraint firstItem="WiA-8S-rRe" firstAttribute="centerY" secondItem="47p-oH-9sS" secondAttribute="centerY" id="Ryb-0j-9nU"/>
+                                            <constraint firstItem="PCJ-Nb-4pN" firstAttribute="leading" secondItem="WiA-8S-rRe" secondAttribute="trailing" constant="10" id="bAq-p2-tGL"/>
+                                            <constraint firstAttribute="trailing" secondItem="PCJ-Nb-4pN" secondAttribute="trailing" constant="20" id="wsk-aj-LF9"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="trackNameLabel" destination="WiA-8S-rRe" id="CHP-rT-GTY"/>
+                                            <outlet property="trackTimeLabel" destination="PCJ-Nb-4pN" id="lEN-Rf-BTR"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CreatePlaylistCollectionReusableView" id="hVp-cH-KtY" customClass="CreatePlaylistCollectionReusableView" customModule="Digg" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K13-MA-dEs">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
+                                        </imageView>
+                                        <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y7p-5g-uXs">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="JeZ-3J-tey">
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <blurEffect style="dark"/>
+                                        </visualEffectView>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Playlist Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yf7-hZ-6Hf">
+                                            <rect key="frame" x="0.0" y="107" width="600" height="36"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="lWI-GE-qdB" id="Qwp-3A-pse"/>
+                                            </connections>
+                                        </textField>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Description" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fbf-av-VQv">
+                                            <rect key="frame" x="0.0" y="150" width="600" height="24"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="lWI-GE-qdB" id="7UZ-N4-4hi"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="K13-MA-dEs" firstAttribute="top" secondItem="hVp-cH-KtY" secondAttribute="top" id="4cG-cd-vlE"/>
+                                        <constraint firstAttribute="bottom" secondItem="Y7p-5g-uXs" secondAttribute="bottom" id="8Ww-eI-XEr"/>
+                                        <constraint firstItem="Yf7-hZ-6Hf" firstAttribute="leading" secondItem="hVp-cH-KtY" secondAttribute="leading" id="FVG-Af-BwT"/>
+                                        <constraint firstItem="Y7p-5g-uXs" firstAttribute="top" secondItem="hVp-cH-KtY" secondAttribute="top" id="GIE-ST-OoR"/>
+                                        <constraint firstItem="fbf-av-VQv" firstAttribute="leading" secondItem="hVp-cH-KtY" secondAttribute="leading" id="HtD-v1-WnL"/>
+                                        <constraint firstAttribute="trailing" secondItem="fbf-av-VQv" secondAttribute="trailing" id="MzJ-5O-jcN"/>
+                                        <constraint firstAttribute="trailing" secondItem="Y7p-5g-uXs" secondAttribute="trailing" id="Oux-v2-5Vn"/>
+                                        <constraint firstItem="K13-MA-dEs" firstAttribute="leading" secondItem="hVp-cH-KtY" secondAttribute="leading" id="RMj-Rg-k4g"/>
+                                        <constraint firstAttribute="trailing" secondItem="Yf7-hZ-6Hf" secondAttribute="trailing" id="RaF-C4-b3U"/>
+                                        <constraint firstItem="Yf7-hZ-6Hf" firstAttribute="centerY" secondItem="hVp-cH-KtY" secondAttribute="centerY" id="Xs7-o2-dAr"/>
+                                        <constraint firstAttribute="trailing" secondItem="K13-MA-dEs" secondAttribute="trailing" id="kqe-1T-wFt"/>
+                                        <constraint firstAttribute="bottom" secondItem="K13-MA-dEs" secondAttribute="bottom" id="mZr-ZG-VUS"/>
+                                        <constraint firstItem="Y7p-5g-uXs" firstAttribute="leading" secondItem="hVp-cH-KtY" secondAttribute="leading" id="vHO-6D-0CJ"/>
+                                        <constraint firstItem="fbf-av-VQv" firstAttribute="top" secondItem="Yf7-hZ-6Hf" secondAttribute="bottom" constant="7" id="y0w-Ji-puR"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="artworkImageView" destination="K13-MA-dEs" id="74W-l0-dnH"/>
+                                        <outlet property="descriptionLabel" destination="fbf-av-VQv" id="dor-RY-51N"/>
+                                        <outlet property="playlistTitleLabel" destination="Yf7-hZ-6Hf" id="PSl-eS-gea"/>
+                                    </connections>
+                                </collectionReusableView>
+                                <connections>
+                                    <outlet property="dataSource" destination="lWI-GE-qdB" id="tqu-PT-7P9"/>
+                                    <outlet property="delegate" destination="lWI-GE-qdB" id="5Jt-ny-Lvs"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6pb-Yc-83Y" firstAttribute="top" secondItem="H2f-Ou-3dv" secondAttribute="bottom" id="1d5-rZ-aq0"/>
+                            <constraint firstAttribute="trailing" secondItem="H2f-Ou-3dv" secondAttribute="trailing" id="Y9f-sz-deI"/>
+                            <constraint firstItem="H2f-Ou-3dv" firstAttribute="top" secondItem="3iN-hI-sEx" secondAttribute="top" id="hpf-ho-aQ4"/>
+                            <constraint firstItem="H2f-Ou-3dv" firstAttribute="leading" secondItem="3iN-hI-sEx" secondAttribute="leading" id="tIp-Gb-rrr"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="H2f-Ou-3dv" id="WOv-TT-UBh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GCR-ps-j7h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="438" y="331"/>
+        </scene>
+    </scenes>
+</document>

@@ -79,4 +79,10 @@ class PlayerViewController: UIViewController {
             controlButton.setTitle("Play", forState: .Normal)
         }
     }
+    
+    @IBAction func showPlayer(sender: UITapGestureRecognizer) {
+
+        let navigationController = UIStoryboard(name: "Player", bundle: nil).instantiateInitialViewController() as! UINavigationController
+        presentViewController(navigationController, animated: true, completion: nil)
+    }
 }

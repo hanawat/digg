@@ -10,7 +10,6 @@ import UIKit
 
 class ArtistDetaiCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var trackNumberLabel: UILabel!
     @IBOutlet weak var trackNameLabel: UILabel!
     @IBOutlet weak var trackTimeLabel: UILabel!
     @IBOutlet weak var addPlaylistButton: UIButton!

@@ -8,6 +8,27 @@
 
 import Foundation
 import Himotoki
+import RealmSwift
+
+class Playlist: Object {
+
+    dynamic var playlistId: String?
+    dynamic var playlistName = "Digg Playlist"
+    dynamic var playlistDiscription = "This is a Digg playlist."
+
+    let items = List<PlaylistItem>()
+}
+
+class PlaylistItem: Object {
+
+    dynamic var trackId = ""
+    dynamic var trackName = ""
+    dynamic var trackNumber = 1
+    dynamic var trackTimeMillis = 0
+    dynamic var artistId = ""
+    dynamic var artistName = ""
+    dynamic var artworkUrl: String?
+}
 
 struct iTunesMusic: Decodable {
 

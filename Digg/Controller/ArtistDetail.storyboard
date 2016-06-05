@@ -34,23 +34,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="599.5" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfO-am-EcB">
-                                                    <rect key="frame" x="9.5" y="16" width="20" height="18"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="Qub-bb-2ZF"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUl-UJ-4Ua">
-                                                    <rect key="frame" x="40" y="13" width="464.5" height="24"/>
+                                                    <rect key="frame" x="20" y="13" width="504" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlg-co-jRf">
-                                                    <rect key="frame" x="514.5" y="16" width="45" height="18"/>
+                                                    <rect key="frame" x="534" y="16" width="45" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="45" id="drR-SO-MHL"/>
                                                     </constraints>
@@ -58,28 +49,34 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zjL-Ao-Asx">
-                                                    <rect key="frame" x="569.5" y="15" width="20" height="20"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zjL-Ao-Asx">
+                                                    <rect key="frame" x="524" y="0.0" width="75.5" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="KZa-xB-Pk0"/>
                                                         <constraint firstAttribute="height" constant="20" id="QRg-yR-SML"/>
                                                     </constraints>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="KZa-xB-Pk0"/>
+                                                            <exclude reference="QRg-yR-SML"/>
+                                                        </mask>
+                                                    </variation>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="RfO-am-EcB" firstAttribute="centerY" secondItem="dka-yY-tRB" secondAttribute="centerY" id="66a-qH-2v3"/>
                                             <constraint firstItem="jlg-co-jRf" firstAttribute="centerY" secondItem="dka-yY-tRB" secondAttribute="centerY" id="Cme-xz-uie"/>
-                                            <constraint firstAttribute="trailing" secondItem="zjL-Ao-Asx" secondAttribute="trailing" constant="10" id="DC0-NP-rFY"/>
-                                            <constraint firstItem="RfO-am-EcB" firstAttribute="leading" secondItem="dka-yY-tRB" secondAttribute="leading" constant="10" id="Gdi-3L-NMI"/>
+                                            <constraint firstAttribute="trailing" secondItem="zjL-Ao-Asx" secondAttribute="trailing" id="GZV-CU-k1b"/>
+                                            <constraint firstAttribute="trailing" secondItem="jlg-co-jRf" secondAttribute="trailing" constant="20" id="QKD-4Y-0Gq"/>
+                                            <constraint firstItem="BUl-UJ-4Ua" firstAttribute="leading" secondItem="dka-yY-tRB" secondAttribute="leading" constant="20" id="S4i-SJ-u69"/>
                                             <constraint firstItem="BUl-UJ-4Ua" firstAttribute="centerY" secondItem="dka-yY-tRB" secondAttribute="centerY" id="U9k-jR-MLm"/>
                                             <constraint firstItem="jlg-co-jRf" firstAttribute="leading" secondItem="BUl-UJ-4Ua" secondAttribute="trailing" constant="10" id="a8p-Ru-OY6"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="zjL-Ao-Asx" secondAttribute="trailing" constant="10" id="avC-RC-zUf"/>
-                                            <constraint firstItem="zjL-Ao-Asx" firstAttribute="leading" secondItem="jlg-co-jRf" secondAttribute="trailing" constant="10" id="hk4-3M-46y"/>
-                                            <constraint firstItem="zjL-Ao-Asx" firstAttribute="centerY" secondItem="dka-yY-tRB" secondAttribute="centerY" id="od2-RK-E7V"/>
-                                            <constraint firstItem="BUl-UJ-4Ua" firstAttribute="leading" secondItem="RfO-am-EcB" secondAttribute="trailing" constant="10" id="vJ1-kU-vhk"/>
+                                            <constraint firstAttribute="bottom" secondItem="zjL-Ao-Asx" secondAttribute="bottom" id="gfa-KZ-XcL"/>
+                                            <constraint firstItem="zjL-Ao-Asx" firstAttribute="top" secondItem="dka-yY-tRB" secondAttribute="top" id="hyF-ip-uHJ"/>
+                                            <constraint firstItem="zjL-Ao-Asx" firstAttribute="leading" secondItem="BUl-UJ-4Ua" secondAttribute="trailing" id="vpu-Ag-QHa"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -89,7 +86,6 @@
                                         <connections>
                                             <outlet property="addPlaylistButton" destination="zjL-Ao-Asx" id="kok-XZ-0nc"/>
                                             <outlet property="trackNameLabel" destination="BUl-UJ-4Ua" id="lMG-BD-tqf"/>
-                                            <outlet property="trackNumberLabel" destination="RfO-am-EcB" id="FT1-KG-V8L"/>
                                             <outlet property="trackTimeLabel" destination="jlg-co-jRf" id="HQH-wj-MBo"/>
                                         </connections>
                                     </collectionViewCell>
