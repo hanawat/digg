@@ -1,5 +1,5 @@
 //
-//  ArtistDetaiCollectionViewCell.swift
+//  MusicTrackCollectionViewCell.swift
 //  Digg
 //
 //  Created by Hanawa Takuro on 2016/05/24.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-class ArtistDetaiCollectionViewCell: UICollectionViewCell {
+class MusicTrackCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var trackNameLabel: UILabel!
     @IBOutlet weak var trackTimeLabel: UILabel!
     @IBOutlet weak var addPlaylistButton: UIButton!
 
-    static let identifier = "ArtistDetaiCollectionViewCell"
+    static let identifier = "MusicTrackCollectionViewCell"
     
     var trackTimeMillis: Int? {
         didSet {
@@ -23,7 +23,7 @@ class ArtistDetaiCollectionViewCell: UICollectionViewCell {
 
             let min = trackTimeMillis / 1000 / 60 % 60
             let sec = trackTimeMillis / 1000 % 60
-            trackTimeLabel.text = "\(min):\(sec)"
+            trackTimeLabel.text = "\(min):\(String(format: "%02d", sec))"
         }
     }
 }

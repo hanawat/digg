@@ -21,11 +21,10 @@ class Playlist: Object {
 
 class PlaylistItem: Object {
 
-    dynamic var trackId = ""
+    dynamic var trackId = 0
     dynamic var trackName = ""
-    dynamic var trackNumber = 1
     dynamic var trackTimeMillis = 0
-    dynamic var artistId = ""
+    dynamic var artistId = 0
     dynamic var artistName = ""
     dynamic var artworkUrl: String?
 }

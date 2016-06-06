@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import MediaPlayer
 
 class CreatePlaylistViewController: UIViewController {
 
@@ -25,6 +26,8 @@ class CreatePlaylistViewController: UIViewController {
         guard let realm = try? Realm() else { return }
         playlist = realm.objects(Playlist).last ?? Playlist()
 
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Compose, target: self, action: #selector(createiTunesPlaylist))
+
         if let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController {
             collectionView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: playerViewController.view.frame.size.height, right: 0.0)
         }
@@ -32,6 +35,29 @@ class CreatePlaylistViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+
+    @objc private func createiTunesPlaylist() {
+
+        let library = MPMediaLibrary.defaultMediaLibrary()
+        let metadata = MPMediaPlaylistCreationMetadata(name: playlist.playlistName)
+        metadata.descriptionText = playlist.playlistDiscription
+
+        library.getPlaylistWithUUID(NSUUID(), creationMetadata: metadata) { playlist, error in
+            if error != nil { print(error); return }
+
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+
+                let trackIds = self.playlist.items.map { String($0.trackId) }
+
+                trackIds.forEach { trackId in
+                    playlist?.addItemWithProductID(trackId) { error in
+                        if error != nil { print(error); return }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -59,6 +85,21 @@ extension CreatePlaylistViewController: UITextFieldDelegate {
     }
 }
 
+extension CreatePlaylistViewController: UICollectionViewDelegate {
+
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+
+        guard let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController else { return }
+
+        let trackIds = playlist.items.map { String($0.trackId) }
+            .enumerate().filter { $0.index >= indexPath.row }.map { $0.element }
+
+        playerViewController.player.setQueueWithStoreIDs(trackIds)
+        playerViewController.player.prepareToPlay()
+        playerViewController.player.play()
+    }
+}
+
 extension CreatePlaylistViewController: UICollectionViewDataSource {
 
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -72,7 +113,7 @@ extension CreatePlaylistViewController: UICollectionViewDataSource {
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ArtistDetaiCollectionViewCell.identifier, forIndexPath: indexPath) as! ArtistDetaiCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MusicTrackCollectionViewCell.identifier, forIndexPath: indexPath) as! MusicTrackCollectionViewCell
         let music = playlist.items[indexPath.row]
 
         cell.trackNameLabel.text = music.trackName

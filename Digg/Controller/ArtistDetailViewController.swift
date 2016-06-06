@@ -88,7 +88,7 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ArtistDetaiCollectionViewCell.identifier, forIndexPath: indexPath) as! ArtistDetaiCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MusicTrackCollectionViewCell.identifier, forIndexPath: indexPath) as! MusicTrackCollectionViewCell
         let music =  albums[indexPath.section].tracks[indexPath.row]
 
         cell.trackNameLabel.text = music.trackName
@@ -96,6 +96,7 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
 
         if let isStremable = music.isStreamable {
             cell.trackNameLabel.alpha = isStremable ? 1.0 : 0.3
+            cell.addPlaylistButton.enabled = isStremable ? true : false
         }
 
         cell.addPlaylistButton.addTarget(self, action: #selector(addPlaylist), forControlEvents: .TouchUpInside)
@@ -118,7 +119,7 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
 
     @objc private func expandRow(sender: UITapGestureRecognizer) {
 
-        guard let indexPath = collectionView.indexPathForItemAtPoint(sender.locationInView(view)) else { return }
+        guard let indexPath = collectionView.indexPathForItemAtPoint(sender.locationInView(collectionView)) else { return }
 
         guard let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers.first as? PlayerViewController else { return }
 
@@ -129,7 +130,7 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
 
     @objc private func addPlaylist(sender: UIButton) {
 
-        guard let cell = sender.superview?.superview as? ArtistDetaiCollectionViewCell,
+        guard let cell = sender.superview?.superview as? MusicTrackCollectionViewCell,
             indexPath = collectionView.indexPathForCell(cell),
             realm = try? Realm() else { return }
 
@@ -137,7 +138,11 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         let item = PlaylistItem()
         let track = albums[indexPath.section].tracks[indexPath.row]
 
+        item.trackId = track.trackId ?? 0
         item.trackName = track.trackName ?? ""
+        item.artistId = track.artistId ?? 0
+        item.artistName = track.artistName ?? ""
+        item.trackTimeMillis = track.trackTimeMillis ?? 0
         item.artworkUrl = track.artworkUrl100
 
         do {
