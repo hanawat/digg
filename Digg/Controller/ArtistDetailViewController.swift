@@ -11,8 +11,9 @@ import APIKit
 import RealmSwift
 import MediaPlayer
 import StoreKit
+import NVActivityIndicatorView
 
-class ArtistDetailViewController: UIViewController {
+class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable {
 
     @IBOutlet weak var collectionView: UICollectionView!
 
@@ -37,14 +38,19 @@ class ArtistDetailViewController: UIViewController {
 
         if let artist = artist {
 
+            startActivityAnimating(nil, type: .LineScalePulseOutRapid, color: nil, padding: nil)
+
             let request = iTunesSearchRequest(term:artist.name , entity: .Song, attribute: .Artist, limit: 50)
             Session.sendRequest(request) { result in
                 switch result {
                 case .Success(let data):
                     self.albums = iTunesMusic.albums(data.musics)
+
                 case .Failure(let error):
                     print(error)
                 }
+
+                self.stopActivityAnimating()
             }
         }
     }

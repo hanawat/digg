@@ -9,8 +9,9 @@
 import UIKit
 import APIKit
 import Kingfisher
+import NVActivityIndicatorView
 
-class SimilarArtistViewController: UIViewController {
+class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable {
 
     @IBOutlet weak var collectionView: UICollectionView!
 
@@ -24,16 +25,22 @@ class SimilarArtistViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
         if let artist = artist {
+
+            startActivityAnimating(nil, type: .LineScalePulseOutRapid, color: nil, padding: nil)
 
             let request = LastfmSimilarArtistRequest(artist: artist)
             Session.sendRequest(request) { result in
                 switch result {
                 case .Success(let data):
                     self.similarArtists =  data.similarartists
+
                 case .Failure(let error):
                     print(error)
                 }
+
+                self.stopActivityAnimating()
             }
         }
     }

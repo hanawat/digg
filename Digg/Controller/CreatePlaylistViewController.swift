@@ -9,8 +9,9 @@
 import UIKit
 import RealmSwift
 import MediaPlayer
+import NVActivityIndicatorView
 
-class CreatePlaylistViewController: UIViewController {
+class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewable {
 
     @IBOutlet weak var collectionView: UICollectionView!
 
@@ -39,6 +40,9 @@ class CreatePlaylistViewController: UIViewController {
 
     @objc private func createiTunesPlaylist() {
 
+        navigationItem.rightBarButtonItem?.enabled = false
+        startActivityAnimating(nil, type: .LineScaleParty, color: nil, padding: nil)
+
         let library = MPMediaLibrary.defaultMediaLibrary()
         let metadata = MPMediaPlaylistCreationMetadata(name: playlist.playlistName)
         metadata.descriptionText = playlist.playlistDiscription
@@ -48,12 +52,22 @@ class CreatePlaylistViewController: UIViewController {
 
             let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) {
-
                 let trackIds = self.playlist.items.map { String($0.trackId) }
 
+                var addedPlaylistItemsCount = 0
                 trackIds.forEach { trackId in
+
                     playlist?.addItemWithProductID(trackId) { error in
-                        if error != nil { print(error); return }
+                        if error != nil { print(error) }
+
+                        addedPlaylistItemsCount += 1
+                        if addedPlaylistItemsCount == trackIds.count {
+
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.stopActivityAnimating()
+                                self.navigationItem.rightBarButtonItem?.enabled = true
+                            }
+                        }
                     }
                 }
             }
