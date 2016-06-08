@@ -82,7 +82,6 @@ class PlayerViewController: UIViewController {
     
     @IBAction func showPlayer(sender: UITapGestureRecognizer) {
 
-        let navigationController = UIStoryboard(name: "Player", bundle: nil).instantiateInitialViewController() as! UINavigationController
-        presentViewController(navigationController, animated: true, completion: nil)
+        // TODO: Show music player
     }
 }
