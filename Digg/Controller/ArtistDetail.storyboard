@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Artist Detail View Controller-->
@@ -49,42 +48,18 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zjL-Ao-Asx">
-                                                    <rect key="frame" x="524" y="0.0" width="75.5" height="50"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="KZa-xB-Pk0"/>
-                                                        <constraint firstAttribute="height" constant="20" id="QRg-yR-SML"/>
-                                                    </constraints>
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="KZa-xB-Pk0"/>
-                                                            <exclude reference="QRg-yR-SML"/>
-                                                        </mask>
-                                                    </variation>
-                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="jlg-co-jRf" firstAttribute="centerY" secondItem="dka-yY-tRB" secondAttribute="centerY" id="Cme-xz-uie"/>
-                                            <constraint firstAttribute="trailing" secondItem="zjL-Ao-Asx" secondAttribute="trailing" id="GZV-CU-k1b"/>
                                             <constraint firstAttribute="trailing" secondItem="jlg-co-jRf" secondAttribute="trailing" constant="20" id="QKD-4Y-0Gq"/>
                                             <constraint firstItem="BUl-UJ-4Ua" firstAttribute="leading" secondItem="dka-yY-tRB" secondAttribute="leading" constant="20" id="S4i-SJ-u69"/>
                                             <constraint firstItem="BUl-UJ-4Ua" firstAttribute="centerY" secondItem="dka-yY-tRB" secondAttribute="centerY" id="U9k-jR-MLm"/>
                                             <constraint firstItem="jlg-co-jRf" firstAttribute="leading" secondItem="BUl-UJ-4Ua" secondAttribute="trailing" constant="10" id="a8p-Ru-OY6"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="zjL-Ao-Asx" secondAttribute="trailing" constant="10" id="avC-RC-zUf"/>
-                                            <constraint firstAttribute="bottom" secondItem="zjL-Ao-Asx" secondAttribute="bottom" id="gfa-KZ-XcL"/>
-                                            <constraint firstItem="zjL-Ao-Asx" firstAttribute="top" secondItem="dka-yY-tRB" secondAttribute="top" id="hyF-ip-uHJ"/>
-                                            <constraint firstItem="zjL-Ao-Asx" firstAttribute="leading" secondItem="BUl-UJ-4Ua" secondAttribute="trailing" id="vpu-Ag-QHa"/>
                                         </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="avC-RC-zUf"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
-                                            <outlet property="addPlaylistButton" destination="zjL-Ao-Asx" id="kok-XZ-0nc"/>
                                             <outlet property="trackNameLabel" destination="BUl-UJ-4Ua" id="lMG-BD-tqf"/>
                                             <outlet property="trackTimeLabel" destination="jlg-co-jRf" id="HQH-wj-MBo"/>
                                         </connections>

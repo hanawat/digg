@@ -21,6 +21,9 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
         }
     }
 
+    var originalFrame = CGRectZero
+    var pannedIndexPath: NSIndexPath?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -72,6 +75,19 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
                 }
             }
         }
+    }
+}
+
+extension CreatePlaylistViewController: UIGestureRecognizerDelegate {
+
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+
+        guard let panGesture = gestureRecognizer as? UIPanGestureRecognizer,
+            indexPath = collectionView.indexPathForItemAtPoint(gestureRecognizer.locationInView(collectionView)) else { return false }
+
+        let location = panGesture.translationInView(collectionView.cellForItemAtIndexPath(indexPath))
+        pannedIndexPath = fabs(location.x) > fabs(location.y) ? indexPath : nil
+        return fabs(location.x) > fabs(location.y) && location.x < 0.0 ? true : false
     }
 }
 
@@ -133,6 +149,10 @@ extension CreatePlaylistViewController: UICollectionViewDataSource {
         cell.trackNameLabel.text = music.trackName
         cell.trackTimeMillis = music.trackTimeMillis
 
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(trackCellPanGesture(_:)))
+        panGesture.delegate = self
+        cell.addGestureRecognizer(panGesture)
+
         return cell
     }
 
@@ -143,6 +163,56 @@ extension CreatePlaylistViewController: UICollectionViewDataSource {
         header.descriptionLabel.text = playlist.playlistDiscription
 
         return header
+    }
+
+    @objc private func trackCellPanGesture(sender: UIPanGestureRecognizer) {
+
+        guard let pannedIndexPath = pannedIndexPath,
+            cell = collectionView.cellForItemAtIndexPath(pannedIndexPath) as? MusicTrackCollectionViewCell else { return }
+
+        switch sender.state {
+        case .Began:
+            originalFrame = cell.frame
+
+        case .Changed:
+            let translation = sender.translationInView(cell)
+            cell.frame = translation.x < 0.0 ? CGRectOffset(originalFrame, translation.x, 0.0) : originalFrame
+
+
+        case .Ended:
+            guard let indexPath = collectionView.indexPathForCell(cell)
+                where cell.frame.origin.x < -cell.frame.size.width / 2.0 else {
+                    UIView.animateWithDuration(0.2) { cell.frame = self.originalFrame }; return
+            }
+
+            UIView.animateWithDuration(0.2, animations: {
+                cell.frame = CGRectOffset(self.originalFrame, -cell.frame.size.width, 0.0)
+
+                }, completion: { _ in
+                    cell.alpha = 0.0
+                    self.removePlaylist(indexPath)
+            })
+
+
+        default:
+            return
+        }
+    }
+
+    @objc private func removePlaylist(indexPath: NSIndexPath) {
+
+        guard let realm = try? Realm() else { return }
+
+        do {
+            try realm.write() {
+                collectionView.performBatchUpdates({
+                    self.playlist.items.removeAtIndex(indexPath.row)
+                    self.collectionView.deleteItemsAtIndexPaths([indexPath])
+                    }, completion: nil)
+            }
+        } catch {
+            fatalError()
+        }
     }
 }
 

@@ -24,6 +24,9 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
         }
     }
 
+    var originalFrame = CGRectZero
+    var pannedIndexPath: NSIndexPath?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -67,6 +70,19 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
     }
 }
 
+extension ArtistDetailViewController: UIGestureRecognizerDelegate {
+
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+
+        guard let panGesture = gestureRecognizer as? UIPanGestureRecognizer,
+            indexPath = collectionView.indexPathForItemAtPoint(gestureRecognizer.locationInView(collectionView)) else { return false }
+
+        let location = panGesture.translationInView(collectionView.cellForItemAtIndexPath(indexPath))
+        pannedIndexPath = fabs(location.x) > fabs(location.y) ? indexPath : nil
+        return fabs(location.x) > fabs(location.y) && location.x > 0.0 ? true : false
+    }
+}
+
 extension ArtistDetailViewController: UICollectionViewDelegate {
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -100,12 +116,17 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         cell.trackNameLabel.text = music.trackName
         cell.trackTimeMillis = music.trackTimeMillis
 
-        if let isStremable = music.isStreamable {
-            cell.trackNameLabel.alpha = isStremable ? 1.0 : 0.3
-            cell.addPlaylistButton.enabled = isStremable ? true : false
+        if let isStreamable = music.isStreamable {
+            cell.trackNameLabel.alpha = isStreamable ? 1.0 : 0.3
+            cell.trackTimeLabel.alpha = isStreamable ? 1.0 : 0.3
+            cell.userInteractionEnabled = isStreamable ? true : false
         }
 
-        cell.addPlaylistButton.addTarget(self, action: #selector(addPlaylist), forControlEvents: .TouchUpInside)
+        if let isStreamable = albums[indexPath.section].tracks[indexPath.row].isStreamable where isStreamable {
+            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(trackCellPanGesture(_:)))
+            panGesture.delegate = self
+            cell.addGestureRecognizer(panGesture)
+        }
 
         return cell
     }
@@ -123,22 +144,44 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         return header
     }
 
-    @objc private func expandRow(sender: UITapGestureRecognizer) {
+    @objc private func trackCellPanGesture(sender: UIPanGestureRecognizer) {
 
-        guard let indexPath = collectionView.indexPathForItemAtPoint(sender.locationInView(collectionView)) else { return }
+        guard let pannedIndexPath = pannedIndexPath,
+            cell = collectionView.cellForItemAtIndexPath(pannedIndexPath) as? MusicTrackCollectionViewCell else { return }
 
-        guard let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers.first as? PlayerViewController else { return }
+        switch sender.state {
+        case .Began:
+            originalFrame = cell.frame
 
-        let collectionId = albums[indexPath.section].collectionId
-        playerViewController.player.setQueueWithStoreIDs([String(collectionId)])
-        playerViewController.player.play()
+        case .Changed:
+            let translation = sender.translationInView(cell)
+            cell.frame = translation.x > 0.0 ? CGRectOffset(originalFrame, translation.x, 0.0) : originalFrame
+
+
+        case .Ended:
+            guard let indexPath = collectionView.indexPathForCell(cell)
+                where cell.frame.origin.x > cell.frame.size.width / 2.0 else {
+                    UIView.animateWithDuration(0.2) { cell.frame = self.originalFrame }; return
+            }
+
+            UIView.animateWithDuration(0.2, animations: {
+                cell.frame = CGRectOffset(self.originalFrame, cell.frame.size.width, 0.0)
+
+                }, completion: { _ in
+                    cell.frame = CGRectOffset(self.originalFrame, -cell.frame.size.width, 0.0)
+                    UIView.animateWithDuration(0.2) { cell.frame = self.originalFrame }
+            })
+
+            addPlaylist(indexPath)
+
+        default:
+            return
+        }
     }
 
-    @objc private func addPlaylist(sender: UIButton) {
+    @objc private func addPlaylist(indexPath: NSIndexPath) {
 
-        guard let cell = sender.superview?.superview as? MusicTrackCollectionViewCell,
-            indexPath = collectionView.indexPathForCell(cell),
-            realm = try? Realm() else { return }
+        guard let realm = try? Realm() else { return }
 
         let playlist = realm.objects(Playlist).last ?? Playlist()
         let item = PlaylistItem()
@@ -159,6 +202,17 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         } catch {
             fatalError()
         }
+    }
+
+    @objc private func expandRow(sender: UITapGestureRecognizer) {
+
+        guard let indexPath = collectionView.indexPathForItemAtPoint(sender.locationInView(collectionView)) else { return }
+
+        guard let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers.first as? PlayerViewController else { return }
+
+        let collectionId = albums[indexPath.section].collectionId
+        playerViewController.player.setQueueWithStoreIDs([String(collectionId)])
+        playerViewController.player.play()
     }
 }
 

@@ -12,10 +12,9 @@ class MusicTrackCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var trackNameLabel: UILabel!
     @IBOutlet weak var trackTimeLabel: UILabel!
-    @IBOutlet weak var addPlaylistButton: UIButton!
 
     static let identifier = "MusicTrackCollectionViewCell"
-    
+
     var trackTimeMillis: Int? {
         didSet {
 

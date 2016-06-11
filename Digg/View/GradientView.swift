@@ -30,7 +30,7 @@ import UIKit
 
         gradientLayer.colors = [topColor.CGColor, bottomColor.CGColor]
         gradientLayer.frame.size = frame.size
-        gradientLayer.frame.origin = CGPointMake(0.0, 0.0)
+        gradientLayer.frame.origin = CGPointZero
         gradientLayer.zPosition = -100.0
         layer.insertSublayer(gradientLayer, atIndex: 0)
         layer.masksToBounds = true

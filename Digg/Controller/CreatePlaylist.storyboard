@@ -40,7 +40,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCJ-Nb-4pN">
-                                                    <rect key="frame" x="534.5" y="16" width="45" height="18"/>
+                                                    <rect key="frame" x="534" y="16" width="45" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="45" id="Rez-4d-OJx"/>
                                                     </constraints>
@@ -51,6 +51,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="WiA-8S-rRe" firstAttribute="leading" secondItem="47p-oH-9sS" secondAttribute="leading" constant="20" id="4Wc-sU-mOh"/>
                                             <constraint firstItem="PCJ-Nb-4pN" firstAttribute="centerY" secondItem="47p-oH-9sS" secondAttribute="centerY" id="IOr-jZ-Akm"/>
