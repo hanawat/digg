@@ -10,8 +10,9 @@ import UIKit
 
 class ArtistDetailCollectionReusableView: UICollectionReusableView {
         
-    @IBOutlet weak var artworkImageView: UIImageView!
     @IBOutlet weak var albumTitleLabel: UILabel!
+    @IBOutlet weak var albumArtistLabel: UILabel!
+    @IBOutlet weak var artworkImageView: UIImageView!
 
     static let identifier = "ArtistDetailCollectionReusableView"
 

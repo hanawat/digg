@@ -11,6 +11,7 @@ import UIKit
 class MusicTrackCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var trackNameLabel: UILabel!
+    @IBOutlet weak var trackArtistLabel: UILabel!
     @IBOutlet weak var trackTimeLabel: UILabel!
 
     static let identifier = "MusicTrackCollectionViewCell"

@@ -44,11 +44,12 @@ struct iTunesMusic: Decodable {
                 return id == collectionId
             }
 
-            guard let collectionName = tracks.first?.collectionName,
+            guard let artistName = tracks.first?.artistName,
+                collectionName = tracks.first?.collectionName,
                 artworkUrl100 = tracks.first?.artworkUrl100,
                 artworkUrl = artworkUrl512(artworkUrl100) else { return nil }
 
-            return Album(collectionId: collectionId, collectionName: collectionName, artworkUrl: artworkUrl, tracks: tracks)
+            return Album(artistName: artistName,collectionId: collectionId, collectionName: collectionName, artworkUrl: artworkUrl, tracks: tracks)
         }
     }
 
@@ -61,6 +62,7 @@ struct iTunesMusic: Decodable {
     }
 
     struct Album {
+        let artistName: String
         let collectionId: Int
         let collectionName: String
         let artworkUrl: NSURL

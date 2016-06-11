@@ -147,6 +147,7 @@ extension CreatePlaylistViewController: UICollectionViewDataSource {
         let music = playlist.items[indexPath.row]
 
         cell.trackNameLabel.text = music.trackName
+        cell.trackArtistLabel.text = music.artistName
         cell.trackTimeMillis = music.trackTimeMillis
 
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(trackCellPanGesture(_:)))

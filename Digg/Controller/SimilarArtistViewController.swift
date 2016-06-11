@@ -43,6 +43,10 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
                 self.stopActivityAnimating()
             }
         }
+
+        if let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController {
+            collectionView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: playerViewController.view.frame.size.height, right: 0.0)
+        }
     }
 
     override func didReceiveMemoryWarning() {

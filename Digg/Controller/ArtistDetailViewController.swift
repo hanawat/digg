@@ -114,6 +114,7 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         let music =  albums[indexPath.section].tracks[indexPath.row]
 
         cell.trackNameLabel.text = music.trackName
+        cell.trackArtistLabel.text = music.artistName
         cell.trackTimeMillis = music.trackTimeMillis
 
         if let isStreamable = music.isStreamable {
@@ -136,6 +137,7 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: ArtistDetailCollectionReusableView.identifier, forIndexPath: indexPath) as! ArtistDetailCollectionReusableView
         let album =  albums[indexPath.section]
         header.albumTitleLabel.text = album.collectionName
+        header.albumArtistLabel.text = album.artistName
         header.artworkImageView.kf_setImageWithURL(album.artworkUrl)
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(expandRow))

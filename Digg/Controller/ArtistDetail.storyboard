@@ -20,27 +20,38 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="F3g-ik-FOS">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="nPE-lN-pfl">
-                                    <size key="itemSize" width="599.5" height="50"/>
+                                    <size key="itemSize" width="599.5" height="60"/>
                                     <size key="headerReferenceSize" width="280" height="250"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MusicTrackCollectionViewCell" id="dka-yY-tRB" customClass="MusicTrackCollectionViewCell" customModule="Digg" customModuleProvider="target">
-                                        <rect key="frame" x="0.5" y="250" width="599.5" height="50"/>
+                                        <rect key="frame" x="0.5" y="250" width="599.5" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="599.5" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="599.5" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUl-UJ-4Ua">
-                                                    <rect key="frame" x="20" y="13" width="504" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0mS-Ga-gUl">
+                                                    <rect key="frame" x="10" y="9" width="504" height="42"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUl-UJ-4Ua">
+                                                            <rect key="frame" x="0.0" y="0.0" width="504" height="24"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KeE-Vb-Dwz">
+                                                            <rect key="frame" x="0.0" y="24" width="504" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="15"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlg-co-jRf">
-                                                    <rect key="frame" x="534" y="16" width="45" height="18"/>
+                                                    <rect key="frame" x="534" y="21" width="45" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="45" id="drR-SO-MHL"/>
                                                     </constraints>
@@ -54,12 +65,13 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="jlg-co-jRf" firstAttribute="centerY" secondItem="dka-yY-tRB" secondAttribute="centerY" id="Cme-xz-uie"/>
+                                            <constraint firstItem="jlg-co-jRf" firstAttribute="leading" secondItem="0mS-Ga-gUl" secondAttribute="trailing" constant="20" id="IcE-ji-613"/>
                                             <constraint firstAttribute="trailing" secondItem="jlg-co-jRf" secondAttribute="trailing" constant="20" id="QKD-4Y-0Gq"/>
-                                            <constraint firstItem="BUl-UJ-4Ua" firstAttribute="leading" secondItem="dka-yY-tRB" secondAttribute="leading" constant="20" id="S4i-SJ-u69"/>
-                                            <constraint firstItem="BUl-UJ-4Ua" firstAttribute="centerY" secondItem="dka-yY-tRB" secondAttribute="centerY" id="U9k-jR-MLm"/>
-                                            <constraint firstItem="jlg-co-jRf" firstAttribute="leading" secondItem="BUl-UJ-4Ua" secondAttribute="trailing" constant="10" id="a8p-Ru-OY6"/>
+                                            <constraint firstItem="0mS-Ga-gUl" firstAttribute="centerY" secondItem="dka-yY-tRB" secondAttribute="centerY" id="shv-Nz-kZo"/>
+                                            <constraint firstItem="0mS-Ga-gUl" firstAttribute="leading" secondItem="dka-yY-tRB" secondAttribute="leading" constant="10" id="yBK-pW-Jtd"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="trackArtistLabel" destination="KeE-Vb-Dwz" id="hLM-kv-BpC"/>
                                             <outlet property="trackNameLabel" destination="BUl-UJ-4Ua" id="lMG-BD-tqf"/>
                                             <outlet property="trackTimeLabel" destination="jlg-co-jRf" id="HQH-wj-MBo"/>
                                         </connections>
@@ -86,6 +98,12 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album Artist" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pjc-WO-epv">
+                                            <rect key="frame" x="0.0" y="153" width="600" height="24"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="YfC-8e-VFN" secondAttribute="trailing" id="3CP-KN-dqS"/>
@@ -93,15 +111,19 @@
                                         <constraint firstItem="h95-9k-gxb" firstAttribute="centerX" secondItem="Y5C-SZ-nxl" secondAttribute="centerX" id="CFV-Ng-Xzw"/>
                                         <constraint firstItem="YfC-8e-VFN" firstAttribute="top" secondItem="Y5C-SZ-nxl" secondAttribute="top" id="FNk-zh-2aV"/>
                                         <constraint firstAttribute="bottom" secondItem="YfC-8e-VFN" secondAttribute="bottom" id="IEE-W1-9TZ"/>
+                                        <constraint firstItem="Pjc-WO-epv" firstAttribute="top" secondItem="h95-9k-gxb" secondAttribute="bottom" constant="10" id="RRr-Q2-cV9"/>
                                         <constraint firstAttribute="bottom" secondItem="dXQ-P7-7aA" secondAttribute="bottom" id="RSh-Kk-Dfy"/>
                                         <constraint firstAttribute="trailing" secondItem="dXQ-P7-7aA" secondAttribute="trailing" id="VQ0-pq-dqg"/>
+                                        <constraint firstItem="Pjc-WO-epv" firstAttribute="leading" secondItem="Y5C-SZ-nxl" secondAttribute="leading" id="f6t-4v-vN5"/>
                                         <constraint firstAttribute="trailing" secondItem="h95-9k-gxb" secondAttribute="trailing" id="mcK-K4-PK1"/>
+                                        <constraint firstAttribute="trailing" secondItem="Pjc-WO-epv" secondAttribute="trailing" id="rOd-61-ODS"/>
                                         <constraint firstItem="h95-9k-gxb" firstAttribute="centerY" secondItem="Y5C-SZ-nxl" secondAttribute="centerY" id="vrw-BD-Gz6"/>
                                         <constraint firstItem="dXQ-P7-7aA" firstAttribute="top" secondItem="Y5C-SZ-nxl" secondAttribute="top" id="wEZ-97-ShC"/>
                                         <constraint firstItem="h95-9k-gxb" firstAttribute="leading" secondItem="Y5C-SZ-nxl" secondAttribute="leading" id="yCs-7G-kig"/>
                                         <constraint firstItem="YfC-8e-VFN" firstAttribute="leading" secondItem="Y5C-SZ-nxl" secondAttribute="leading" id="zfS-Zs-L6x"/>
                                     </constraints>
                                     <connections>
+                                        <outlet property="albumArtistLabel" destination="Pjc-WO-epv" id="GT3-cH-kaX"/>
                                         <outlet property="albumTitleLabel" destination="h95-9k-gxb" id="Ra9-DA-LXe"/>
                                         <outlet property="artworkImageView" destination="dXQ-P7-7aA" id="qUZ-ju-euN"/>
                                     </connections>
