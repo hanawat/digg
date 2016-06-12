@@ -222,7 +222,7 @@ extension CreatePlaylistViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
 
         let width = UIScreen.mainScreen().bounds.size.width
-        return CGSize(width: width, height: 50.0)
+        return CGSize(width: width, height: 60.0)
     }
 }
 

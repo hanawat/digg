@@ -119,7 +119,8 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
 
         if let isStreamable = music.isStreamable {
             cell.trackNameLabel.alpha = isStreamable ? 1.0 : 0.3
-            cell.trackTimeLabel.alpha = isStreamable ? 1.0 : 0.3
+            cell.trackArtistLabel.alpha = isStreamable ? 0.7 : 0.3
+            cell.trackTimeLabel.alpha = isStreamable ? 0.7 : 0.3
             cell.userInteractionEnabled = isStreamable ? true : false
         }
 
@@ -223,7 +224,7 @@ extension ArtistDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
 
         let width = UIScreen.mainScreen().bounds.size.width
-        return CGSize(width: width, height: 50.0)
+        return CGSize(width: width, height: 60.0)
     }
 }
 
