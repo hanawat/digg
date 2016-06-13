@@ -443,7 +443,7 @@
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9uk-2T-ktl">
-                                            <rect key="frame" x="10" y="10" width="39" height="30"/>
+                                            <rect key="frame" x="10" y="20" width="39" height="30"/>
                                             <state key="normal" title="Close"/>
                                             <connections>
                                                 <action selector="close:" destination="xE6-tJ-D9Z" eventType="touchUpInside" id="q2w-Cd-DO8"/>
@@ -467,7 +467,7 @@
                                         <constraint firstItem="gBq-Ix-qzY" firstAttribute="centerX" secondItem="ySd-DX-wnX" secondAttribute="centerX" id="pfY-Eb-QtU"/>
                                         <constraint firstItem="NC4-bp-reg" firstAttribute="top" secondItem="ySd-DX-wnX" secondAttribute="top" constant="50" id="qps-uU-n3L"/>
                                         <constraint firstItem="ttu-uS-D7p" firstAttribute="centerX" secondItem="ySd-DX-wnX" secondAttribute="centerX" id="tdo-HN-xcV"/>
-                                        <constraint firstItem="9uk-2T-ktl" firstAttribute="top" secondItem="ySd-DX-wnX" secondAttribute="top" constant="10" id="wKo-3V-xpm"/>
+                                        <constraint firstItem="9uk-2T-ktl" firstAttribute="top" secondItem="ySd-DX-wnX" secondAttribute="top" constant="20" id="wKo-3V-xpm"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">

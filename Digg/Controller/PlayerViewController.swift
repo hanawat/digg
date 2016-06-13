@@ -10,6 +10,37 @@ import UIKit
 import MediaPlayer
 import RealmSwift
 
+class DismissInteractor: UIPercentDrivenInteractiveTransition {
+
+    var hasStarted = false
+    var shouldFinish = false
+}
+
+class DismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+        guard let transitionContext = transitionContext else { return 0.3 }
+
+        return transitionContext.isInteractive() ? 0.6 : 0.3
+    }
+
+    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+        guard let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) else { return }
+
+        let screenBounds = UIScreen.mainScreen().bounds
+        let finalFrame = CGRect(origin: CGPoint(x: 0, y: screenBounds.height), size: screenBounds.size)
+        let options: UIViewAnimationOptions = transitionContext.isInteractive() ? [UIViewAnimationOptions.CurveLinear] : []
+
+        UIView.animateWithDuration(transitionDuration(transitionContext), delay: 0.0, options: options, animations: { 
+            fromViewController.view.frame = finalFrame
+
+            }, completion: { _ in
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+            }
+        )
+    }
+}
+
 class PlayerViewController: UIViewController {
 
     @IBOutlet weak var artworkImageView: UIImageView!
@@ -18,6 +49,7 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var controlButton: UIButton!
 
     let player = MPMusicPlayerController.systemMusicPlayer()
+    let interactor = DismissInteractor()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,7 +105,20 @@ class PlayerViewController: UIViewController {
 
         guard let mainViewController = UIStoryboard(name: "Artist", bundle: nil).instantiateViewControllerWithIdentifier(MainPlayerViewController.identifier) as? MainPlayerViewController else { return }
 
+        mainViewController.transitioningDelegate = self
+        mainViewController.interactor = interactor
         presentViewController(mainViewController, animated: true, completion: nil)
+    }
+}
+
+extension PlayerViewController: UIViewControllerTransitioningDelegate {
+
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissAnimator()
+    }
+
+    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
     }
 }
 
@@ -88,6 +133,7 @@ class MainPlayerViewController: UIViewController {
     static let identifier = "MainPlayerViewController"
 
     let player = MPMusicPlayerController.systemMusicPlayer()
+    var interactor: DismissInteractor?
     var collection: MPMediaItemCollection? {
         didSet {
             collectionView.reloadData()
@@ -118,6 +164,27 @@ class MainPlayerViewController: UIViewController {
 
     @IBAction func handlePanGesture(sender: UIPanGestureRecognizer) {
 
+        guard let interactor = interactor else { return }
+
+        let translation = sender.translationInView(view)
+        let progress = translation.y / view.bounds.height
+
+        switch sender.state {
+        case .Began:
+            interactor.hasStarted = true
+            dismissViewControllerAnimated(true, completion: nil)
+        case .Changed:
+            interactor.shouldFinish = progress > 0.3
+            interactor.updateInteractiveTransition(progress)
+        case .Cancelled:
+            interactor.hasStarted = false
+            interactor.cancelInteractiveTransition()
+        case .Ended:
+            interactor.hasStarted = false
+            interactor.shouldFinish ? interactor.finishInteractiveTransition() : interactor.cancelInteractiveTransition()
+        default:
+            break
+        }
     }
 
     @IBAction func close(sender: UIButton) {
