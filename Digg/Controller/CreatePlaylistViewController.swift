@@ -122,9 +122,9 @@ extension CreatePlaylistViewController: UICollectionViewDelegate {
         guard let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController else { return }
 
         let trackIds = playlist.items.map { String($0.trackId) }
-            .enumerate().filter { $0.index >= indexPath.row }.map { $0.element }
+        let selectedTrackIds = trackIds.enumerate().filter { $0.index >= indexPath.row }.map { $0.element } + trackIds.enumerate().filter { $0.index < indexPath.row }.map { $0.element }
 
-        playerViewController.player.setQueueWithStoreIDs(trackIds)
+        playerViewController.player.setQueueWithStoreIDs(selectedTrackIds)
         playerViewController.player.prepareToPlay()
         playerViewController.player.play()
     }
