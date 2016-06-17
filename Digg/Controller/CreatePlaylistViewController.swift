@@ -15,6 +15,8 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
 
     @IBOutlet weak var collectionView: UICollectionView!
 
+    static let identifier = "CreatePlaylistViewController"
+
     var playlist = Playlist() {
         didSet {
             collectionView.reloadData()

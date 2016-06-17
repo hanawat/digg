@@ -17,6 +17,7 @@
 		3C3E0F991D04375F008C1467 /* CreatePlaylist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C3E0F981D04375F008C1467 /* CreatePlaylist.storyboard */; };
 		3C3E0F9B1D04DED9008C1467 /* CreatePlaylistCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3E0F9A1D04DED9008C1467 /* CreatePlaylistCollectionReusableView.swift */; };
 		3C4670BE1CE0C5AA00AF10B8 /* LastfmSimilarArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4670BD1CE0C5AA00AF10B8 /* LastfmSimilarArtist.swift */; };
+		3C4CEADF1D13DC7600F6FA3D /* MainPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4CEADE1D13DC7600F6FA3D /* MainPlayerViewController.swift */; };
 		3C5866331CE66E95003856AA /* iTunes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5866321CE66E95003856AA /* iTunes.swift */; };
 		3C6609AD1CF8676D00FDDB1B /* ArtistDetailCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6609AC1CF8676D00FDDB1B /* ArtistDetailCollectionReusableView.swift */; };
 		3C7A689D1CF1F10E0084F8D9 /* SimilarArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7A689C1CF1F10E0084F8D9 /* SimilarArtistViewController.swift */; };
@@ -56,6 +57,7 @@
 		3C3E0F981D04375F008C1467 /* CreatePlaylist.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CreatePlaylist.storyboard; sourceTree = "<group>"; };
 		3C3E0F9A1D04DED9008C1467 /* CreatePlaylistCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePlaylistCollectionReusableView.swift; sourceTree = "<group>"; };
 		3C4670BD1CE0C5AA00AF10B8 /* LastfmSimilarArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastfmSimilarArtist.swift; sourceTree = "<group>"; };
+		3C4CEADE1D13DC7600F6FA3D /* MainPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPlayerViewController.swift; sourceTree = "<group>"; };
 		3C5866321CE66E95003856AA /* iTunes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iTunes.swift; sourceTree = "<group>"; };
 		3C6609AC1CF8676D00FDDB1B /* ArtistDetailCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistDetailCollectionReusableView.swift; sourceTree = "<group>"; };
 		3C7A689C1CF1F10E0084F8D9 /* SimilarArtistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimilarArtistViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			children = (
 				3C3B14081CF1B86B0053F783 /* ArtistViewController.swift */,
 				3CA813321CFF225C0039605B /* PlayerViewController.swift */,
+				3C4CEADE1D13DC7600F6FA3D /* MainPlayerViewController.swift */,
 				3C3B140B1CF1B8C60053F783 /* Artist.storyboard */,
 				3C7A689C1CF1F10E0084F8D9 /* SimilarArtistViewController.swift */,
 				3C7A689E1CF1F1740084F8D9 /* SimilarArtist.storyboard */,
@@ -359,6 +362,7 @@
 			files = (
 				3C5866331CE66E95003856AA /* iTunes.swift in Sources */,
 				3C3E0F9B1D04DED9008C1467 /* CreatePlaylistCollectionReusableView.swift in Sources */,
+				3C4CEADF1D13DC7600F6FA3D /* MainPlayerViewController.swift in Sources */,
 				3C6609AD1CF8676D00FDDB1B /* ArtistDetailCollectionReusableView.swift in Sources */,
 				3CA0863A1CDF672500504387 /* Lastfm.swift in Sources */,
 				3C0B9C291CF3D7CD003ED34D /* MusicTrackCollectionViewCell.swift in Sources */,

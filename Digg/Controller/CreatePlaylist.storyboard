@@ -8,7 +8,7 @@
         <!--Create Playlist View Controller-->
         <scene sceneID="PUN-DL-Wbh">
             <objects>
-                <viewController id="lWI-GE-qdB" customClass="CreatePlaylistViewController" customModule="Digg" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreatePlaylistViewController" id="lWI-GE-qdB" customClass="CreatePlaylistViewController" customModule="Digg" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="x8h-sg-RTt"/>
                         <viewControllerLayoutGuide type="bottom" id="6pb-Yc-83Y"/>

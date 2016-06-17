@@ -320,7 +320,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BkM-2Q-WUX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-767" y="960"/>
+            <point key="canvasLocation" x="-571" y="960"/>
         </scene>
         <!--Main Player View Controller-->
         <scene sceneID="emU-9Z-nse">
@@ -357,54 +357,8 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="gBq-Ix-qzY">
-                                            <rect key="frame" x="150" y="435" width="300" height="80"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLm-oX-dJ6">
-                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="Qhs-tS-NGq"/>
-                                                        <constraint firstAttribute="width" constant="50" id="dfA-s6-Fg7"/>
-                                                    </constraints>
-                                                    <state key="normal" title="Previous"/>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="Qhs-tS-NGq"/>
-                                                            <exclude reference="dfA-s6-Fg7"/>
-                                                        </mask>
-                                                    </variation>
-                                                    <connections>
-                                                        <action selector="previous:" destination="xE6-tJ-D9Z" eventType="touchUpInside" id="4At-zj-C5s"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ry-Dm-fZl">
-                                                    <rect key="frame" x="110" y="0.0" width="80" height="80"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="80" id="dJu-iW-7zh"/>
-                                                        <constraint firstAttribute="height" constant="80" id="wcD-fc-82w"/>
-                                                    </constraints>
-                                                    <state key="normal" title="Play"/>
-                                                    <connections>
-                                                        <action selector="control:" destination="xE6-tJ-D9Z" eventType="touchUpInside" id="3XS-LB-3b2"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R1Y-ac-OEd">
-                                                    <rect key="frame" x="220" y="0.0" width="80" height="80"/>
-                                                    <state key="normal" title="Foward"/>
-                                                    <connections>
-                                                        <action selector="next:" destination="xE6-tJ-D9Z" eventType="touchUpInside" id="XeR-fZ-CR2"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="6Ry-Dm-fZl" firstAttribute="height" secondItem="fLm-oX-dJ6" secondAttribute="height" id="E0K-ip-Vxb"/>
-                                                <constraint firstItem="R1Y-ac-OEd" firstAttribute="height" secondItem="6Ry-Dm-fZl" secondAttribute="height" id="Svh-NQ-XhD"/>
-                                                <constraint firstItem="6Ry-Dm-fZl" firstAttribute="width" secondItem="fLm-oX-dJ6" secondAttribute="width" id="sqa-zH-k1K"/>
-                                                <constraint firstItem="R1Y-ac-OEd" firstAttribute="width" secondItem="6Ry-Dm-fZl" secondAttribute="width" id="wUR-Vk-ViQ"/>
-                                            </constraints>
-                                        </stackView>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Fvd-0z-ePs">
-                                            <rect key="frame" x="0.0" y="112" width="600" height="303"/>
+                                            <rect key="frame" x="0.0" y="112" width="600" height="323"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="tez-0Y-WPC">
                                                 <size key="itemSize" width="300" height="300"/>
@@ -414,7 +368,7 @@
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlaylistCollectionViewCell" id="NXY-sh-a7t" customClass="PlaylistCollectionViewCell" customModule="Digg" customModuleProvider="target">
-                                                    <rect key="frame" x="10" y="1.5" width="300" height="300"/>
+                                                    <rect key="frame" x="10" y="11.5" width="300" height="300"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
@@ -423,8 +377,10 @@
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EhF-K6-dRy">
                                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                                             </imageView>
-                                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Odp-xk-VFu">
+                                                            <progressView opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Odp-xk-VFu">
                                                                 <rect key="frame" x="0.0" y="298" width="300" height="2"/>
+                                                                <color key="progressTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="trackTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             </progressView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -440,6 +396,7 @@
                                                     </constraints>
                                                     <connections>
                                                         <outlet property="artworkImageView" destination="EhF-K6-dRy" id="LNM-Xp-dZO"/>
+                                                        <outlet property="progressView" destination="Odp-xk-VFu" id="ZkP-lI-RCj"/>
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>
@@ -448,35 +405,99 @@
                                                 <outlet property="delegate" destination="xE6-tJ-D9Z" id="1dL-0P-8sQ"/>
                                             </connections>
                                         </collectionView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ttu-uS-D7p" customClass="MPVolumeView">
-                                            <rect key="frame" x="150" y="535" width="300" height="25"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mmW-Tw-PmE">
+                                            <rect key="frame" x="0.0" y="435" width="600" height="165"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="inI-h7-dmJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="165"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="gBq-Ix-qzY">
+                                                        <rect key="frame" x="150" y="0.0" width="300" height="80"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLm-oX-dJ6">
+                                                                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="Qhs-tS-NGq"/>
+                                                                    <constraint firstAttribute="width" constant="50" id="dfA-s6-Fg7"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Previous"/>
+                                                                <variation key="default">
+                                                                    <mask key="constraints">
+                                                                        <exclude reference="Qhs-tS-NGq"/>
+                                                                        <exclude reference="dfA-s6-Fg7"/>
+                                                                    </mask>
+                                                                </variation>
+                                                                <connections>
+                                                                    <action selector="previous:" destination="xE6-tJ-D9Z" eventType="touchUpInside" id="4At-zj-C5s"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ry-Dm-fZl">
+                                                                <rect key="frame" x="110" y="0.0" width="80" height="80"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="80" id="dJu-iW-7zh"/>
+                                                                    <constraint firstAttribute="height" constant="80" id="wcD-fc-82w"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Play"/>
+                                                                <connections>
+                                                                    <action selector="control:" destination="xE6-tJ-D9Z" eventType="touchUpInside" id="3XS-LB-3b2"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R1Y-ac-OEd">
+                                                                <rect key="frame" x="220" y="0.0" width="80" height="80"/>
+                                                                <state key="normal" title="Foward"/>
+                                                                <connections>
+                                                                    <action selector="next:" destination="xE6-tJ-D9Z" eventType="touchUpInside" id="XeR-fZ-CR2"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="6Ry-Dm-fZl" firstAttribute="height" secondItem="fLm-oX-dJ6" secondAttribute="height" id="E0K-ip-Vxb"/>
+                                                            <constraint firstItem="R1Y-ac-OEd" firstAttribute="height" secondItem="6Ry-Dm-fZl" secondAttribute="height" id="Svh-NQ-XhD"/>
+                                                            <constraint firstItem="6Ry-Dm-fZl" firstAttribute="width" secondItem="fLm-oX-dJ6" secondAttribute="width" id="sqa-zH-k1K"/>
+                                                            <constraint firstItem="R1Y-ac-OEd" firstAttribute="width" secondItem="6Ry-Dm-fZl" secondAttribute="width" id="wUR-Vk-ViQ"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ttu-uS-D7p" customClass="MPVolumeView">
+                                                        <rect key="frame" x="150" y="100" width="300" height="25"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="kgb-Gw-33D"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="ttu-uS-D7p" firstAttribute="centerX" secondItem="inI-h7-dmJ" secondAttribute="centerX" id="F8i-Q3-tOR"/>
+                                                    <constraint firstItem="gBq-Ix-qzY" firstAttribute="top" secondItem="inI-h7-dmJ" secondAttribute="top" id="NsH-iu-xY8"/>
+                                                    <constraint firstItem="gBq-Ix-qzY" firstAttribute="centerX" secondItem="inI-h7-dmJ" secondAttribute="centerX" id="boA-8I-66H"/>
+                                                    <constraint firstItem="ttu-uS-D7p" firstAttribute="top" secondItem="gBq-Ix-qzY" secondAttribute="bottom" constant="20" id="v9u-6G-ufU"/>
+                                                    <constraint firstItem="ttu-uS-D7p" firstAttribute="width" secondItem="gBq-Ix-qzY" secondAttribute="width" id="zmy-3G-FxA"/>
+                                                </constraints>
+                                            </view>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="25" id="kgb-Gw-33D"/>
+                                                <constraint firstAttribute="height" constant="165" id="4vx-Tx-Orf"/>
                                             </constraints>
-                                        </view>
+                                            <vibrancyEffect>
+                                                <blurEffect style="dark"/>
+                                            </vibrancyEffect>
+                                        </visualEffectView>
                                     </subviews>
                                     <gestureRecognizers/>
                                     <constraints>
                                         <constraint firstItem="Fvd-0z-ePs" firstAttribute="top" secondItem="NC4-bp-reg" secondAttribute="bottom" constant="20" id="20n-IQ-eHI"/>
-                                        <constraint firstItem="gBq-Ix-qzY" firstAttribute="centerX" secondItem="ySd-DX-wnX" secondAttribute="centerX" id="9a1-fD-jAH"/>
-                                        <constraint firstAttribute="bottom" secondItem="ttu-uS-D7p" secondAttribute="bottom" constant="40" id="9zq-JA-hvt"/>
                                         <constraint firstItem="Fvd-0z-ePs" firstAttribute="top" secondItem="NC4-bp-reg" secondAttribute="bottom" constant="10" id="Ag1-zA-JwD"/>
                                         <constraint firstItem="Fvd-0z-ePs" firstAttribute="leading" secondItem="ySd-DX-wnX" secondAttribute="leading" id="B66-6e-D5h"/>
                                         <constraint firstAttribute="trailing" secondItem="NC4-bp-reg" secondAttribute="trailing" constant="10" id="Hkq-fI-WPo"/>
                                         <constraint firstItem="NC4-bp-reg" firstAttribute="leading" secondItem="ySd-DX-wnX" secondAttribute="leading" constant="10" id="Nxb-qP-Fb6"/>
-                                        <constraint firstItem="ttu-uS-D7p" firstAttribute="top" secondItem="gBq-Ix-qzY" secondAttribute="bottom" constant="20" id="VNh-Rw-rWl"/>
-                                        <constraint firstItem="ttu-uS-D7p" firstAttribute="width" secondItem="gBq-Ix-qzY" secondAttribute="width" id="Zfl-Xl-O3G"/>
+                                        <constraint firstAttribute="bottom" secondItem="mmW-Tw-PmE" secondAttribute="bottom" id="SxZ-T0-oys"/>
                                         <constraint firstAttribute="trailing" secondItem="Fvd-0z-ePs" secondAttribute="trailing" id="bYs-7s-Dd5"/>
-                                        <constraint firstItem="gBq-Ix-qzY" firstAttribute="top" secondItem="Fvd-0z-ePs" secondAttribute="bottom" constant="20" id="hx0-PH-yFb"/>
-                                        <constraint firstItem="gBq-Ix-qzY" firstAttribute="centerX" secondItem="ySd-DX-wnX" secondAttribute="centerX" id="pfY-Eb-QtU"/>
+                                        <constraint firstItem="mmW-Tw-PmE" firstAttribute="top" secondItem="Fvd-0z-ePs" secondAttribute="bottom" id="gUS-Vb-W3D"/>
+                                        <constraint firstAttribute="trailing" secondItem="mmW-Tw-PmE" secondAttribute="trailing" id="jer-fa-6BL"/>
                                         <constraint firstItem="NC4-bp-reg" firstAttribute="top" secondItem="ySd-DX-wnX" secondAttribute="top" constant="50" id="qps-uU-n3L"/>
-                                        <constraint firstItem="ttu-uS-D7p" firstAttribute="centerX" secondItem="ySd-DX-wnX" secondAttribute="centerX" id="tdo-HN-xcV"/>
+                                        <constraint firstItem="mmW-Tw-PmE" firstAttribute="leading" secondItem="ySd-DX-wnX" secondAttribute="leading" id="w5u-cm-sim"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="20n-IQ-eHI"/>
-                                            <exclude reference="9a1-fD-jAH"/>
                                         </mask>
                                     </variation>
                                     <connections>
@@ -509,7 +530,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="67" y="1026"/>
+            <point key="canvasLocation" x="173" y="960"/>
         </scene>
     </scenes>
 </document>

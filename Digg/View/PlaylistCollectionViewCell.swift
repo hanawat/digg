@@ -7,10 +7,19 @@
 //
 
 import UIKit
+import MediaPlayer
 
 class PlaylistCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var artworkImageView: UIImageView!
+    @IBOutlet weak var progressView: UIProgressView!
 
     static let identifier = "PlaylistCollectionViewCell"
+
+    var durationTime: NSTimeInterval = 1.0
+    var currentTime: NSTimeInterval = 0.0 {
+        didSet {
+            self.progressView.setProgress(Float(currentTime / durationTime), animated: false)
+        }
+    }
 }
