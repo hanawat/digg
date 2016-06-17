@@ -13,6 +13,19 @@ import MediaPlayer
 import StoreKit
 import NVActivityIndicatorView
 
+extension UICollectionView {
+
+    public func indexPathForSupplementaryView(elementKind: String, atPoint point: CGPoint) -> NSIndexPath? {
+
+        for section in 0..<self.numberOfSections() {
+            let indexPath = NSIndexPath(forRow: 0, inSection: section)
+            if let layoutAttribute = self.collectionViewLayout.layoutAttributesForSupplementaryViewOfKind(elementKind, atIndexPath: indexPath) where layoutAttribute.frame.contains(point) { return indexPath }
+        }
+
+        return nil
+    }
+}
+
 class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable {
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -87,13 +100,17 @@ extension ArtistDetailViewController: UICollectionViewDelegate {
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 
-        let music = albums[indexPath.section].tracks[indexPath.row]
-        guard let trackId = music.trackId,
-            isStremable = music.isStreamable where isStremable else { return }
-
         guard let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController else { return }
 
-        playerViewController.player.setQueueWithStoreIDs([String(trackId)])
+        let trackIds = albums[indexPath.section].tracks.flatMap { item -> String? in
+            guard let trackId = item.trackId else { return nil }
+            return String(trackId)
+        }
+
+        let selectedTrackIds = trackIds.enumerate().filter { $0.index >= indexPath.row }.map { $0.element } + trackIds.enumerate().filter { $0.index < indexPath.row }.map { $0.element }
+
+        playerViewController.player.setQueueWithStoreIDs(selectedTrackIds)
+        playerViewController.player.prepareToPlay()
         playerViewController.player.play()
     }
 }
@@ -141,7 +158,7 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         header.albumArtistLabel.text = album.artistName
         header.artworkImageView.kf_setImageWithURL(album.artworkUrl)
 
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(expandRow))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(playAlbum(_:)))
         header.addGestureRecognizer(tapGesture)
 
         return header
@@ -207,11 +224,10 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         }
     }
 
-    @objc private func expandRow(sender: UITapGestureRecognizer) {
+    @objc private func playAlbum(sender: UITapGestureRecognizer) {
 
-        guard let indexPath = collectionView.indexPathForItemAtPoint(sender.locationInView(collectionView)) else { return }
-
-        guard let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers.first as? PlayerViewController else { return }
+        guard let indexPath = collectionView.indexPathForSupplementaryView(UICollectionElementKindSectionHeader, atPoint: sender.locationInView(collectionView)),
+            playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController else { return }
 
         let collectionId = albums[indexPath.section].collectionId
         playerViewController.player.setQueueWithStoreIDs([String(collectionId)])
