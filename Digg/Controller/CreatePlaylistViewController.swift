@@ -71,6 +71,17 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
                             dispatch_async(dispatch_get_main_queue()) {
                                 self.stopActivityAnimating()
                                 self.navigationItem.rightBarButtonItem?.enabled = true
+
+                                guard let realm = try? Realm() else { return }
+                                self.playlist = Playlist()
+
+                                do {
+                                    try realm.write() {
+                                        realm.add(self.playlist)
+                                    }
+                                } catch {
+                                    print("Realm writing error.")
+                                }
                             }
                         }
                     }

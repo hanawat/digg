@@ -13,6 +13,11 @@ import MediaPlayer
 import StoreKit
 import NVActivityIndicatorView
 
+protocol ArtistDetailPreviewItemDelegate: class {
+
+    func showMoreSimilarArtist(name: String)
+}
+
 extension UICollectionView {
 
     public func indexPathForSupplementaryView(elementKind: String, atPoint point: CGPoint) -> NSIndexPath? {
@@ -30,6 +35,8 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
 
     @IBOutlet weak var collectionView: UICollectionView!
 
+    weak var delegate: ArtistDetailPreviewItemDelegate?
+
     var artist: LastfmSimilarArtist.Artist?
     var albums: [iTunesMusic.Album] = [] {
         didSet {
@@ -39,6 +46,22 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
 
     var originalFrame = CGRectZero
     var pannedIndexPath: NSIndexPath?
+
+    lazy var previewActions: [UIPreviewActionItem] = {
+
+        func previewDiggAction(title: String = "Digg for ", style: UIPreviewActionStyle = .Default) -> UIPreviewAction? {
+
+            guard let artistName = self.artist?.name else { return nil }
+
+            return UIPreviewAction(title: title + artistName, style: style) { _, _ in
+
+                self.delegate?.showMoreSimilarArtist(artistName)
+            }
+        }
+
+        guard let action = previewDiggAction() else { return [] }
+        return [action]
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()

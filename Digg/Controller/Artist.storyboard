@@ -185,6 +185,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="collectionView" destination="xRB-HJ-E5H" id="cOM-1d-gMI"/>
                         <outlet property="searchBar" destination="AM5-HP-Dyc" id="vO4-am-Ksc"/>
                         <outlet property="tapGestureRecognizer" destination="yUS-3T-UYj" id="jyG-RE-W7e"/>
                     </connections>
@@ -260,7 +261,7 @@
                                                 <blurEffect style="dark"/>
                                             </vibrancyEffect>
                                         </visualEffectView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sm9-pO-4HP">
+                                        <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sm9-pO-4HP">
                                             <rect key="frame" x="5" y="5" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="CPf-St-kra"/>

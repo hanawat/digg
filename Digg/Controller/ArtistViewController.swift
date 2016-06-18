@@ -13,6 +13,7 @@ class ArtistViewController: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer!
+    @IBOutlet weak var collectionView: UICollectionView!
 
     var artists = ["The Beatles"]
     var songs: [MPMediaItem] = []
@@ -23,6 +24,10 @@ class ArtistViewController: UIViewController {
         if let songs = MPMediaQuery.artistsQuery().items {
             artists = NSOrderedSet(array: songs.flatMap { $0.albumArtist }).array as! [String]
             self.songs = songs
+        }
+
+        if self.traitCollection.forceTouchCapability == .Available {
+            registerForPreviewingWithDelegate(self, sourceView: view)
         }
     }
 
@@ -41,6 +46,26 @@ class ArtistViewController: UIViewController {
 
         view.endEditing(true)
         tapGestureRecognizer.enabled = false
+    }
+}
+
+extension ArtistViewController: UIViewControllerPreviewingDelegate {
+
+    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+
+        guard let indexPath = collectionView.indexPathForItemAtPoint(collectionView.convertPoint(location, fromView: view)),
+            cell = collectionView.cellForItemAtIndexPath(indexPath),
+            viewController = UIStoryboard(name: "SimilarArtist", bundle: nil).instantiateInitialViewController() as?SimilarArtistViewController  else { return nil }
+
+        previewingContext.sourceRect = collectionView.convertRect(cell.frame, toView: view)
+        viewController.artist = artists[indexPath.row]
+
+        return viewController
+    }
+
+    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 }
 
