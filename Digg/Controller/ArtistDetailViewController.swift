@@ -179,7 +179,7 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         let album =  albums[indexPath.section]
         header.albumTitleLabel.text = album.collectionName
         header.albumArtistLabel.text = album.artistName
-        header.artworkImageView.kf_setImageWithURL(album.artworkUrl)
+        header.artworkImageView.kf_setImageWithURL(album.artworkUrl, placeholderImage: nil, optionsInfo: [.Transition(.Fade(1.0))], progressBlock: nil, completionHandler: nil)
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(playAlbum(_:)))
         header.addGestureRecognizer(tapGesture)

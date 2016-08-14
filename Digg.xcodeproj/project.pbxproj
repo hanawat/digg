@@ -33,7 +33,8 @@
 		3CA0863C1CDF748B00504387 /* LastfmSimilarTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA0863B1CDF748B00504387 /* LastfmSimilarTrack.swift */; };
 		3CA813331CFF225C0039605B /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA813321CFF225C0039605B /* PlayerViewController.swift */; };
 		3CAFF4DE1CE8C55100E4ED8E /* iTunesMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAFF4DD1CE8C55100E4ED8E /* iTunesMusic.swift */; };
-		93D882B0C3474E840B02631C /* Pods_Digg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7106EF9AB356B713E483A4C /* Pods_Digg.framework */; };
+		3CE094911D242FD8007C3E8C /* MainPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CE094901D242FD8007C3E8C /* MainPlayer.storyboard */; };
+		A22EF379C341CB47A615A382 /* Pods_Digg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7106EF9AB356B713E483A4C /* Pods_Digg.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,8 @@
 		3C0B9C241CF3D6AF003ED34D /* ArtistDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistDetailViewController.swift; sourceTree = "<group>"; };
 		3C0B9C261CF3D6D1003ED34D /* ArtistDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArtistDetail.storyboard; sourceTree = "<group>"; };
 		3C0B9C281CF3D7CD003ED34D /* MusicTrackCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicTrackCollectionViewCell.swift; sourceTree = "<group>"; };
+		3C19337A1D6048E800E17C2E /* Pods_Digg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_Digg.framework; path = "Pods/../build/Debug-iphoneos/Pods_Digg.framework"; sourceTree = "<group>"; };
+		3C19337B1D6048E800E17C2E /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
 		3C3B14081CF1B86B0053F783 /* ArtistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; };
 		3C3B140B1CF1B8C60053F783 /* Artist.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Artist.storyboard; sourceTree = "<group>"; };
 		3C3B140E1CF1BBDF0053F783 /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -77,6 +80,8 @@
 		3CA0863B1CDF748B00504387 /* LastfmSimilarTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastfmSimilarTrack.swift; sourceTree = "<group>"; };
 		3CA813321CFF225C0039605B /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		3CAFF4DD1CE8C55100E4ED8E /* iTunesMusic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iTunesMusic.swift; sourceTree = "<group>"; };
+		3CE094901D242FD8007C3E8C /* MainPlayer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainPlayer.storyboard; sourceTree = "<group>"; };
+		7A10C47091D7F4348AB74752 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DC737873FC80ADDCECDA84F /* Pods-Digg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Digg.release.xcconfig"; path = "Pods/Target Support Files/Pods-Digg/Pods-Digg.release.xcconfig"; sourceTree = "<group>"; };
 		C0E2BCB0AD44BA2D886FEFDC /* Pods-Digg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Digg.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Digg/Pods-Digg.debug.xcconfig"; sourceTree = "<group>"; };
 		E7106EF9AB356B713E483A4C /* Pods_Digg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Digg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,7 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93D882B0C3474E840B02631C /* Pods_Digg.framework in Frameworks */,
+				A22EF379C341CB47A615A382 /* Pods_Digg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,8 +111,9 @@
 			children = (
 				3C3B14081CF1B86B0053F783 /* ArtistViewController.swift */,
 				3CA813321CFF225C0039605B /* PlayerViewController.swift */,
-				3C4CEADE1D13DC7600F6FA3D /* MainPlayerViewController.swift */,
 				3C3B140B1CF1B8C60053F783 /* Artist.storyboard */,
+				3C4CEADE1D13DC7600F6FA3D /* MainPlayerViewController.swift */,
+				3CE094901D242FD8007C3E8C /* MainPlayer.storyboard */,
 				3C7A689C1CF1F10E0084F8D9 /* SimilarArtistViewController.swift */,
 				3C7A689E1CF1F1740084F8D9 /* SimilarArtist.storyboard */,
 				3C0B9C241CF3D6AF003ED34D /* ArtistDetailViewController.swift */,
@@ -199,7 +205,10 @@
 		F8CD4515313DF34FDCB32343 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3C19337A1D6048E800E17C2E /* Pods_Digg.framework */,
+				3C19337B1D6048E800E17C2E /* Pods.framework */,
 				E7106EF9AB356B713E483A4C /* Pods_Digg.framework */,
+				7A10C47091D7F4348AB74752 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -211,12 +220,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3CA086321CDDCEA500504387 /* Build configuration list for PBXNativeTarget "Digg" */;
 			buildPhases = (
-				6124242D50C6EA9E0FB10C00 /* Check Pods Manifest.lock */,
+				6124242D50C6EA9E0FB10C00 /* [CP] Check Pods Manifest.lock */,
 				3CA086111CDDCEA500504387 /* Sources */,
 				3CA086121CDDCEA500504387 /* Frameworks */,
 				3CA086131CDDCEA500504387 /* Resources */,
-				DBE180A6428302D163085947 /* Embed Pods Frameworks */,
-				BEC55E9E5A43F1064EE145F2 /* Copy Pods Resources */,
+				DBE180A6428302D163085947 /* [CP] Embed Pods Frameworks */,
+				BEC55E9E5A43F1064EE145F2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -291,6 +300,7 @@
 			files = (
 				3CA086231CDDCEA500504387 /* LaunchScreen.storyboard in Resources */,
 				3CA086201CDDCEA500504387 /* Assets.xcassets in Resources */,
+				3CE094911D242FD8007C3E8C /* MainPlayer.storyboard in Resources */,
 				3C3E0F991D04375F008C1467 /* CreatePlaylist.storyboard in Resources */,
 				3C0B9C271CF3D6D1003ED34D /* ArtistDetail.storyboard in Resources */,
 				3C7A689F1CF1F1740084F8D9 /* SimilarArtist.storyboard in Resources */,
@@ -308,14 +318,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6124242D50C6EA9E0FB10C00 /* Check Pods Manifest.lock */ = {
+		6124242D50C6EA9E0FB10C00 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,14 +333,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		BEC55E9E5A43F1064EE145F2 /* Copy Pods Resources */ = {
+		BEC55E9E5A43F1064EE145F2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,14 +348,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Digg/Pods-Digg-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DBE180A6428302D163085947 /* Embed Pods Frameworks */ = {
+		DBE180A6428302D163085947 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,6 +443,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -449,6 +460,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = "@rpath";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -478,6 +490,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -488,6 +501,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = "@rpath";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -502,7 +516,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = Digg/Info.plist;
+				INSTALL_PATH = "@rpath";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.next-group-HanawaTakuro.app";
@@ -518,7 +537,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = Digg/Info.plist;
+				INSTALL_PATH = "@rpath";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.next-group-HanawaTakuro.app";

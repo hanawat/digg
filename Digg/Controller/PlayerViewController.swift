@@ -104,7 +104,7 @@ class PlayerViewController: UIViewController {
     @IBAction func showPlayer(sender: UITapGestureRecognizer) {
 
 
-        guard let mainViewController = UIStoryboard(name: "Artist", bundle: nil).instantiateViewControllerWithIdentifier(MainPlayerViewController.identifier) as? MainPlayerViewController else { return }
+        guard let mainViewController = UIStoryboard(name: "MainPlayer", bundle: nil).instantiateViewControllerWithIdentifier(MainPlayerViewController.identifier) as? MainPlayerViewController else { return }
 
         mainViewController.transitioningDelegate = self
         mainViewController.interactor = interactor
