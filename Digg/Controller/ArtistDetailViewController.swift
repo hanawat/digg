@@ -49,7 +49,7 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
 
     lazy var previewActions: [UIPreviewActionItem] = {
 
-        func previewDiggAction(title: String = "Digg for ", style: UIPreviewActionStyle = .Default) -> UIPreviewAction? {
+        func previewDiggAction(title: String = "Digg ", style: UIPreviewActionStyle = .Default) -> UIPreviewAction? {
 
             guard let artistName = self.artist?.name else { return nil }
 
@@ -77,6 +77,7 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
 
         if let artist = artist {
 
+            navigationItem.title = artist.name
             startActivityAnimating(nil, type: .LineScalePulseOutRapid, color: nil, padding: nil)
 
             let request = iTunesSearchRequest(term:artist.name , entity: .Song, attribute: .Artist, limit: 50)

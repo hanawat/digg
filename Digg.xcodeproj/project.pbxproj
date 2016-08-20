@@ -34,7 +34,6 @@
 		3CA813331CFF225C0039605B /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA813321CFF225C0039605B /* PlayerViewController.swift */; };
 		3CAFF4DE1CE8C55100E4ED8E /* iTunesMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAFF4DD1CE8C55100E4ED8E /* iTunesMusic.swift */; };
 		3CE094911D242FD8007C3E8C /* MainPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CE094901D242FD8007C3E8C /* MainPlayer.storyboard */; };
-		3CEEBF281D6894510047A43B /* Information.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CEEBF271D6894510047A43B /* Information.storyboard */; };
 		A22EF379C341CB47A615A382 /* Pods_Digg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7106EF9AB356B713E483A4C /* Pods_Digg.framework */; };
 /* End PBXBuildFile section */
 
@@ -82,7 +81,6 @@
 		3CA813321CFF225C0039605B /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		3CAFF4DD1CE8C55100E4ED8E /* iTunesMusic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iTunesMusic.swift; sourceTree = "<group>"; };
 		3CE094901D242FD8007C3E8C /* MainPlayer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainPlayer.storyboard; sourceTree = "<group>"; };
-		3CEEBF271D6894510047A43B /* Information.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Information.storyboard; sourceTree = "<group>"; };
 		7A10C47091D7F4348AB74752 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DC737873FC80ADDCECDA84F /* Pods-Digg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Digg.release.xcconfig"; path = "Pods/Target Support Files/Pods-Digg/Pods-Digg.release.xcconfig"; sourceTree = "<group>"; };
 		C0E2BCB0AD44BA2D886FEFDC /* Pods-Digg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Digg.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Digg/Pods-Digg.debug.xcconfig"; sourceTree = "<group>"; };
@@ -122,7 +120,6 @@
 				3C0B9C261CF3D6D1003ED34D /* ArtistDetail.storyboard */,
 				3C3E0F961D04374B008C1467 /* CreatePlaylistViewController.swift */,
 				3C3E0F981D04375F008C1467 /* CreatePlaylist.storyboard */,
-				3CEEBF271D6894510047A43B /* Information.storyboard */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -301,7 +298,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CEEBF281D6894510047A43B /* Information.storyboard in Resources */,
 				3CA086231CDDCEA500504387 /* LaunchScreen.storyboard in Resources */,
 				3CA086201CDDCEA500504387 /* Assets.xcassets in Resources */,
 				3CE094911D242FD8007C3E8C /* MainPlayer.storyboard in Resources */,

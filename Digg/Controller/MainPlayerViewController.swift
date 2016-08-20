@@ -35,6 +35,7 @@ class MainPlayerViewController: UIViewController {
         let notification = NSNotificationCenter.defaultCenter()
         notification.addObserver(self, selector: #selector(playItemChanged), name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: player)
         player.beginGeneratingPlaybackNotifications()
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
 
         playItemChanged()
     }
@@ -43,11 +44,13 @@ class MainPlayerViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
 
+    // FIXME: Some times not call
     deinit {
 
         let notification = NSNotificationCenter.defaultCenter()
         player.endGeneratingPlaybackNotifications()
         notification.removeObserver(self, name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: player)
+        timer.invalidate()
     }
 
     @IBAction func handlePanGesture(sender: UIPanGestureRecognizer) {
@@ -84,12 +87,10 @@ class MainPlayerViewController: UIViewController {
         switch player.playbackState {
         case .Playing:
             player.pause()
-            timer.invalidate()
             controlButton.selected = false
 
         default:
             player.play()
-            timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
             controlButton.selected = true
         }
     }
@@ -110,8 +111,7 @@ class MainPlayerViewController: UIViewController {
         switch player.playbackState {
         case .Playing:
 
-            controlButton.selected = false
-            timer = timer.valid ? NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true) : timer
+            controlButton.selected = true
 
         default:
             break
@@ -139,6 +139,7 @@ extension MainPlayerViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PlaylistCollectionViewCell.identifier, forIndexPath: indexPath) as! PlaylistCollectionViewCell
         cell.artworkImageView.image = collection?.items[indexPath.row].artwork?.imageWithSize(cell.bounds.size) ?? player.nowPlayingItem?.artwork?.imageWithSize(cell.bounds.size)
         cell.durationTime = player.nowPlayingItem?.playbackDuration ?? 1.0
+        cell.currentTime = player.currentPlaybackTime
         return cell
     }
 }
