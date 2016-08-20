@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="uuq-fA-oZ4">
+            <objects>
+                <viewController id="1vh-dv-7ci" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uhZ-0x-fgQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="Deq-cq-KtV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hGi-7S-Ayg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MCe-Ik-nQc">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="UXQ-Pr-Mwu">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ufh-IU-22U">
+                                            <rect key="frame" x="275" y="275" width="50" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="QhX-yl-fw6"/>
+                                                <constraint firstAttribute="height" constant="50" id="V7w-NI-djx"/>
+                                            </constraints>
+                                            <state key="normal" image="reload"/>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Ufh-IU-22U" firstAttribute="centerY" secondItem="UXQ-Pr-Mwu" secondAttribute="centerY" id="34T-xN-tQP"/>
+                                        <constraint firstItem="Ufh-IU-22U" firstAttribute="centerX" secondItem="UXQ-Pr-Mwu" secondAttribute="centerX" id="9vm-fh-fZg"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Deq-cq-KtV" firstAttribute="top" secondItem="MCe-Ik-nQc" secondAttribute="bottom" id="5B4-ge-raT"/>
+                            <constraint firstItem="MCe-Ik-nQc" firstAttribute="top" secondItem="hGi-7S-Ayg" secondAttribute="top" id="Gee-vl-gob"/>
+                            <constraint firstAttribute="trailing" secondItem="MCe-Ik-nQc" secondAttribute="trailing" id="IEJ-zm-5N1"/>
+                            <constraint firstItem="MCe-Ik-nQc" firstAttribute="leading" secondItem="hGi-7S-Ayg" secondAttribute="leading" id="Tlx-8W-cmk"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zS7-Os-r8Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="363" y="177"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="reload" width="368" height="368"/>
+    </resources>
+</document>

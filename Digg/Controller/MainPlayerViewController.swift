@@ -83,14 +83,14 @@ class MainPlayerViewController: UIViewController {
 
         switch player.playbackState {
         case .Playing:
-            controlButton.setTitle("Play", forState: .Normal)
             player.pause()
             timer.invalidate()
+            controlButton.selected = false
 
         default:
-            controlButton.setTitle("Pause", forState: .Normal)
             player.play()
             timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+            controlButton.selected = true
         }
     }
 
@@ -109,12 +109,12 @@ class MainPlayerViewController: UIViewController {
 
         switch player.playbackState {
         case .Playing:
-            controlButton.setTitle("Pause", forState: .Normal)
 
+            controlButton.selected = false
             timer = timer.valid ? NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true) : timer
 
         default:
-            controlButton.setTitle("Play", forState: .Normal)
+            break
         }
 
         collectionView.reloadData()

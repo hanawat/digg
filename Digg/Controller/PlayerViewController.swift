@@ -50,6 +50,8 @@ class PlayerViewController: UIViewController {
 
     let player = MPMusicPlayerController.systemMusicPlayer()
     let interactor = DismissInteractor()
+    let playImage = UIImage(named: "play")?.imageWithRenderingMode(.AlwaysTemplate)
+    let pauseImage = UIImage(named: "pause")?.imageWithRenderingMode(.AlwaysTemplate)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +59,8 @@ class PlayerViewController: UIViewController {
         let notification = NSNotificationCenter.defaultCenter()
         notification.addObserver(self, selector: #selector(playItemChanged), name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: player)
         player.beginGeneratingPlaybackNotifications()
+
+        controlButton.contentEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
 
         playItemChanged()
     }
@@ -76,11 +80,11 @@ class PlayerViewController: UIViewController {
 
         switch player.playbackState {
         case .Playing:
-            controlButton.setTitle("Play", forState: .Normal)
+            controlButton.setImage(playImage, forState: .Normal)
             player.pause()
 
         default:
-            controlButton.setTitle("Pause", forState: .Normal)
+            controlButton.setImage(pauseImage, forState: .Normal)
             player.play()
         }
     }
@@ -94,10 +98,10 @@ class PlayerViewController: UIViewController {
 
         switch player.playbackState {
         case .Playing:
-            controlButton.setTitle("Pause", forState: .Normal)
+            controlButton.setImage(pauseImage, forState: .Normal)
 
         default:
-            controlButton.setTitle("Play", forState: .Normal)
+            controlButton.setImage(playImage, forState: .Normal)
         }
     }
     

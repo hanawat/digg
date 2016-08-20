@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6K6-Q8-kRa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6K6-Q8-kRa">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -105,13 +105,13 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="TNe-UO-OwD">
                                                         <rect key="frame" x="150" y="0.0" width="300" height="80"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iFJ-vt-3NS">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iFJ-vt-3NS">
                                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="CWw-gq-nVA"/>
                                                                     <constraint firstAttribute="width" constant="50" id="pUD-NX-cbB"/>
                                                                 </constraints>
-                                                                <state key="normal" title="Previous"/>
+                                                                <state key="normal" image="rewind"/>
                                                                 <variation key="default">
                                                                     <mask key="constraints">
                                                                         <exclude reference="CWw-gq-nVA"/>
@@ -122,20 +122,21 @@
                                                                     <action selector="previous:" destination="Qac-Up-4HQ" eventType="touchUpInside" id="XVh-zH-F0l"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJD-Qz-Uqd">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJD-Qz-Uqd">
                                                                 <rect key="frame" x="110" y="0.0" width="80" height="80"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="80" id="QQi-3t-e14"/>
                                                                     <constraint firstAttribute="width" constant="80" id="R4P-wW-o3q"/>
                                                                 </constraints>
-                                                                <state key="normal" title="Play"/>
+                                                                <state key="normal" image="play"/>
+                                                                <state key="selected" image="compact-disc"/>
                                                                 <connections>
                                                                     <action selector="control:" destination="Qac-Up-4HQ" eventType="touchUpInside" id="DLX-G5-Lee"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDh-Oa-T6W">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDh-Oa-T6W">
                                                                 <rect key="frame" x="220" y="0.0" width="80" height="80"/>
-                                                                <state key="normal" title="Foward"/>
+                                                                <state key="normal" image="fast-forward"/>
                                                                 <connections>
                                                                     <action selector="next:" destination="Qac-Up-4HQ" eventType="touchUpInside" id="LJW-Ws-mH3"/>
                                                                 </connections>
@@ -149,20 +150,44 @@
                                                         </constraints>
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oE2-fb-Fmb" customClass="MPVolumeView">
-                                                        <rect key="frame" x="150" y="100" width="300" height="25"/>
+                                                        <rect key="frame" x="180" y="100" width="232" height="20"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="wqD-u2-1Lp"/>
+                                                            <constraint firstAttribute="height" constant="20" id="wqD-u2-1Lp"/>
                                                         </constraints>
                                                     </view>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speaker-min" translatesAutoresizingMaskIntoConstraints="NO" id="zd7-Ka-foe">
+                                                        <rect key="frame" x="150" y="100" width="20" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="20" id="6ig-PM-h61"/>
+                                                            <constraint firstAttribute="width" constant="20" id="yvX-uA-6EX"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speaker-max" translatesAutoresizingMaskIntoConstraints="NO" id="eZJ-Z0-BbK">
+                                                        <rect key="frame" x="422" y="98" width="25" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="DtR-Tg-y9I"/>
+                                                            <constraint firstAttribute="width" constant="25" id="X3X-5p-UBh"/>
+                                                        </constraints>
+                                                    </imageView>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstItem="eZJ-Z0-BbK" firstAttribute="trailing" secondItem="TNe-UO-OwD" secondAttribute="trailing" constant="-3" id="0cb-Do-0fx"/>
+                                                    <constraint firstItem="zd7-Ka-foe" firstAttribute="leading" secondItem="TNe-UO-OwD" secondAttribute="leading" id="1Lb-Pi-Reh"/>
                                                     <constraint firstItem="oE2-fb-Fmb" firstAttribute="top" secondItem="TNe-UO-OwD" secondAttribute="bottom" constant="20" id="CF1-DJ-kZJ"/>
-                                                    <constraint firstItem="oE2-fb-Fmb" firstAttribute="width" secondItem="TNe-UO-OwD" secondAttribute="width" id="Fkw-CB-opK"/>
-                                                    <constraint firstItem="oE2-fb-Fmb" firstAttribute="centerX" secondItem="puw-vK-Gzg" secondAttribute="centerX" id="OfP-eG-5eo"/>
+                                                    <constraint firstItem="oE2-fb-Fmb" firstAttribute="width" secondItem="TNe-UO-OwD" secondAttribute="width" constant="-70" id="Fkw-CB-opK"/>
+                                                    <constraint firstItem="eZJ-Z0-BbK" firstAttribute="centerY" secondItem="oE2-fb-Fmb" secondAttribute="centerY" id="VIY-lM-3Bm"/>
                                                     <constraint firstItem="TNe-UO-OwD" firstAttribute="top" secondItem="puw-vK-Gzg" secondAttribute="top" id="Yl6-e5-OZV"/>
+                                                    <constraint firstItem="oE2-fb-Fmb" firstAttribute="centerY" secondItem="zd7-Ka-foe" secondAttribute="centerY" id="mj1-pA-rKg"/>
+                                                    <constraint firstItem="oE2-fb-Fmb" firstAttribute="leading" secondItem="zd7-Ka-foe" secondAttribute="trailing" constant="10" id="qgE-Or-yK3"/>
                                                     <constraint firstItem="TNe-UO-OwD" firstAttribute="centerX" secondItem="puw-vK-Gzg" secondAttribute="centerX" id="sx1-2k-1qh"/>
+                                                    <constraint firstItem="eZJ-Z0-BbK" firstAttribute="leading" secondItem="oE2-fb-Fmb" secondAttribute="trailing" constant="10" id="sy9-A2-5Xk"/>
                                                 </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="Fkw-CB-opK"/>
+                                                    </mask>
+                                                </variation>
                                             </view>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="165" id="gcO-Fd-Psa"/>
@@ -224,4 +249,12 @@
             <point key="canvasLocation" x="-571" y="940"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="compact-disc" width="44" height="44"/>
+        <image name="fast-forward" width="43" height="43"/>
+        <image name="play" width="32" height="32"/>
+        <image name="rewind" width="43" height="43"/>
+        <image name="speaker-max" width="45" height="45"/>
+        <image name="speaker-min" width="35" height="35"/>
+    </resources>
 </document>

@@ -93,6 +93,18 @@ extension ArtistViewController: UICollectionViewDelegate {
         viewController.artist = artists[indexPath.row]
         navigationController?.pushViewController(viewController, animated: true)
     }
+
+    func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+
+        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+        UIView.animateWithDuration(0.2) { cell?.layer.opacity = 0.7 }
+    }
+
+    func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+
+        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+        UIView.animateWithDuration(0.2) { cell?.layer.opacity = 1.0 }
+    }
 }
 
 extension ArtistViewController: UICollectionViewDataSource {

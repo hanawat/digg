@@ -136,6 +136,24 @@ extension ArtistDetailViewController: UICollectionViewDelegate {
         playerViewController.player.prepareToPlay()
         playerViewController.player.play()
     }
+
+    func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+
+        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+        UIView.animateWithDuration(0.2) {
+            cell?.layer.opacity = 0.7
+            cell?.layer.backgroundColor = UIColor(white: 0.1, alpha: 1.0).CGColor
+        }
+    }
+
+    func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+
+        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+        UIView.animateWithDuration(0.2) {
+            cell?.layer.opacity = 1.0
+            cell?.layer.backgroundColor = UIColor.blackColor().CGColor
+        }
+    }
 }
 
 extension ArtistDetailViewController: UICollectionViewDataSource {
