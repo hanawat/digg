@@ -60,6 +60,7 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.showNavigationBar(true)
 
         if let artist = artist {
 

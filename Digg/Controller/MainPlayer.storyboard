@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Page View Controller-->
@@ -68,8 +69,8 @@
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VjV-J2-w4H">
                                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                                             </imageView>
-                                                            <progressView opaque="NO" alpha="0.10000000000000001" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MMj-lB-YuD">
-                                                                <rect key="frame" x="0.0" y="294" width="300" height="2"/>
+                                                            <progressView opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MMj-lB-YuD">
+                                                                <rect key="frame" x="0.0" y="293" width="300" height="2"/>
                                                                 <color key="progressTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <color key="trackTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             </progressView>
@@ -81,7 +82,7 @@
                                                         <constraint firstItem="VjV-J2-w4H" firstAttribute="top" secondItem="7GJ-2a-1N0" secondAttribute="top" id="0rV-CX-WRB"/>
                                                         <constraint firstAttribute="bottom" secondItem="VjV-J2-w4H" secondAttribute="bottom" id="GW0-FD-bYe"/>
                                                         <constraint firstItem="MMj-lB-YuD" firstAttribute="leading" secondItem="7GJ-2a-1N0" secondAttribute="leading" id="Tj1-ww-Xuu"/>
-                                                        <constraint firstAttribute="bottom" secondItem="MMj-lB-YuD" secondAttribute="bottom" constant="4" id="fQ6-Ld-4QW"/>
+                                                        <constraint firstAttribute="bottom" secondItem="MMj-lB-YuD" secondAttribute="bottom" constant="5" id="fQ6-Ld-4QW"/>
                                                         <constraint firstAttribute="trailing" secondItem="VjV-J2-w4H" secondAttribute="trailing" id="rQ3-VY-EK7"/>
                                                         <constraint firstItem="VjV-J2-w4H" firstAttribute="leading" secondItem="7GJ-2a-1N0" secondAttribute="leading" id="wN1-2m-jaj"/>
                                                     </constraints>
@@ -129,7 +130,7 @@
                                                                     <constraint firstAttribute="width" constant="80" id="R4P-wW-o3q"/>
                                                                 </constraints>
                                                                 <state key="normal" image="play"/>
-                                                                <state key="selected" image="compact-disc"/>
+                                                                <state key="selected" image="pause"/>
                                                                 <connections>
                                                                     <action selector="control:" destination="Qac-Up-4HQ" eventType="touchUpInside" id="DLX-G5-Lee"/>
                                                                 </connections>
@@ -150,35 +151,62 @@
                                                         </constraints>
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oE2-fb-Fmb" customClass="MPVolumeView">
-                                                        <rect key="frame" x="180" y="100" width="232" height="20"/>
+                                                        <rect key="frame" x="180" y="80" width="232" height="20"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="wqD-u2-1Lp"/>
                                                         </constraints>
                                                     </view>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speaker-min" translatesAutoresizingMaskIntoConstraints="NO" id="zd7-Ka-foe">
-                                                        <rect key="frame" x="150" y="100" width="20" height="20"/>
+                                                        <rect key="frame" x="150" y="80" width="20" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="6ig-PM-h61"/>
                                                             <constraint firstAttribute="width" constant="20" id="yvX-uA-6EX"/>
                                                         </constraints>
                                                     </imageView>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speaker-max" translatesAutoresizingMaskIntoConstraints="NO" id="eZJ-Z0-BbK">
-                                                        <rect key="frame" x="422" y="98" width="25" height="25"/>
+                                                        <rect key="frame" x="422" y="78" width="25" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="DtR-Tg-y9I"/>
                                                             <constraint firstAttribute="width" constant="25" id="X3X-5p-UBh"/>
                                                         </constraints>
                                                     </imageView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="kaw-5Z-IfW">
+                                                        <rect key="frame" x="200" y="120" width="200" height="25"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1AY-mR-YrG">
+                                                                <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" secondItem="1AY-mR-YrG" secondAttribute="height" multiplier="1:1" id="3kf-i6-hb6"/>
+                                                                </constraints>
+                                                                <state key="normal" image="shuffle"/>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j6F-VK-sSt">
+                                                                <rect key="frame" x="175" y="0.0" width="25" height="25"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" secondItem="j6F-VK-sSt" secondAttribute="height" multiplier="1:1" id="UCF-kz-Q3U"/>
+                                                                </constraints>
+                                                                <state key="normal" image="repeat"/>
+                                                            </button>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="dIo-PM-JOz"/>
+                                                        </constraints>
+                                                    </stackView>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="eZJ-Z0-BbK" firstAttribute="trailing" secondItem="TNe-UO-OwD" secondAttribute="trailing" constant="-3" id="0cb-Do-0fx"/>
                                                     <constraint firstItem="zd7-Ka-foe" firstAttribute="leading" secondItem="TNe-UO-OwD" secondAttribute="leading" id="1Lb-Pi-Reh"/>
-                                                    <constraint firstItem="oE2-fb-Fmb" firstAttribute="top" secondItem="TNe-UO-OwD" secondAttribute="bottom" constant="20" id="CF1-DJ-kZJ"/>
+                                                    <constraint firstItem="TNe-UO-OwD" firstAttribute="leading" secondItem="kaw-5Z-IfW" secondAttribute="leading" constant="-50" id="3Ld-Y9-f61"/>
+                                                    <constraint firstAttribute="bottom" secondItem="kaw-5Z-IfW" secondAttribute="bottom" constant="20" id="6u0-KI-Ig2"/>
+                                                    <constraint firstAttribute="trailing" secondItem="kaw-5Z-IfW" secondAttribute="trailing" id="Bxx-zK-iUJ"/>
+                                                    <constraint firstItem="oE2-fb-Fmb" firstAttribute="top" secondItem="TNe-UO-OwD" secondAttribute="bottom" id="CF1-DJ-kZJ"/>
                                                     <constraint firstItem="oE2-fb-Fmb" firstAttribute="width" secondItem="TNe-UO-OwD" secondAttribute="width" constant="-70" id="Fkw-CB-opK"/>
                                                     <constraint firstItem="eZJ-Z0-BbK" firstAttribute="centerY" secondItem="oE2-fb-Fmb" secondAttribute="centerY" id="VIY-lM-3Bm"/>
                                                     <constraint firstItem="TNe-UO-OwD" firstAttribute="top" secondItem="puw-vK-Gzg" secondAttribute="top" id="Yl6-e5-OZV"/>
+                                                    <constraint firstItem="TNe-UO-OwD" firstAttribute="trailing" secondItem="kaw-5Z-IfW" secondAttribute="trailing" constant="50" id="bAA-PT-Khm"/>
                                                     <constraint firstItem="oE2-fb-Fmb" firstAttribute="centerY" secondItem="zd7-Ka-foe" secondAttribute="centerY" id="mj1-pA-rKg"/>
+                                                    <constraint firstItem="kaw-5Z-IfW" firstAttribute="leading" secondItem="puw-vK-Gzg" secondAttribute="leading" id="oYG-oJ-UgK"/>
                                                     <constraint firstItem="oE2-fb-Fmb" firstAttribute="leading" secondItem="zd7-Ka-foe" secondAttribute="trailing" constant="10" id="qgE-Or-yK3"/>
                                                     <constraint firstItem="TNe-UO-OwD" firstAttribute="centerX" secondItem="puw-vK-Gzg" secondAttribute="centerX" id="sx1-2k-1qh"/>
                                                     <constraint firstItem="eZJ-Z0-BbK" firstAttribute="leading" secondItem="oE2-fb-Fmb" secondAttribute="trailing" constant="10" id="sy9-A2-5Xk"/>
@@ -186,6 +214,8 @@
                                                 <variation key="default">
                                                     <mask key="constraints">
                                                         <exclude reference="Fkw-CB-opK"/>
+                                                        <exclude reference="Bxx-zK-iUJ"/>
+                                                        <exclude reference="oYG-oJ-UgK"/>
                                                     </mask>
                                                 </variation>
                                             </view>
@@ -250,10 +280,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="compact-disc" width="44" height="44"/>
         <image name="fast-forward" width="43" height="43"/>
+        <image name="pause" width="33" height="33"/>
         <image name="play" width="32" height="32"/>
+        <image name="repeat" width="39" height="39"/>
         <image name="rewind" width="43" height="43"/>
+        <image name="shuffle" width="38" height="38"/>
         <image name="speaker-max" width="45" height="45"/>
         <image name="speaker-min" width="35" height="35"/>
     </resources>

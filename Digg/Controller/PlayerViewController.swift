@@ -123,7 +123,7 @@ class PlayerViewController: UIViewController {
     @objc private func updateProgress() {
 
         if let durationTime = player.nowPlayingItem?.playbackDuration {
-            progressView.setProgress(Float(player.currentPlaybackTime / durationTime), animated: true)
+            progressView.setProgress(Float(player.currentPlaybackTime / durationTime), animated: false)
         }
     }
     

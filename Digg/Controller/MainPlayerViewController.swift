@@ -36,12 +36,14 @@ class MainPlayerViewController: UIViewController {
         notification.addObserver(self, selector: #selector(playStateChanged), name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: player)
         notification.addObserver(self, selector: #selector(playItemChanged), name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: player)
         player.beginGeneratingPlaybackNotifications()
+
+        updateProgress()
+        playItemChanged()
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
-        updateProgress()
         playStateChanged()
     }
 
@@ -134,7 +136,7 @@ class MainPlayerViewController: UIViewController {
         guard let cell = collectionView.visibleCells().first as? PlaylistCollectionViewCell else { return }
 
         if let durationTime = player.nowPlayingItem?.playbackDuration {
-            cell.progressView.setProgress(Float(player.currentPlaybackTime / durationTime), animated: true)
+            cell.progressView.setProgress(Float(player.currentPlaybackTime / durationTime), animated: false)
         }
     }
 }

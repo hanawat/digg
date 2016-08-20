@@ -125,3 +125,44 @@ extension ArtistViewController: UICollectionViewDataSource {
         return artists.count
     }
 }
+
+extension ArtistViewController: UIScrollViewDelegate {
+
+    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+
+        if velocity.y > 0.0 {
+            navigationController?.hiddenNavigationBar(true)
+        } else {
+            navigationController?.showNavigationBar(true)
+        }
+    }
+}
+
+extension UINavigationController {
+
+    func hiddenNavigationBar(animation: Bool) {
+
+        let originalFrame = self.navigationBar.frame
+        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
+        let offsetHeight = originalFrame.size.height + statusBarHeight
+
+        guard originalFrame.origin.y == statusBarHeight else { return }
+
+        UIView.animateWithDuration(0.2) {
+            self.navigationBar.frame = CGRectOffset(originalFrame, 0.0, -offsetHeight)
+        }
+    }
+
+    func showNavigationBar(animation: Bool) {
+
+        let originalFrame = self.navigationBar.frame
+        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
+        let offsetHeight = originalFrame.size.height + statusBarHeight
+
+        guard originalFrame.origin.y == -originalFrame.size.height else { return }
+
+        UIView.animateWithDuration(0.2) {
+            self.navigationBar.frame = CGRectOffset(originalFrame, 0.0, offsetHeight)
+        }
+    }
+}
