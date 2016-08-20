@@ -47,7 +47,9 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var trackLabel: UILabel!
     @IBOutlet weak var artistLabel: UILabel!
     @IBOutlet weak var controlButton: UIButton!
+    @IBOutlet weak var progressView: UIProgressView!
 
+    var timer = NSTimer()
     let player = MPMusicPlayerController.systemMusicPlayer()
     let interactor = DismissInteractor()
     let playImage = UIImage(named: "play")?.imageWithRenderingMode(.AlwaysTemplate)
@@ -57,12 +59,18 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
 
         let notification = NSNotificationCenter.defaultCenter()
+        notification.addObserver(self, selector: #selector(playStateChanged), name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: player)
         notification.addObserver(self, selector: #selector(playItemChanged), name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: player)
         player.beginGeneratingPlaybackNotifications()
 
         controlButton.contentEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+    }
 
-        playItemChanged()
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        updateProgress()
+        playStateChanged()
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,6 +81,7 @@ class PlayerViewController: UIViewController {
 
         let notification = NSNotificationCenter.defaultCenter()
         player.endGeneratingPlaybackNotifications()
+        notification.removeObserver(self, name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: player)
         notification.removeObserver(self, name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: player)
     }
 
@@ -80,28 +89,41 @@ class PlayerViewController: UIViewController {
 
         switch player.playbackState {
         case .Playing:
-            controlButton.setImage(playImage, forState: .Normal)
             player.pause()
 
         default:
-            controlButton.setImage(pauseImage, forState: .Normal)
             player.play()
+        }
+    }
+
+    @objc private func playStateChanged() {
+
+        switch player.playbackState {
+        case .Playing:
+            controlButton.selected = true
+
+            if timer.valid == false {
+                timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
+            }
+
+        default:
+            controlButton.selected = false
+            timer.invalidate()
         }
     }
 
     @objc private func playItemChanged() {
 
+        progressView.progress = 0.0
         trackLabel.text = player.nowPlayingItem?.title
         artistLabel.text = player.nowPlayingItem?.artist
-
         artworkImageView.image = player.nowPlayingItem?.artwork?.imageWithSize(artworkImageView.bounds.size) ?? nil
+    }
 
-        switch player.playbackState {
-        case .Playing:
-            controlButton.setImage(pauseImage, forState: .Normal)
+    @objc private func updateProgress() {
 
-        default:
-            controlButton.setImage(playImage, forState: .Normal)
+        if let durationTime = player.nowPlayingItem?.playbackDuration {
+            progressView.setProgress(Float(player.currentPlaybackTime / durationTime), animated: true)
         }
     }
     

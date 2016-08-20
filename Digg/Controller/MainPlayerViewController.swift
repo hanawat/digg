@@ -33,24 +33,28 @@ class MainPlayerViewController: UIViewController {
         super.viewDidLoad()
 
         let notification = NSNotificationCenter.defaultCenter()
+        notification.addObserver(self, selector: #selector(playStateChanged), name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: player)
         notification.addObserver(self, selector: #selector(playItemChanged), name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: player)
         player.beginGeneratingPlaybackNotifications()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+    }
 
-        playItemChanged()
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        updateProgress()
+        playStateChanged()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-    // FIXME: Some times not call
     deinit {
 
         let notification = NSNotificationCenter.defaultCenter()
         player.endGeneratingPlaybackNotifications()
+        notification.removeObserver(self, name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: player)
         notification.removeObserver(self, name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: player)
-        timer.invalidate()
     }
 
     @IBAction func handlePanGesture(sender: UIPanGestureRecognizer) {
@@ -87,11 +91,9 @@ class MainPlayerViewController: UIViewController {
         switch player.playbackState {
         case .Playing:
             player.pause()
-            controlButton.selected = false
 
         default:
             player.play()
-            controlButton.selected = true
         }
     }
 
@@ -103,27 +105,37 @@ class MainPlayerViewController: UIViewController {
         player.skipToPreviousItem()
     }
 
+    @objc private func playStateChanged() {
+
+        switch player.playbackState {
+        case .Playing:
+            controlButton.selected = true
+
+            if timer.valid == false {
+                timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
+            }
+
+        default:
+            controlButton.selected = false
+            timer.invalidate()
+        }
+    }
+
     @objc private func playItemChanged() {
 
         trackLabel.text = player.nowPlayingItem?.title
         artistLabel.text = player.nowPlayingItem?.artist
 
-        switch player.playbackState {
-        case .Playing:
-
-            controlButton.selected = true
-
-        default:
-            break
-        }
-
         collectionView.reloadData()
     }
 
-    @objc private func updateTime() {
+    @objc private func updateProgress() {
 
         guard let cell = collectionView.visibleCells().first as? PlaylistCollectionViewCell else { return }
-        cell.currentTime = player.currentPlaybackTime
+
+        if let durationTime = player.nowPlayingItem?.playbackDuration {
+            cell.progressView.setProgress(Float(player.currentPlaybackTime / durationTime), animated: true)
+        }
     }
 }
 
@@ -138,8 +150,7 @@ extension MainPlayerViewController: UICollectionViewDataSource {
 
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PlaylistCollectionViewCell.identifier, forIndexPath: indexPath) as! PlaylistCollectionViewCell
         cell.artworkImageView.image = collection?.items[indexPath.row].artwork?.imageWithSize(cell.bounds.size) ?? player.nowPlayingItem?.artwork?.imageWithSize(cell.bounds.size)
-        cell.durationTime = player.nowPlayingItem?.playbackDuration ?? 1.0
-        cell.currentTime = player.currentPlaybackTime
+
         return cell
     }
 }
