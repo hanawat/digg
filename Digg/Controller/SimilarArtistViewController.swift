@@ -74,7 +74,22 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
                     self.similarArtists =  data.similarartists
 
                 case .Failure(let error):
+
                     print(error)
+                    guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController() as? MessageViewController else { return }
+
+                    switch error {
+                    case .InvalidResponseStructure(let object):
+                        viewController.message = object["message"] as? String
+
+                    case .ConnectionError(let error):
+                        viewController.message = error.localizedDescription
+
+                    default:
+                        break
+                    }
+
+                    self.view.addSubview(viewController.view)
                 }
 
                 self.stopActivityAnimating()

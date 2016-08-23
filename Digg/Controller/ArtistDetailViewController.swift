@@ -84,10 +84,33 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
             Session.sendRequest(request) { result in
                 switch result {
                 case .Success(let data):
+
+                    if data.musics.isEmpty {
+                        guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController() as? MessageViewController else { return }
+
+                        viewController.message = "The artist you supplied could not be found"
+                        self.view.addSubview(viewController.view); return
+                    }
+
                     self.albums = iTunesMusic.albums(data.musics)
 
                 case .Failure(let error):
+
                     print(error)
+                    guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController() as? MessageViewController else { return }
+
+                    switch error {
+                    case .InvalidResponseStructure(let object):
+                        viewController.message = object["message"] as? String
+
+                    case .ConnectionError(let error):
+                        viewController.message = error.localizedDescription
+
+                    default:
+                        break
+                    }
+
+                    self.view.addSubview(viewController.view)
                 }
 
                 self.stopActivityAnimating()

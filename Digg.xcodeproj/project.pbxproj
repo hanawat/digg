@@ -25,6 +25,8 @@
 		3C7A68A11CF1F2B00084F8D9 /* SimilarArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7A68A01CF1F2B00084F8D9 /* SimilarArtistCollectionViewCell.swift */; };
 		3C8EB11B1CF9539B00248AC4 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8EB11A1CF9539B00248AC4 /* GradientView.swift */; };
 		3C8EB11F1CFB41F300248AC4 /* PlaylistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8EB11E1CFB41F300248AC4 /* PlaylistCollectionViewCell.swift */; };
+		3C9F39941D6C993D0069D0D8 /* Message.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C9F39931D6C993D0069D0D8 /* Message.storyboard */; };
+		3C9F39961D6CA1470069D0D8 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9F39951D6CA1470069D0D8 /* MessageViewController.swift */; };
 		3CA086191CDDCEA500504387 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA086181CDDCEA500504387 /* AppDelegate.swift */; };
 		3CA086201CDDCEA500504387 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CA0861F1CDDCEA500504387 /* Assets.xcassets */; };
 		3CA086231CDDCEA500504387 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CA086211CDDCEA500504387 /* LaunchScreen.storyboard */; };
@@ -68,6 +70,8 @@
 		3C7A68A01CF1F2B00084F8D9 /* SimilarArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimilarArtistCollectionViewCell.swift; sourceTree = "<group>"; };
 		3C8EB11A1CF9539B00248AC4 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		3C8EB11E1CFB41F300248AC4 /* PlaylistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCollectionViewCell.swift; sourceTree = "<group>"; };
+		3C9F39931D6C993D0069D0D8 /* Message.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Message.storyboard; sourceTree = "<group>"; };
+		3C9F39951D6CA1470069D0D8 /* MessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		3CA086151CDDCEA500504387 /* Digg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Digg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CA086181CDDCEA500504387 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CA0861F1CDDCEA500504387 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -120,6 +124,8 @@
 				3C0B9C261CF3D6D1003ED34D /* ArtistDetail.storyboard */,
 				3C3E0F961D04374B008C1467 /* CreatePlaylistViewController.swift */,
 				3C3E0F981D04375F008C1467 /* CreatePlaylist.storyboard */,
+				3C9F39951D6CA1470069D0D8 /* MessageViewController.swift */,
+				3C9F39931D6C993D0069D0D8 /* Message.storyboard */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -304,6 +310,7 @@
 				3C3E0F991D04375F008C1467 /* CreatePlaylist.storyboard in Resources */,
 				3C0B9C271CF3D6D1003ED34D /* ArtistDetail.storyboard in Resources */,
 				3C7A689F1CF1F1740084F8D9 /* SimilarArtist.storyboard in Resources */,
+				3C9F39941D6C993D0069D0D8 /* Message.storyboard in Resources */,
 				3C3B140C1CF1B8C60053F783 /* Artist.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,6 +395,7 @@
 				3C3E0F971D04374B008C1467 /* CreatePlaylistViewController.swift in Sources */,
 				3CA086191CDDCEA500504387 /* AppDelegate.swift in Sources */,
 				3C7A68A11CF1F2B00084F8D9 /* SimilarArtistCollectionViewCell.swift in Sources */,
+				3C9F39961D6CA1470069D0D8 /* MessageViewController.swift in Sources */,
 				3CA813331CFF225C0039605B /* PlayerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
