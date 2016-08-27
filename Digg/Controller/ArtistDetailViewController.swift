@@ -49,18 +49,33 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
 
     lazy var previewActions: [UIPreviewActionItem] = {
 
-        func previewDiggAction(title: String = "Digg ", style: UIPreviewActionStyle = .Default) -> UIPreviewAction? {
+        func previewDigAction() -> UIPreviewAction? {
 
             guard let artistName = self.artist?.name else { return nil }
 
-            return UIPreviewAction(title: title + artistName, style: style) { _, _ in
+            return UIPreviewAction(title: "Dig " + artistName, style: .Default) { _, _ in
 
                 self.delegate?.showMoreSimilarArtist(artistName)
             }
         }
 
-        guard let action = previewDiggAction() else { return [] }
-        return [action]
+        func previewPlayAction() -> UIPreviewAction? {
+
+            guard let artistName = self.artist?.name,
+                let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController else { return nil }
+
+            return UIPreviewAction(title: "Play " + artistName, style: .Default) { _, _ in
+
+                let collectionIds = self.albums.flatMap { String($0.collectionId) }
+                playerViewController.player.setQueueWithStoreIDs(collectionIds)
+                playerViewController.player.play()
+            }
+        }
+
+        guard let dig = previewDigAction(),
+            let play = previewPlayAction() else { return [] }
+
+        return [dig, play]
     }()
 
     override func viewDidLoad() {
@@ -291,12 +306,11 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
 
     @objc private func playAlbum(sender: UITapGestureRecognizer) {
 
-        guard let indexPath = collectionView.indexPathForSupplementaryView(UICollectionElementKindSectionHeader, atPoint: sender.locationInView(collectionView)),
-            playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController else { return }
+        guard let artist = artist else { return }
 
-        let collectionId = albums[indexPath.section].collectionId
-        playerViewController.player.setQueueWithStoreIDs([String(collectionId)])
-        playerViewController.player.play()
+        let similarViewController = UIStoryboard(name: "SimilarArtist", bundle: nil).instantiateInitialViewController() as! SimilarArtistViewController
+        similarViewController.artist = artist.name
+        self.navigationController?.pushViewController(similarViewController, animated: true)
     }
 }
 
