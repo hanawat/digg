@@ -50,6 +50,7 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
 
     var timer = NSTimer()
+    var isDisplayed = true
     let player = MPMusicPlayerController.systemMusicPlayer()
     let interactor = DismissInteractor()
     let playImage = UIImage(named: "play")?.imageWithRenderingMode(.AlwaysTemplate)
@@ -71,6 +72,7 @@ class PlayerViewController: UIViewController {
 
         updateProgress()
         playStateChanged()
+        playItemChanged()
     }
 
     override func didReceiveMemoryWarning() {
@@ -113,6 +115,18 @@ class PlayerViewController: UIViewController {
     }
 
     @objc private func playItemChanged() {
+
+        if player.nowPlayingItem == nil && isDisplayed {
+            UIView.animateWithDuration(0.2) {
+                self.isDisplayed = false
+                self.view.frame = CGRectOffset(self.view.frame, 0.0, self.view.bounds.height)
+            }
+        } else if player.nowPlayingItem != nil && !isDisplayed {
+            UIView.animateWithDuration(0.2) {
+                self.isDisplayed = true
+                self.view.frame = CGRectOffset(self.view.frame, 0.0, -self.view.bounds.height)
+            }
+        }
 
         progressView.progress = 0.0
         trackLabel.text = player.nowPlayingItem?.title
