@@ -131,7 +131,7 @@ class PlayerViewController: UIViewController {
         progressView.progress = 0.0
         trackLabel.text = player.nowPlayingItem?.title
         artistLabel.text = player.nowPlayingItem?.artist
-        artworkImageView.image = player.nowPlayingItem?.artwork?.imageWithSize(artworkImageView.bounds.size) ?? nil
+        artworkImageView.image = player.nowPlayingItem?.artwork?.imageWithSize(artworkImageView.bounds.size)
     }
 
     @objc private func updateProgress() {

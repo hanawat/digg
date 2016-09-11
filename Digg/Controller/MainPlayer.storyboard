@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Page View Controller-->
@@ -104,7 +103,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="TNe-UO-OwD">
-                                                        <rect key="frame" x="150" y="0.0" width="300" height="80"/>
+                                                        <rect key="frame" x="150" y="10" width="300" height="80"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iFJ-vt-3NS">
                                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
@@ -112,7 +111,8 @@
                                                                     <constraint firstAttribute="height" constant="50" id="CWw-gq-nVA"/>
                                                                     <constraint firstAttribute="width" constant="50" id="pUD-NX-cbB"/>
                                                                 </constraints>
-                                                                <state key="normal" image="rewind"/>
+                                                                <inset key="contentEdgeInsets" minX="25" minY="25" maxX="25" maxY="25"/>
+                                                                <state key="normal" image="previous-track"/>
                                                                 <variation key="default">
                                                                     <mask key="constraints">
                                                                         <exclude reference="CWw-gq-nVA"/>
@@ -129,15 +129,17 @@
                                                                     <constraint firstAttribute="height" constant="80" id="QQi-3t-e14"/>
                                                                     <constraint firstAttribute="width" constant="80" id="R4P-wW-o3q"/>
                                                                 </constraints>
-                                                                <state key="normal" image="play"/>
-                                                                <state key="selected" image="pause"/>
+                                                                <inset key="contentEdgeInsets" minX="20" minY="20" maxX="20" maxY="20"/>
+                                                                <state key="normal" image="play-arrow"/>
+                                                                <state key="selected" image="pause-button"/>
                                                                 <connections>
                                                                     <action selector="control:" destination="Qac-Up-4HQ" eventType="touchUpInside" id="DLX-G5-Lee"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDh-Oa-T6W">
                                                                 <rect key="frame" x="220" y="0.0" width="80" height="80"/>
-                                                                <state key="normal" image="fast-forward"/>
+                                                                <inset key="contentEdgeInsets" minX="25" minY="25" maxX="25" maxY="25"/>
+                                                                <state key="normal" image="play-next-button"/>
                                                                 <connections>
                                                                     <action selector="next:" destination="Qac-Up-4HQ" eventType="touchUpInside" id="LJW-Ws-mH3"/>
                                                                 </connections>
@@ -150,63 +152,36 @@
                                                             <constraint firstItem="bJD-Qz-Uqd" firstAttribute="height" secondItem="iFJ-vt-3NS" secondAttribute="height" id="dgB-hb-gG1"/>
                                                         </constraints>
                                                     </stackView>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oE2-fb-Fmb" customClass="MPVolumeView">
-                                                        <rect key="frame" x="180" y="80" width="232" height="20"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="20" id="wqD-u2-1Lp"/>
-                                                        </constraints>
-                                                    </view>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speaker-min" translatesAutoresizingMaskIntoConstraints="NO" id="zd7-Ka-foe">
-                                                        <rect key="frame" x="150" y="80" width="20" height="20"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="volume-down-indicator" translatesAutoresizingMaskIntoConstraints="NO" id="zd7-Ka-foe">
+                                                        <rect key="frame" x="150" y="100" width="20" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="6ig-PM-h61"/>
                                                             <constraint firstAttribute="width" constant="20" id="yvX-uA-6EX"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speaker-max" translatesAutoresizingMaskIntoConstraints="NO" id="eZJ-Z0-BbK">
-                                                        <rect key="frame" x="422" y="78" width="25" height="25"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="volume-up-indicator" translatesAutoresizingMaskIntoConstraints="NO" id="eZJ-Z0-BbK">
+                                                        <rect key="frame" x="430" y="100.5" width="20" height="20"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="DtR-Tg-y9I"/>
-                                                            <constraint firstAttribute="width" constant="25" id="X3X-5p-UBh"/>
+                                                            <constraint firstAttribute="height" constant="20" id="DtR-Tg-y9I"/>
+                                                            <constraint firstAttribute="width" constant="20" id="X3X-5p-UBh"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="kaw-5Z-IfW">
-                                                        <rect key="frame" x="200" y="120" width="200" height="25"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1AY-mR-YrG">
-                                                                <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" secondItem="1AY-mR-YrG" secondAttribute="height" multiplier="1:1" id="3kf-i6-hb6"/>
-                                                                </constraints>
-                                                                <state key="normal" image="shuffle"/>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j6F-VK-sSt">
-                                                                <rect key="frame" x="175" y="0.0" width="25" height="25"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" secondItem="j6F-VK-sSt" secondAttribute="height" multiplier="1:1" id="UCF-kz-Q3U"/>
-                                                                </constraints>
-                                                                <state key="normal" image="repeat"/>
-                                                            </button>
-                                                        </subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oE2-fb-Fmb" customClass="MPVolumeView">
+                                                        <rect key="frame" x="180" y="100" width="240" height="20"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="dIo-PM-JOz"/>
+                                                            <constraint firstAttribute="height" constant="20" id="wqD-u2-1Lp"/>
                                                         </constraints>
-                                                    </stackView>
+                                                    </view>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="eZJ-Z0-BbK" firstAttribute="trailing" secondItem="TNe-UO-OwD" secondAttribute="trailing" constant="-3" id="0cb-Do-0fx"/>
+                                                    <constraint firstItem="eZJ-Z0-BbK" firstAttribute="trailing" secondItem="TNe-UO-OwD" secondAttribute="trailing" id="0cb-Do-0fx"/>
                                                     <constraint firstItem="zd7-Ka-foe" firstAttribute="leading" secondItem="TNe-UO-OwD" secondAttribute="leading" id="1Lb-Pi-Reh"/>
-                                                    <constraint firstItem="TNe-UO-OwD" firstAttribute="leading" secondItem="kaw-5Z-IfW" secondAttribute="leading" constant="-50" id="3Ld-Y9-f61"/>
-                                                    <constraint firstAttribute="bottom" secondItem="kaw-5Z-IfW" secondAttribute="bottom" constant="20" id="6u0-KI-Ig2"/>
-                                                    <constraint firstAttribute="trailing" secondItem="kaw-5Z-IfW" secondAttribute="trailing" id="Bxx-zK-iUJ"/>
-                                                    <constraint firstItem="oE2-fb-Fmb" firstAttribute="top" secondItem="TNe-UO-OwD" secondAttribute="bottom" id="CF1-DJ-kZJ"/>
+                                                    <constraint firstItem="oE2-fb-Fmb" firstAttribute="top" secondItem="TNe-UO-OwD" secondAttribute="bottom" constant="10" id="CF1-DJ-kZJ"/>
                                                     <constraint firstItem="oE2-fb-Fmb" firstAttribute="width" secondItem="TNe-UO-OwD" secondAttribute="width" constant="-70" id="Fkw-CB-opK"/>
                                                     <constraint firstItem="eZJ-Z0-BbK" firstAttribute="centerY" secondItem="oE2-fb-Fmb" secondAttribute="centerY" id="VIY-lM-3Bm"/>
-                                                    <constraint firstItem="TNe-UO-OwD" firstAttribute="top" secondItem="puw-vK-Gzg" secondAttribute="top" id="Yl6-e5-OZV"/>
-                                                    <constraint firstItem="TNe-UO-OwD" firstAttribute="trailing" secondItem="kaw-5Z-IfW" secondAttribute="trailing" constant="50" id="bAA-PT-Khm"/>
+                                                    <constraint firstItem="TNe-UO-OwD" firstAttribute="top" secondItem="puw-vK-Gzg" secondAttribute="top" constant="10" id="Yl6-e5-OZV"/>
                                                     <constraint firstItem="oE2-fb-Fmb" firstAttribute="centerY" secondItem="zd7-Ka-foe" secondAttribute="centerY" id="mj1-pA-rKg"/>
-                                                    <constraint firstItem="kaw-5Z-IfW" firstAttribute="leading" secondItem="puw-vK-Gzg" secondAttribute="leading" id="oYG-oJ-UgK"/>
                                                     <constraint firstItem="oE2-fb-Fmb" firstAttribute="leading" secondItem="zd7-Ka-foe" secondAttribute="trailing" constant="10" id="qgE-Or-yK3"/>
                                                     <constraint firstItem="TNe-UO-OwD" firstAttribute="centerX" secondItem="puw-vK-Gzg" secondAttribute="centerX" id="sx1-2k-1qh"/>
                                                     <constraint firstItem="eZJ-Z0-BbK" firstAttribute="leading" secondItem="oE2-fb-Fmb" secondAttribute="trailing" constant="10" id="sy9-A2-5Xk"/>
@@ -214,8 +189,6 @@
                                                 <variation key="default">
                                                     <mask key="constraints">
                                                         <exclude reference="Fkw-CB-opK"/>
-                                                        <exclude reference="Bxx-zK-iUJ"/>
-                                                        <exclude reference="oYG-oJ-UgK"/>
                                                     </mask>
                                                 </variation>
                                             </view>
@@ -280,13 +253,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="fast-forward" width="43" height="43"/>
-        <image name="pause" width="33" height="33"/>
-        <image name="play" width="32" height="32"/>
-        <image name="repeat" width="39" height="39"/>
-        <image name="rewind" width="43" height="43"/>
-        <image name="shuffle" width="38" height="38"/>
-        <image name="speaker-max" width="45" height="45"/>
-        <image name="speaker-min" width="35" height="35"/>
+        <image name="pause-button" width="512" height="512"/>
+        <image name="play-arrow" width="512" height="512"/>
+        <image name="play-next-button" width="512" height="512"/>
+        <image name="previous-track" width="512" height="512"/>
+        <image name="volume-down-indicator" width="512" height="512"/>
+        <image name="volume-up-indicator" width="512" height="512"/>
     </resources>
 </document>

@@ -65,7 +65,7 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
         if let artist = artist {
 
             navigationItem.title = artist
-            startActivityAnimating(nil, type: .LineScalePulseOutRapid, color: nil, padding: nil)
+            startAnimating(nil, type: .LineScalePulseOutRapid, color: nil, padding: nil)
 
             let request = LastfmSimilarArtistRequest(artist: artist)
             Session.sendRequest(request) { result in
@@ -92,7 +92,7 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
                     self.view.addSubview(viewController.view)
                 }
 
-                self.stopActivityAnimating()
+                self.stopAnimating()
             }
         }
 

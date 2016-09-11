@@ -84,7 +84,10 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
         SKCloudServiceController.requestAuthorization { _ in }
         SKCloudServiceController().requestCapabilitiesWithCompletionHandler { _, _ in }
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addNewPlaylist))
+        if let image = UIImage(named: "record-player") {
+            let barButtonItem = UIBarButtonItem(image: image, style: .Plain, target: self, action: #selector(addNewPlaylist))
+            navigationItem.rightBarButtonItem = barButtonItem
+        }
 
         if let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController {
             collectionView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: playerViewController.view.frame.size.height, right: 0.0)
@@ -93,7 +96,7 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
         if let artist = artist {
 
             navigationItem.title = artist.name
-            startActivityAnimating(nil, type: .LineScalePulseOutRapid, color: nil, padding: nil)
+            startAnimating(nil, type: .LineScalePulseOutRapid, color: nil, padding: nil)
 
             let request = iTunesSearchRequest(term:artist.name , entity: .Song, attribute: .Artist, limit: 50)
             Session.sendRequest(request) { result in
@@ -128,7 +131,7 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
                     self.view.addSubview(viewController.view)
                 }
 
-                self.stopActivityAnimating()
+                self.stopAnimating()
             }
         }
     }

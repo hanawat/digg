@@ -32,7 +32,10 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
         guard let realm = try? Realm() else { return }
         playlist = realm.objects(Playlist).last ?? Playlist()
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Compose, target: self, action: #selector(createiTunesPlaylist))
+        if let image = UIImage(named: "itunes-logo") {
+            let barButtonItem = UIBarButtonItem(image: image, style: .Plain, target: self, action: #selector(createiTunesPlaylist))
+            navigationItem.rightBarButtonItem = barButtonItem
+        }
 
         if let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController {
             collectionView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: playerViewController.view.frame.size.height, right: 0.0)
@@ -46,7 +49,7 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
     @objc private func createiTunesPlaylist() {
 
         navigationItem.rightBarButtonItem?.enabled = false
-        startActivityAnimating(nil, type: .LineScaleParty, color: nil, padding: nil)
+        startAnimating(nil, type: .LineScaleParty, color: nil, padding: nil)
 
         let library = MPMediaLibrary.defaultMediaLibrary()
         let metadata = MPMediaPlaylistCreationMetadata(name: playlist.playlistName)
@@ -69,7 +72,7 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
                         if addedPlaylistItemsCount == trackIds.count {
 
                             dispatch_async(dispatch_get_main_queue()) {
-                                self.stopActivityAnimating()
+                                self.stopAnimating()
                                 self.navigationItem.rightBarButtonItem?.enabled = true
 
                                 guard let realm = try? Realm() else { return }
