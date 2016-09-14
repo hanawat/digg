@@ -6,7 +6,6 @@ target 'Digg' do
   pod 'Himotoki', '~> 2.0'
   pod 'RealmSwift', '~> 1.0.0'
   pod 'Kingfisher', '~> 2.4'
-  pod 'SFFocusViewLayout', '~> 3.0'
   pod 'NVActivityIndicatorView', '~> 2.7'
 end
 

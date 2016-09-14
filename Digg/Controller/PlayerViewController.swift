@@ -9,6 +9,7 @@
 import UIKit
 import MediaPlayer
 import RealmSwift
+import APIKit
 
 class DismissInteractor: UIPercentDrivenInteractiveTransition {
 
@@ -51,10 +52,26 @@ class PlayerViewController: UIViewController {
 
     var timer = NSTimer()
     var isDisplayed = true
+    var isPlayingPlaylist = true
     let player = MPMusicPlayerController.systemMusicPlayer()
     let interactor = DismissInteractor()
-    let playImage = UIImage(named: "play")?.imageWithRenderingMode(.AlwaysTemplate)
-    let pauseImage = UIImage(named: "pause")?.imageWithRenderingMode(.AlwaysTemplate)
+    let playImage = UIImage(named: "play")
+    let pauseImage = UIImage(named: "pause")
+
+    var album: iTunesMusic.Album? {
+        didSet {
+            guard let album = self.album else { return }
+            isPlayingPlaylist = false
+            artworkImageView.kf_setImageWithURL(album.artworkUrl)
+        }
+    }
+
+    var playlist: Playlist? {
+        didSet {
+            guard let _ = self.playlist else { return }
+            isPlayingPlaylist = true
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,10 +145,17 @@ class PlayerViewController: UIViewController {
             }
         }
 
+        // FIXME: Get ArtWork from local player
+        if isPlayingPlaylist, let playingTrack = playlist?.items
+            .filter({ $0.collectionName == player.nowPlayingItem?.albumTitle }).first,
+            let imageUrl = iTunesMusic.artworkUrl512(playingTrack.artworkUrl) {
+
+            artworkImageView.kf_setImageWithURL(imageUrl)
+        }
+
         progressView.progress = 0.0
         trackLabel.text = player.nowPlayingItem?.title
         artistLabel.text = player.nowPlayingItem?.artist
-        artworkImageView.image = player.nowPlayingItem?.artwork?.imageWithSize(artworkImageView.bounds.size)
     }
 
     @objc private func updateProgress() {
@@ -146,6 +170,9 @@ class PlayerViewController: UIViewController {
 
         guard let mainViewController = UIStoryboard(name: "MainPlayer", bundle: nil).instantiateViewControllerWithIdentifier(MainPlayerViewController.identifier) as? MainPlayerViewController else { return }
 
+        mainViewController.album = album
+        mainViewController.playlist = playlist
+        mainViewController.isPlayingPlaylist = isPlayingPlaylist
         mainViewController.transitioningDelegate = self
         mainViewController.interactor = interactor
         presentViewController(mainViewController, animated: true, completion: nil)

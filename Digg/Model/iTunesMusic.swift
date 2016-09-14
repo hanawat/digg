@@ -21,6 +21,8 @@ class Playlist: Object {
 
 class PlaylistItem: Object {
 
+    dynamic var collectionId = 0
+    dynamic var collectionName = ""
     dynamic var trackId = 0
     dynamic var trackName = ""
     dynamic var trackTimeMillis = 0

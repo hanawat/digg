@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -20,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="Jdo-Bq-yFh">
-                                <rect key="frame" x="70" y="70" width="460" height="460"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Jdo-Bq-yFh" secondAttribute="height" multiplier="1:1" id="Tii-6Z-uRC"/>
                                 </constraints>
@@ -28,8 +27,8 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="Jdo-Bq-yFh" secondAttribute="trailing" constant="50" id="9TP-Kh-uAB"/>
-                            <constraint firstItem="Jdo-Bq-yFh" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="50" id="hHx-nr-3t0"/>
+                            <constraint firstItem="Jdo-Bq-yFh" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="PNH-kD-n6j"/>
+                            <constraint firstAttribute="trailing" secondItem="Jdo-Bq-yFh" secondAttribute="trailing" id="R28-t9-63e"/>
                             <constraint firstItem="Jdo-Bq-yFh" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="qUv-kq-87C"/>
                         </constraints>
                     </view>
@@ -40,6 +39,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon" width="1024" height="1024"/>
+        <image name="icon" width="640" height="640"/>
     </resources>
 </document>

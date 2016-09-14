@@ -22,12 +22,10 @@ class MainPlayerViewController: UIViewController {
     let player = MPMusicPlayerController.systemMusicPlayer()
     var timer = NSTimer()
     var interactor: DismissInteractor?
-    var collection: MPMediaItemCollection? {
-        didSet {
-            collectionView.reloadData()
-            collectionView.layoutIfNeeded()
-        }
-    }
+    var isPlayingPlaylist = true
+
+    var album: iTunesMusic.Album?
+    var playlist: Playlist?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,12 +37,11 @@ class MainPlayerViewController: UIViewController {
 
         updateProgress()
         playItemChanged()
+        playStateChanged()
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-
-        playStateChanged()
     }
 
     override func didReceiveMemoryWarning() {
@@ -135,6 +132,7 @@ class MainPlayerViewController: UIViewController {
 
         guard let cell = collectionView.visibleCells().first as? PlaylistCollectionViewCell else { return }
 
+        // FIXME: Progress View
         if let durationTime = player.nowPlayingItem?.playbackDuration {
             cell.progressView.setProgress(Float(player.currentPlaybackTime / durationTime), animated: false)
         }
@@ -145,13 +143,21 @@ extension MainPlayerViewController: UICollectionViewDataSource {
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        return collection?.items.count ?? 1
+        return isPlayingPlaylist ? playlist?.items.count ?? 1 : album?.tracks.count ?? 1
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PlaylistCollectionViewCell.identifier, forIndexPath: indexPath) as! PlaylistCollectionViewCell
-        cell.artworkImageView.image = collection?.items[indexPath.row].artwork?.imageWithSize(cell.bounds.size) ?? player.nowPlayingItem?.artwork?.imageWithSize(cell.bounds.size)
+
+        if isPlayingPlaylist, let imageUrl = iTunesMusic.artworkUrl512(playlist?.items[indexPath.row].artworkUrl) {
+
+            cell.artworkImageView.kf_setImageWithURL(imageUrl)
+
+        } else if let imageUrl = album?.artworkUrl {
+
+            cell.artworkImageView.kf_setImageWithURL(imageUrl)
+        }
 
         return cell
     }

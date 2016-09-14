@@ -49,6 +49,10 @@ class ArtistViewController: UIViewController {
 
     @IBAction func showSearchBar(sender: UIBarButtonItem) {
 
+        if let frame = navigationController?.navigationBar.bounds {
+            searchBar.frame = frame
+        }
+
         searchBar.delegate = self
         navigationItem.titleView = searchBar
         navigationItem.titleView?.alpha = 0.0
@@ -152,11 +156,14 @@ extension ArtistViewController: UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ArtistCollectionViewCell.identifier, forIndexPath: indexPath) as! ArtistCollectionViewCell
-        cell.artistLabel.text = artists[indexPath.row]
+        cell.artistLabel.text = artists[indexPath.row] ?? "No Name"
+
         let artworks = songs.filter { $0.albumArtist == artists[indexPath.row] }.flatMap { $0.artwork }
-        if let artwork = artworks.first { cell.artworkImageView.image = artwork.imageWithSize(cell.frame.size) }
+        cell.artworkImageView.image = artworks.first?.imageWithSize(cell.frame.size)
+
         let genre = songs.filter { $0.albumArtist == artists[indexPath.row] }.flatMap { $0.genre }
-        if let genre = genre.first { cell.genreLabel.text = genre }
+        cell.genreLabel.text = genre.first ?? "No Genre"
+
         return cell
     }
 
@@ -174,6 +181,16 @@ extension ArtistViewController: UIScrollViewDelegate {
             navigationController?.hiddenNavigationBar(true)
         } else {
             navigationController?.showNavigationBar(true)
+        }
+    }
+
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+
+        guard let cells = collectionView.visibleCells() as? [ArtistCollectionViewCell] else { return }
+
+        cells.forEach { cell in
+            let y = ((collectionView.contentOffset.y - cell.frame.origin.y) / cell.frame.height) * 25.0
+            cell.offset(CGPointMake(0.0, y))
         }
     }
 }

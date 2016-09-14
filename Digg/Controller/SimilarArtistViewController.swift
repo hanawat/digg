@@ -72,6 +72,7 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
                 switch result {
                 case .Success(let data):
                     self.similarArtists =  data.similarartists
+                    self.stopAnimating()
 
                 case .Failure(let error):
 
@@ -89,10 +90,9 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
                         break
                     }
 
+                    self.stopAnimating()
                     self.view.addSubview(viewController.view)
                 }
-
-                self.stopAnimating()
             }
         }
 

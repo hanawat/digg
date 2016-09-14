@@ -87,7 +87,12 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xRB-HJ-E5H">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <collectionViewLayout key="collectionViewLayout" id="ubW-FU-HY8" customClass="SFFocusViewLayout" customModule="SFFocusViewLayout"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="b4a-qL-NKd">
+                                    <size key="itemSize" width="600" height="180"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ArtistCollectionViewCell" id="x4N-cP-Hnv" customClass="ArtistCollectionViewCell" customModule="Digg" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44" width="600" height="180"/>
@@ -99,7 +104,7 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fxz-eh-31B">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="180"/>
                                                 </imageView>
-                                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byf-O1-tJP">
+                                                <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byf-O1-tJP">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="180"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="edA-Rc-dms">
                                                         <rect key="frame" x="0.0" y="0.0" width="600" height="180"/>
@@ -139,7 +144,6 @@
                                             <constraint firstItem="pHp-Og-57i" firstAttribute="leading" secondItem="x4N-cP-Hnv" secondAttribute="leading" id="vro-iP-h3W"/>
                                             <constraint firstItem="4x6-dS-QNr" firstAttribute="centerX" secondItem="x4N-cP-Hnv" secondAttribute="centerX" id="yP0-XS-JY3"/>
                                         </constraints>
-                                        <size key="customSize" width="600" height="180"/>
                                         <connections>
                                             <outlet property="artistLabel" destination="pHp-Og-57i" id="7dY-T1-UJg"/>
                                             <outlet property="artworkImageView" destination="fxz-eh-31B" id="dtN-KZ-GnQ"/>

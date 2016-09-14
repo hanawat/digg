@@ -111,6 +111,7 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
                     }
 
                     self.albums = iTunesMusic.albums(data.musics)
+                    self.stopAnimating()
 
                 case .Failure(let error):
 
@@ -128,10 +129,9 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
                         break
                     }
 
+                    self.stopAnimating()
                     self.view.addSubview(viewController.view)
                 }
-
-                self.stopAnimating()
             }
         }
     }
@@ -174,6 +174,7 @@ extension ArtistDetailViewController: UICollectionViewDelegate {
 
         let selectedTrackIds = trackIds.enumerate().filter { $0.index >= indexPath.row }.map { $0.element } + trackIds.enumerate().filter { $0.index < indexPath.row }.map { $0.element }
 
+        playerViewController.album = albums[indexPath.section]
         playerViewController.player.setQueueWithStoreIDs(selectedTrackIds)
         playerViewController.player.prepareToPlay()
         playerViewController.player.play()
@@ -290,6 +291,8 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         let item = PlaylistItem()
         let track = albums[indexPath.section].tracks[indexPath.row]
 
+        item.collectionId = track.collectionId ?? 0
+        item.collectionName = track.collectionName ?? ""
         item.trackId = track.trackId ?? 0
         item.trackName = track.trackName ?? ""
         item.artistId = track.artistId ?? 0
