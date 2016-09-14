@@ -11,12 +11,21 @@ import MediaPlayer
 
 class ArtistViewController: UIViewController {
 
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer!
     @IBOutlet weak var collectionView: UICollectionView!
 
     var artists = ["The Beatles"]
     var songs: [MPMediaItem] = []
+    var searchBar: UISearchBar = {
+
+        let searchBar = UISearchBar()
+        searchBar.showsCancelButton = true
+        searchBar.searchBarStyle = .Minimal
+        searchBar.barStyle = .BlackTranslucent
+        searchBar.placeholder = "Artist Name"
+
+        return searchBar
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +38,9 @@ class ArtistViewController: UIViewController {
         if self.traitCollection.forceTouchCapability == .Available {
             registerForPreviewingWithDelegate(self, sourceView: view)
         }
+
+        let titleImageView = UIImageView(image: UIImage(named: "title")!)
+        navigationItem.titleView = titleImageView
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,15 +49,40 @@ class ArtistViewController: UIViewController {
 
     @IBAction func showSearchBar(sender: UIBarButtonItem) {
 
-        UIView.animateWithDuration(0.2) {
-            self.searchBar.alpha = self.searchBar.alpha > 0.0 ? 0.0 : 1.0
+        searchBar.delegate = self
+        navigationItem.titleView = searchBar
+        navigationItem.titleView?.alpha = 0.0
+
+        UIView.animateWithDuration(0.5, animations: {
+            self.navigationItem.rightBarButtonItem = nil
+            self.navigationItem.titleView?.alpha = 1.0
+        }) { _ in
+            self.navigationItem.titleView?.becomeFirstResponder()
         }
     }
 
     @IBAction func hiddenKeybord(sender: UITapGestureRecognizer) {
+        hiddenSearchBar()
+    }
 
-        view.endEditing(true)
+    private func hiddenSearchBar() {
+
         tapGestureRecognizer.enabled = false
+
+        UIView.animateWithDuration(0.5, animations: {
+            self.navigationItem.titleView?.alpha = 0.0
+        }) { _ in
+
+            self.navigationItem.titleView?.endEditing(true)
+            let barButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(self.showSearchBar))
+            self.navigationItem.rightBarButtonItem = barButton
+
+            let titleImageView = UIImageView(image: UIImage(named: "title")!)
+            self.navigationItem.titleView = titleImageView
+            UIView.animateWithDuration(0.5) {
+                self.navigationItem.titleView?.alpha = 1.0
+            }
+        }
     }
 }
 
@@ -72,7 +109,6 @@ extension ArtistViewController: UIViewControllerPreviewingDelegate {
 extension ArtistViewController: UISearchBarDelegate {
 
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-
         tapGestureRecognizer.enabled = true
     }
 
@@ -82,6 +118,10 @@ extension ArtistViewController: UISearchBarDelegate {
         let viewController = UIStoryboard(name: "SimilarArtist", bundle: nil).instantiateInitialViewController() as! SimilarArtistViewController
         viewController.artist = searchBar.text
         navigationController?.pushViewController(viewController, animated: true)
+    }
+
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        hiddenSearchBar()
     }
 }
 

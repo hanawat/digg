@@ -153,23 +153,13 @@
                                     <outlet property="delegate" destination="amy-OG-eO1" id="T5y-uC-jzf"/>
                                 </connections>
                             </collectionView>
-                            <searchBar alpha="0.0" contentMode="redraw" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="AM5-HP-Dyc">
-                                <rect key="frame" x="0.0" y="44" width="600" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="amy-OG-eO1" id="tPo-rE-8O3"/>
-                                </connections>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="xRB-HJ-E5H" secondAttribute="bottom" id="Cdo-5b-0ay"/>
-                            <constraint firstItem="AM5-HP-Dyc" firstAttribute="top" secondItem="9Mv-MJ-9FM" secondAttribute="bottom" id="LFc-x4-5a0"/>
                             <constraint firstAttribute="trailing" secondItem="xRB-HJ-E5H" secondAttribute="trailing" id="PPG-ep-Mak"/>
-                            <constraint firstItem="AM5-HP-Dyc" firstAttribute="leading" secondItem="Pce-xH-5Hv" secondAttribute="leading" id="YBE-Mn-RMH"/>
                             <constraint firstItem="xRB-HJ-E5H" firstAttribute="leading" secondItem="Pce-xH-5Hv" secondAttribute="leading" id="a4a-4e-TpY"/>
-                            <constraint firstAttribute="trailing" secondItem="AM5-HP-Dyc" secondAttribute="trailing" id="gKb-Yj-qad"/>
                             <constraint firstItem="xRB-HJ-E5H" firstAttribute="top" secondItem="Pce-xH-5Hv" secondAttribute="top" id="iEb-1e-kon"/>
                         </constraints>
                         <connections>
@@ -177,16 +167,14 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="Md9-NY-YP5">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="Tmu-3y-uQY">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="aWu-Fd-HfF">
                             <connections>
-                                <action selector="showSearchBar:" destination="amy-OG-eO1" id="fTG-yt-epk"/>
+                                <action selector="showSearchBar:" destination="amy-OG-eO1" id="u74-Cw-ZzB"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="xRB-HJ-E5H" id="cOM-1d-gMI"/>
-                        <outlet property="searchBar" destination="AM5-HP-Dyc" id="vO4-am-Ksc"/>
                         <outlet property="tapGestureRecognizer" destination="yUS-3T-UYj" id="jyG-RE-W7e"/>
                     </connections>
                 </viewController>
