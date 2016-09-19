@@ -150,6 +150,8 @@ extension MainPlayerViewController: UICollectionViewDataSource {
 
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PlaylistCollectionViewCell.identifier, forIndexPath: indexPath) as! PlaylistCollectionViewCell
 
+        cell.progressView.setProgress(0.0, animated: false)
+
         if isPlayingPlaylist, let imageUrl = iTunesMusic.artworkUrl512(playlist?.items[indexPath.row].artworkUrl) {
 
             cell.artworkImageView.kf_setImageWithURL(imageUrl)
@@ -167,7 +169,7 @@ extension MainPlayerViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
 
-        let size = UIScreen.mainScreen().bounds.size.width - 20.0
+        let size = UIScreen.mainScreen().bounds.size.width
         return CGSize(width: size, height: size)
     }
 }

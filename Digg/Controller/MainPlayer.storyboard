@@ -51,15 +51,15 @@
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Hy3-fJ-IcV">
                                             <rect key="frame" x="0.0" y="112" width="600" height="323"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VLT-Du-BGd">
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="VLT-Du-BGd">
                                                 <size key="itemSize" width="300" height="300"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                <inset key="sectionInset" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlaylistCollectionViewCell" id="7GJ-2a-1N0" customClass="PlaylistCollectionViewCell" customModule="Digg" customModuleProvider="target">
-                                                    <rect key="frame" x="10" y="11.5" width="300" height="300"/>
+                                                    <rect key="frame" x="0.0" y="11.5" width="300" height="300"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
@@ -69,7 +69,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                                             </imageView>
                                                             <progressView opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MMj-lB-YuD">
-                                                                <rect key="frame" x="0.0" y="296" width="300" height="2"/>
+                                                                <rect key="frame" x="0.0" y="298" width="300" height="2"/>
                                                                 <color key="progressTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <color key="trackTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             </progressView>
@@ -81,7 +81,7 @@
                                                         <constraint firstItem="VjV-J2-w4H" firstAttribute="top" secondItem="7GJ-2a-1N0" secondAttribute="top" id="0rV-CX-WRB"/>
                                                         <constraint firstAttribute="bottom" secondItem="VjV-J2-w4H" secondAttribute="bottom" id="GW0-FD-bYe"/>
                                                         <constraint firstItem="MMj-lB-YuD" firstAttribute="leading" secondItem="7GJ-2a-1N0" secondAttribute="leading" id="Tj1-ww-Xuu"/>
-                                                        <constraint firstAttribute="bottom" secondItem="MMj-lB-YuD" secondAttribute="bottom" constant="2" id="fQ6-Ld-4QW"/>
+                                                        <constraint firstAttribute="bottom" secondItem="MMj-lB-YuD" secondAttribute="bottom" id="fQ6-Ld-4QW"/>
                                                         <constraint firstAttribute="trailing" secondItem="VjV-J2-w4H" secondAttribute="trailing" id="rQ3-VY-EK7"/>
                                                         <constraint firstItem="VjV-J2-w4H" firstAttribute="leading" secondItem="7GJ-2a-1N0" secondAttribute="leading" id="wN1-2m-jaj"/>
                                                     </constraints>
