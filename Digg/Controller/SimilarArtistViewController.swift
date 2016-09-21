@@ -25,7 +25,7 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
 
     lazy var previewActions: [UIPreviewActionItem] = {
 
-        func previewDiggAction(title: String = "Play back ", style: UIPreviewActionStyle = .Default) -> UIPreviewAction? {
+        func previewDiggAction(title: String = "Play diggin' ", style: UIPreviewActionStyle = .Default) -> UIPreviewAction? {
 
             guard let artistName = self.artist else { return nil }
 
@@ -64,7 +64,7 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
 
         if let artist = artist {
 
-            navigationItem.title = artist
+            navigationItem.title = "Dig in " + artist
             startAnimating(nil, type: .LineScalePulseOutRapid, color: nil, padding: nil)
 
             let request = LastfmSimilarArtistRequest(artist: artist)

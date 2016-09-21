@@ -13,8 +13,8 @@ import RealmSwift
 class Playlist: Object {
 
     dynamic var playlistId: String?
-    dynamic var playlistName = "Digg Playlist"
-    dynamic var playlistDiscription = "This is a Digg playlist."
+    dynamic var playlistName = "Diggin' Playlist"
+    dynamic var playlistDiscription = "This is a Diggin' playlist."
 
     let items = List<PlaylistItem>()
 }

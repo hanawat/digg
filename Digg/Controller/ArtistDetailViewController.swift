@@ -53,7 +53,7 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
 
             guard let artistName = self.artist?.name else { return nil }
 
-            return UIPreviewAction(title: "Dig " + artistName, style: .Default) { _, _ in
+            return UIPreviewAction(title: "Dig in " + artistName, style: .Default) { _, _ in
 
                 self.delegate?.showMoreSimilarArtist(artistName)
             }
