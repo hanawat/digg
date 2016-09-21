@@ -174,6 +174,7 @@ extension ArtistDetailViewController: UICollectionViewDelegate {
 
         let selectedTrackIds = trackIds.enumerate().filter { $0.index >= indexPath.row }.map { $0.element } + trackIds.enumerate().filter { $0.index < indexPath.row }.map { $0.element }
 
+        playerViewController.playlist = nil
         playerViewController.album = albums[indexPath.section]
         playerViewController.player.setQueueWithStoreIDs(selectedTrackIds)
         playerViewController.player.prepareToPlay()

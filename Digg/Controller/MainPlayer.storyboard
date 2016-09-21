@@ -32,15 +32,15 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="p16-c3-706">
-                                            <rect key="frame" x="10" y="50" width="580" height="52"/>
+                                            <rect key="frame" x="10" y="40" width="580" height="52"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95m-9W-Nyo">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95m-9W-Nyo">
                                                     <rect key="frame" x="0.0" y="0.0" width="580" height="24"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ehx-BQ-Gg8">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ehx-BQ-Gg8">
                                                     <rect key="frame" x="0.0" y="34" width="580" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -202,13 +202,13 @@
                                     </subviews>
                                     <gestureRecognizers/>
                                     <constraints>
-                                        <constraint firstItem="p16-c3-706" firstAttribute="top" secondItem="bDK-x8-6AI" secondAttribute="top" constant="50" id="2vt-dh-6wF"/>
+                                        <constraint firstItem="p16-c3-706" firstAttribute="top" secondItem="bDK-x8-6AI" secondAttribute="top" constant="40" id="2vt-dh-6wF"/>
                                         <constraint firstItem="p16-c3-706" firstAttribute="leading" secondItem="bDK-x8-6AI" secondAttribute="leading" constant="10" id="D1J-61-cGE"/>
                                         <constraint firstItem="tgP-ge-ZeZ" firstAttribute="leading" secondItem="bDK-x8-6AI" secondAttribute="leading" id="DjY-xH-ubE"/>
                                         <constraint firstItem="tgP-ge-ZeZ" firstAttribute="top" secondItem="Hy3-fJ-IcV" secondAttribute="bottom" id="Drj-Gr-Aew"/>
                                         <constraint firstAttribute="bottom" secondItem="tgP-ge-ZeZ" secondAttribute="bottom" id="U3J-R4-zxe"/>
                                         <constraint firstAttribute="trailing" secondItem="p16-c3-706" secondAttribute="trailing" constant="10" id="YYG-pI-T5p"/>
-                                        <constraint firstItem="Hy3-fJ-IcV" firstAttribute="top" secondItem="p16-c3-706" secondAttribute="bottom" constant="10" id="llY-Yi-ZQO"/>
+                                        <constraint firstItem="Hy3-fJ-IcV" firstAttribute="top" secondItem="p16-c3-706" secondAttribute="bottom" constant="20" id="llY-Yi-ZQO"/>
                                         <constraint firstAttribute="trailing" secondItem="Hy3-fJ-IcV" secondAttribute="trailing" id="mIT-Gg-4Zd"/>
                                         <constraint firstItem="Hy3-fJ-IcV" firstAttribute="leading" secondItem="bDK-x8-6AI" secondAttribute="leading" id="oza-kw-jcw"/>
                                         <constraint firstAttribute="trailing" secondItem="tgP-ge-ZeZ" secondAttribute="trailing" id="s8N-ER-ttd"/>

@@ -23,6 +23,7 @@ class MainPlayerViewController: UIViewController {
     var timer = NSTimer()
     var interactor: DismissInteractor?
     var isPlayingPlaylist = true
+    var currentPage = 0
 
     var album: iTunesMusic.Album?
     var playlist: Playlist?
@@ -42,6 +43,8 @@ class MainPlayerViewController: UIViewController {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+
+        changeArtwork()
     }
 
     override func didReceiveMemoryWarning() {
@@ -122,10 +125,10 @@ class MainPlayerViewController: UIViewController {
 
     @objc private func playItemChanged() {
 
-        trackLabel.text = player.nowPlayingItem?.title
-        artistLabel.text = player.nowPlayingItem?.artist
+        trackLabel.text = player.nowPlayingItem?.title ?? trackLabel.text
+        artistLabel.text = player.nowPlayingItem?.artist ?? artistLabel.text
 
-        collectionView.reloadData()
+        changeArtwork()
     }
 
     @objc private func updateProgress() {
@@ -135,6 +138,27 @@ class MainPlayerViewController: UIViewController {
         // FIXME: Progress View
         if let durationTime = player.nowPlayingItem?.playbackDuration {
             cell.progressView.setProgress(Float(player.currentPlaybackTime / durationTime), animated: false)
+        }
+    }
+
+    private func changeArtwork() {
+
+        if player.indexOfNowPlayingItem == NSNotFound && player.playbackState != .Playing {
+            dismissViewControllerAnimated(true, completion: nil)
+
+        } else if album != nil || playlist != nil {
+
+            let indexOfAlbum = album?.tracks.indexOf({ $0.trackName == player.nowPlayingItem?.title && $0.collectionName == player.nowPlayingItem?.albumTitle })
+            let indexOfPlaylist = playlist?.items.indexOf({ $0.trackName == player.nowPlayingItem?.title && $0.collectionName == player.nowPlayingItem?.albumTitle })
+
+            if let indexOfNowPlayingItem = indexOfAlbum ?? indexOfPlaylist {
+
+                let indexPath = NSIndexPath(forItem: indexOfNowPlayingItem, inSection: 0)
+                collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredHorizontally, animated: true)
+                collectionView.reloadData()
+
+                currentPage = indexOfNowPlayingItem
+            }
         }
     }
 }
@@ -171,5 +195,34 @@ extension MainPlayerViewController: UICollectionViewDelegateFlowLayout {
 
         let size = UIScreen.mainScreen().bounds.size.width
         return CGSize(width: size, height: size)
+    }
+}
+
+extension MainPlayerViewController: UIScrollViewDelegate {
+
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+
+        let currentPage = Int(ceil(collectionView.contentOffset.x / collectionView.bounds.size.width))
+        if currentPage == self.currentPage { return }
+
+        var trackIds: [String] = []
+        if let album = self.album {
+
+            trackIds = album.tracks.flatMap { item -> String? in
+                guard let trackId = item.trackId else { return nil }
+                return String(trackId)
+            }
+        } else if let playlist = self.playlist {
+
+            trackIds = playlist.items.flatMap { String($0.trackId) }
+        }
+
+        let selectedTrackIds = trackIds.enumerate().filter { $0.index >= currentPage }.map { $0.element } + trackIds.enumerate().filter { $0.index < currentPage }.map { $0.element }
+
+        player.setQueueWithStoreIDs(selectedTrackIds)
+        player.prepareToPlay()
+        player.play()
+
+        self.currentPage = currentPage
     }
 }

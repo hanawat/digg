@@ -80,8 +80,10 @@ class PlayerViewController: UIViewController {
         notification.addObserver(self, selector: #selector(playStateChanged), name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: player)
         notification.addObserver(self, selector: #selector(playItemChanged), name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: player)
         player.beginGeneratingPlaybackNotifications()
+        player.repeatMode = .All
 
         controlButton.contentEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        if player.nowPlayingItem == nil { view.hidden = true }
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -133,11 +135,13 @@ class PlayerViewController: UIViewController {
 
     @objc private func playItemChanged() {
 
-        if player.nowPlayingItem == nil && isDisplayed {
-            UIView.animateWithDuration(0.2) {
+        if player.nowPlayingItem == nil && player.playbackState != .Playing && isDisplayed {
+            UIView.animateWithDuration(0.2, animations: {
                 self.isDisplayed = false
                 self.view.frame = CGRectOffset(self.view.frame, 0.0, self.view.bounds.height)
-            }
+            }, completion: { _ in
+                if self.view.hidden { self.view.hidden = false }
+            })
         } else if player.nowPlayingItem != nil && !isDisplayed {
             UIView.animateWithDuration(0.2) {
                 self.isDisplayed = true
@@ -154,8 +158,8 @@ class PlayerViewController: UIViewController {
         }
 
         progressView.progress = 0.0
-        trackLabel.text = player.nowPlayingItem?.title
-        artistLabel.text = player.nowPlayingItem?.artist
+        trackLabel.text = player.nowPlayingItem?.title ?? trackLabel.text
+        artistLabel.text = player.nowPlayingItem?.artist ?? artistLabel.text
     }
 
     @objc private func updateProgress() {

@@ -140,6 +140,7 @@ extension CreatePlaylistViewController: UICollectionViewDelegate {
         let trackIds = playlist.items.map { String($0.trackId) }
         let selectedTrackIds = trackIds.enumerate().filter { $0.index >= indexPath.row }.map { $0.element } + trackIds.enumerate().filter { $0.index < indexPath.row }.map { $0.element }
 
+        playerViewController.album = nil
         playerViewController.playlist = playlist
         playerViewController.player.setQueueWithStoreIDs(selectedTrackIds)
         playerViewController.player.prepareToPlay()
