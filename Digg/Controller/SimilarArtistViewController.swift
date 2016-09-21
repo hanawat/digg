@@ -71,13 +71,23 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
             Session.sendRequest(request) { result in
                 switch result {
                 case .Success(let data):
-                    self.similarArtists =  data.similarartists
+
+                    if data.similarartists.isEmpty {
+                        guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController() as? MessageViewController else { fatalError() }
+
+                        viewController.message = "The artist you supplied could not be found"
+                        self.view.addSubview(viewController.view)
+                    } else {
+
+                        self.similarArtists =  data.similarartists
+                    }
+
                     self.stopAnimating()
 
                 case .Failure(let error):
 
                     print(error)
-                    guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController() as? MessageViewController else { return }
+                    guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController() as? MessageViewController else { fatalError() }
 
                     switch error {
                     case .InvalidResponseStructure(let object):

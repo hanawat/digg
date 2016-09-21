@@ -104,13 +104,15 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
                 case .Success(let data):
 
                     if data.musics.isEmpty {
-                        guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController() as? MessageViewController else { return }
+                        guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController() as? MessageViewController else { fatalError() }
 
                         viewController.message = "The artist you supplied could not be found"
-                        self.view.addSubview(viewController.view); return
+                        self.view.addSubview(viewController.view)
+                    } else {
+
+                        self.albums = iTunesMusic.albums(data.musics)
                     }
 
-                    self.albums = iTunesMusic.albums(data.musics)
                     self.stopAnimating()
 
                 case .Failure(let error):

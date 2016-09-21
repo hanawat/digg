@@ -30,9 +30,15 @@ class ArtistViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let songs = MPMediaQuery.artistsQuery().items {
+        if let songs = MPMediaQuery.artistsQuery().items where !songs.isEmpty {
+
             artists = NSOrderedSet(array: songs.flatMap { $0.albumArtist }).array as! [String]
             self.songs = songs
+        } else {
+
+            guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController() as? MessageViewController else { fatalError() }
+            viewController.message = "Your Music application doesn't contain any tracks."
+            view.addSubview(viewController.view)
         }
 
         if self.traitCollection.forceTouchCapability == .Available {
