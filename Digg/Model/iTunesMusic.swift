@@ -12,7 +12,7 @@ import RealmSwift
 
 class Playlist: Object {
 
-    dynamic var playlistId: String?
+    dynamic var playlistId = ""
     dynamic var playlistName = "Diggin' Playlist"
     dynamic var playlistDiscription = "This is a Diggin' playlist."
 
@@ -28,14 +28,14 @@ class PlaylistItem: Object {
     dynamic var trackTimeMillis = 0
     dynamic var artistId = 0
     dynamic var artistName = ""
-    dynamic var artworkUrl: String?
+    dynamic var artworkUrl = ""
 }
 
 struct iTunesMusic: Decodable {
 
     let musics: [Music]
 
-    static func albums(musics: [Music]) -> [Album] {
+    static func albums(_ musics: [Music]) -> [Album] {
 
         let collectionIds = NSOrderedSet(array: musics.flatMap { $0.collectionId }).array as! [Int]
 
@@ -47,18 +47,18 @@ struct iTunesMusic: Decodable {
             }
 
             guard let artistName = tracks.first?.artistName,
-                collectionName = tracks.first?.collectionName,
-                artworkUrl100 = tracks.first?.artworkUrl100,
-                artworkUrl = artworkUrl512(artworkUrl100) else { return nil }
+                let collectionName = tracks.first?.collectionName,
+                let artworkUrl100 = tracks.first?.artworkUrl100,
+                let artworkUrl = artworkUrl512(artworkUrl100) else { return nil }
 
             return Album(artistName: artistName,collectionId: collectionId, collectionName: collectionName, artworkUrl: artworkUrl, tracks: tracks)
         }
     }
 
-    static func artworkUrl512(artworkUrl100: String?) -> NSURL? {
+    static func artworkUrl512(_ artworkUrl100: String?) -> URL? {
 
         guard let artworkUrl100 = artworkUrl100,
-            artworkUrl512 = NSURL(string: artworkUrl100.stringByReplacingOccurrencesOfString("100x100", withString: "512x512")) else { return nil }
+            let artworkUrl512 = URL(string: artworkUrl100.replacingOccurrences(of: "100x100", with: "512x512")) else { return nil }
 
         return artworkUrl512
     }
@@ -67,11 +67,11 @@ struct iTunesMusic: Decodable {
         let artistName: String
         let collectionId: Int
         let collectionName: String
-        let artworkUrl: NSURL
+        let artworkUrl: URL
         let tracks: [Music]
     }
 
-    static func decode(e: Extractor) throws -> iTunesMusic {
+    static func decode(_ e: Extractor) throws -> iTunesMusic {
 
         return try iTunesMusic(musics: e.array("results"))
     }
@@ -110,7 +110,7 @@ struct iTunesMusic: Decodable {
         let contentAdvisoryRating: String?
         let isStreamable: Bool?
 
-        static func decode(e: Extractor) throws -> Music {
+        static func decode(_ e: Extractor) throws -> Music {
 
             return try Music(
                 wrapperType: e.valueOptional("wrapperType"),

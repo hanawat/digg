@@ -2,11 +2,11 @@ platform :ios, '9.0'
 use_frameworks!
  
 target 'Digg' do
-  pod 'APIKit', '~> 1.3.0'
-  pod 'Himotoki', '~> 2.0'
-  pod 'RealmSwift', '~> 1.0.0'
-  pod 'Kingfisher', '~> 2.4'
-  pod 'NVActivityIndicatorView', '~> 2.7'
+  pod 'APIKit', :git => 'https://github.com/ishkawa/APIKit.git', :submodules => true
+  pod 'Himotoki', '~> 3.0'
+  pod 'Kingfisher', '~> 3.0'
+  pod 'RealmSwift', '~> 1.1.0'
+  pod 'NVActivityIndicatorView'
 end
 
 plugin 'cocoapods-keys', {
@@ -15,4 +15,12 @@ plugin 'cocoapods-keys', {
     "LastfmAPIKey"
   ]
 }
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['SWIFT_VERSION'] = '3.0'
+    end
+  end
+end
 

@@ -8,6 +8,7 @@
 
 import UIKit
 import APIKit
+import Himotoki
 import Kingfisher
 import MediaPlayer
 import NVActivityIndicatorView
@@ -25,16 +26,16 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
 
     lazy var previewActions: [UIPreviewActionItem] = {
 
-        func previewDiggAction(title: String = "Play diggin' ", style: UIPreviewActionStyle = .Default) -> UIPreviewAction? {
+        func previewDiggAction(_ title: String = "Play diggin' ", style: UIPreviewActionStyle = .default) -> UIPreviewAction? {
 
             guard let artistName = self.artist else { return nil }
 
             return UIPreviewAction(title: title + artistName, style: style) { _, _ in
 
                 let request = iTunesSearchRequest(term:artistName , entity: .Song, attribute: .Artist, limit: 50)
-                Session.sendRequest(request) { result in
+                Session.send(request) { result in
                     switch result {
-                    case .Success(let data):
+                    case .success(let data):
 
                         let storeIds = data.musics.flatMap { music -> String? in
                             guard let trackId = music.trackId else { return nil }
@@ -46,7 +47,7 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
                         player.prepareToPlay()
                         player.play()
 
-                    case .Failure(let error):
+                    case .failure(let error):
                         print(error)
                     }
                 }
@@ -65,12 +66,12 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
         if let artist = artist {
 
             navigationItem.title = "Dig in " + artist
-            startAnimating(nil, type: .LineScalePulseOutRapid, color: nil, padding: nil)
+            startAnimating(nil, type: .lineScalePulseOutRapid, color: nil, padding: nil)
 
             let request = LastfmSimilarArtistRequest(artist: artist)
-            Session.sendRequest(request) { result in
+            Session.send(request) { result in
                 switch result {
-                case .Success(let data):
+                case .success(let data):
 
                     if data.similarartists.isEmpty {
                         guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController() as? MessageViewController else { fatalError() }
@@ -84,20 +85,21 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
 
                     self.stopAnimating()
 
-                case .Failure(let error):
+                case .failure(let error):
 
                     print(error)
                     guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController() as? MessageViewController else { fatalError() }
 
                     switch error {
-                    case .InvalidResponseStructure(let object):
-                        viewController.message = object["message"] as? String
-
-                    case .ConnectionError(let error):
+                    case .responseError(let error):
+                        if error is DecodeError { break }
                         viewController.message = error.localizedDescription
 
-                    default:
-                        break
+                    case .requestError(let error):
+                        viewController.message = error.localizedDescription
+
+                    case .connectionError(let error):
+                        viewController.message = error.localizedDescription
                     }
 
                     self.stopAnimating()
@@ -106,12 +108,12 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
             }
         }
 
-        if let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController {
+        if let playerViewController = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController {
             collectionView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: playerViewController.view.frame.size.height, right: 0.0)
         }
 
-        if self.traitCollection.forceTouchCapability == .Available {
-            registerForPreviewingWithDelegate(self, sourceView: view)
+        if self.traitCollection.forceTouchCapability == .available {
+            registerForPreviewing(with: self, sourceView: view)
         }
     }
 
@@ -122,20 +124,20 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
 
 extension SimilarArtistViewController: UIViewControllerPreviewingDelegate {
 
-    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
 
-        guard let indexPath = collectionView.indexPathForItemAtPoint(collectionView.convertPoint(location, fromView: view)),
-            cell = collectionView.cellForItemAtIndexPath(indexPath),
-            viewController = UIStoryboard(name: "ArtistDetail", bundle: nil).instantiateInitialViewController() as? ArtistDetailViewController  else { return nil }
+        guard let indexPath = collectionView.indexPathForItem(at: collectionView.convert(location, from: view)),
+            let cell = collectionView.cellForItem(at: indexPath),
+            let viewController = UIStoryboard(name: "ArtistDetail", bundle: nil).instantiateInitialViewController() as? ArtistDetailViewController  else { return nil }
 
-        previewingContext.sourceRect = collectionView.convertRect(cell.frame, toView: view)
-        viewController.artist = similarArtists[indexPath.row]
+        previewingContext.sourceRect = collectionView.convert(cell.frame, to: view)
+        viewController.artist = similarArtists[(indexPath as NSIndexPath).row]
         viewController.delegate = self
 
         return viewController
     }
 
-    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
 
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
@@ -143,7 +145,7 @@ extension SimilarArtistViewController: UIViewControllerPreviewingDelegate {
 
 extension SimilarArtistViewController: ArtistDetailPreviewItemDelegate {
 
-    func showMoreSimilarArtist(name: String) {
+    func showMoreSimilarArtist(_ name: String) {
 
         let similarViewController = UIStoryboard(name: "SimilarArtist", bundle: nil).instantiateInitialViewController() as! SimilarArtistViewController
         similarViewController.artist = name
@@ -153,43 +155,43 @@ extension SimilarArtistViewController: ArtistDetailPreviewItemDelegate {
 
 extension SimilarArtistViewController: UICollectionViewDelegate {
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         let viewController = UIStoryboard(name: "ArtistDetail", bundle: nil).instantiateInitialViewController() as! ArtistDetailViewController
-        viewController.artist = similarArtists[indexPath.row]
+        viewController.artist = similarArtists[(indexPath as NSIndexPath).row]
         navigationController?.pushViewController(viewController, animated: true)
     }
 
-    func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
 
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
-        UIView.animateWithDuration(0.2) { cell?.layer.opacity = 0.7 }
+        let cell = collectionView.cellForItem(at: indexPath)
+        UIView.animate(withDuration: 0.2, animations: { cell?.layer.opacity = 0.7 }) 
     }
 
-    func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
 
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
-        UIView.animateWithDuration(0.2) { cell?.layer.opacity = 1.0 }
+        let cell = collectionView.cellForItem(at: indexPath)
+        UIView.animate(withDuration: 0.2, animations: { cell?.layer.opacity = 1.0 }) 
     }
 }
 
 extension SimilarArtistViewController: UICollectionViewDataSource {
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(SimilarArtistCollectionViewCell.identifier, forIndexPath: indexPath) as! SimilarArtistCollectionViewCell
-        let similarArtist = similarArtists[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SimilarArtistCollectionViewCell.identifier, for: indexPath) as! SimilarArtistCollectionViewCell
+        let similarArtist = similarArtists[(indexPath as NSIndexPath).row]
         cell.similarArtistNameLabel.text = similarArtist.name
         let imageUrl = similarArtist.images.filter { $0.size == "large" }.first?.url ?? similarArtist.images.first?.url
 
         if let imageUrl = imageUrl {
-            cell.similarArtistImageView.kf_setImageWithURL(imageUrl, placeholderImage: nil, optionsInfo: [.Transition(.FlipFromLeft(1.0))], progressBlock: nil, completionHandler: nil)
+            cell.similarArtistImageView.kf.setImage(with: imageUrl, placeholder: nil, options: [.transition(.flipFromLeft(1.0))], progressBlock: nil, completionHandler: nil)
         }
 
         return cell
     }
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         return similarArtists.count
     }
@@ -197,9 +199,9 @@ extension SimilarArtistViewController: UICollectionViewDataSource {
 
 extension SimilarArtistViewController: UICollectionViewDelegateFlowLayout {
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let size = UIScreen.mainScreen().bounds.size.width / 2.0
+        let size = UIScreen.main.bounds.size.width / 2.0
         return CGSize(width: size, height: size)
     }
 }

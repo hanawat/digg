@@ -13,11 +13,11 @@ import UIKit
 
     var gradientLayer: CAGradientLayer?
 
-    @IBInspectable var topColor: UIColor = UIColor.whiteColor() {
+    @IBInspectable var topColor: UIColor = UIColor.white {
         didSet { gradient() }
     }
 
-    @IBInspectable var bottomColor: UIColor = UIColor.blackColor() {
+    @IBInspectable var bottomColor: UIColor = UIColor.black {
         didSet { gradient() }
     }
 
@@ -28,11 +28,11 @@ import UIKit
 
         guard let gradientLayer = gradientLayer else { return }
 
-        gradientLayer.colors = [topColor.CGColor, bottomColor.CGColor]
+        gradientLayer.colors = [topColor.cgColor, bottomColor.cgColor]
         gradientLayer.frame.size = frame.size
-        gradientLayer.frame.origin = CGPointZero
+        gradientLayer.frame.origin = CGPoint.zero
         gradientLayer.zPosition = -100.0
-        layer.insertSublayer(gradientLayer, atIndex: 0)
+        layer.insertSublayer(gradientLayer, at: 0)
         layer.masksToBounds = true
     }
 }

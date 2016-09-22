@@ -9,12 +9,12 @@
 import Foundation
 import APIKit
 
-protocol iTunesRequestType: RequestType { }
+protocol iTunesRequestType: Request { }
 
 extension iTunesRequestType {
 
-    var baseURL: NSURL {
-        return NSURL(string: "https://itunes.apple.com")!
+    var baseURL: URL {
+        return URL(string: "https://itunes.apple.com")!
     }
 
     var path: String {
@@ -53,23 +53,23 @@ struct iTunesSearchRequest: iTunesRequestType {
 
     typealias Response = iTunesMusic
 
-    let method: HTTPMethod = .GET
+    let method: HTTPMethod = .get
 
-    var parameters: [String : AnyObject] {
+    var parameters: Any? {
         return [
-            "term": term,
-            "country": country,
-            "media": media,
-            "entity": entity.rawValue,
-            "attribute": attribute.rawValue,
-            "limit": limit,
-            "lang": lang
+            "term": term as AnyObject,
+            "country": country as AnyObject,
+            "media": media as AnyObject,
+            "entity": entity.rawValue as AnyObject,
+            "attribute": attribute.rawValue as AnyObject,
+            "limit": limit as AnyObject,
+            "lang": lang as AnyObject
         ]
     }
 
-    func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) -> Response? {
-        do { return try iTunesMusic.decodeValue(object) }
-        catch { print(error); return nil }
+    func response(from object: Any, urlResponse: HTTPURLResponse) throws -> iTunesMusic {
+
+        return try iTunesMusic.decodeValue(object)
     }
 }
 

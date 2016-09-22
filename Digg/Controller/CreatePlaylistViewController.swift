@@ -23,21 +23,21 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
         }
     }
 
-    var originalFrame = CGRectZero
-    var pannedIndexPath: NSIndexPath?
+    var originalFrame = CGRect.zero
+    var pannedIndexPath: IndexPath?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         guard let realm = try? Realm() else { return }
-        playlist = realm.objects(Playlist).last ?? Playlist()
+        playlist = realm.objects(Playlist.self).last ?? Playlist()
 
         if let image = UIImage(named: "itunes-logo") {
-            let barButtonItem = UIBarButtonItem(image: image, style: .Plain, target: self, action: #selector(createiTunesPlaylist))
+            let barButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(createiTunesPlaylist))
             navigationItem.rightBarButtonItem = barButtonItem
         }
 
-        if let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController {
+        if let playerViewController = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController {
             collectionView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: playerViewController.view.frame.size.height, right: 0.0)
         }
     }
@@ -46,34 +46,34 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
         super.didReceiveMemoryWarning()
     }
 
-    @objc private func createiTunesPlaylist() {
+    @objc fileprivate func createiTunesPlaylist() {
 
-        navigationItem.rightBarButtonItem?.enabled = false
-        startAnimating(nil, type: .LineScaleParty, color: nil, padding: nil)
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        startAnimating(nil, type: .lineScaleParty, color: nil, padding: nil)
 
-        let library = MPMediaLibrary.defaultMediaLibrary()
+        let library = MPMediaLibrary.default()
         let metadata = MPMediaPlaylistCreationMetadata(name: playlist.playlistName)
         metadata.descriptionText = playlist.playlistDiscription
 
-        library.getPlaylistWithUUID(NSUUID(), creationMetadata: metadata) { playlist, error in
+        library.getPlaylist(with: UUID(), creationMetadata: metadata) { playlist, error in
             if error != nil { print(error); return }
 
-            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC)))
-            dispatch_after(delayTime, dispatch_get_main_queue()) {
+            let delayTime = DispatchTime.now() + Double(Int64(5.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+            DispatchQueue.main.asyncAfter(deadline: delayTime) {
                 let trackIds = self.playlist.items.map { String($0.trackId) }
 
                 var addedPlaylistItemsCount = 0
                 trackIds.forEach { trackId in
 
-                    playlist?.addItemWithProductID(trackId) { error in
+                    playlist?.addItem(withProductID: trackId) { error in
                         if error != nil { print(error) }
 
                         addedPlaylistItemsCount += 1
                         if addedPlaylistItemsCount == trackIds.count {
 
-                            dispatch_async(dispatch_get_main_queue()) {
+                            DispatchQueue.main.async {
                                 self.stopAnimating()
-                                self.navigationItem.rightBarButtonItem?.enabled = true
+                                self.navigationItem.rightBarButtonItem?.isEnabled = true
 
                                 guard let realm = try? Realm() else { return }
                                 self.playlist = Playlist()
@@ -96,12 +96,12 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
 
 extension CreatePlaylistViewController: UIGestureRecognizerDelegate {
 
-    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
 
         guard let panGesture = gestureRecognizer as? UIPanGestureRecognizer,
-            indexPath = collectionView.indexPathForItemAtPoint(gestureRecognizer.locationInView(collectionView)) else { return false }
+            let indexPath = collectionView.indexPathForItem(at: gestureRecognizer.location(in: collectionView)) else { return false }
 
-        let location = panGesture.translationInView(collectionView.cellForItemAtIndexPath(indexPath))
+        let location = panGesture.translation(in: collectionView.cellForItem(at: indexPath))
         pannedIndexPath = fabs(location.x) > fabs(location.y) ? indexPath : nil
         return fabs(location.x) > fabs(location.y) && location.x < 0.0 ? true : false
     }
@@ -109,14 +109,14 @@ extension CreatePlaylistViewController: UIGestureRecognizerDelegate {
 
 extension CreatePlaylistViewController: UITextFieldDelegate {
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
         textField.resignFirstResponder()
 
         guard let realm = try? Realm(),
-            header = collectionView.visibleSupplementaryViewsOfKind(UICollectionElementKindSectionHeader).first as? CreatePlaylistCollectionReusableView,
-            playlistName = header.playlistTitleLabel.text,
-            playlistDescription = header.descriptionLabel.text else { return true }
+            let header = collectionView.visibleSupplementaryViews(ofKind: UICollectionElementKindSectionHeader).first as? CreatePlaylistCollectionReusableView,
+            let playlistName = header.playlistTitleLabel.text,
+            let playlistDescription = header.descriptionLabel.text else { return true }
 
         do {
             try realm.write() {
@@ -133,12 +133,12 @@ extension CreatePlaylistViewController: UITextFieldDelegate {
 
 extension CreatePlaylistViewController: UICollectionViewDelegate {
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        guard let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController else { return }
+        guard let playerViewController = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController else { return }
 
         let trackIds = playlist.items.map { String($0.trackId) }
-        let selectedTrackIds = trackIds.enumerate().filter { $0.index >= indexPath.row }.map { $0.element } + trackIds.enumerate().filter { $0.index < indexPath.row }.map { $0.element }
+        let selectedTrackIds = trackIds.enumerated().filter { $0.offset >= indexPath.row }.map { $0.element } + trackIds.enumerated().filter { $0.offset < indexPath.row }.map { $0.element }
 
         playerViewController.album = nil
         playerViewController.playlist = playlist
@@ -147,39 +147,39 @@ extension CreatePlaylistViewController: UICollectionViewDelegate {
         playerViewController.player.play()
     }
 
-    func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
 
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
-        UIView.animateWithDuration(0.2) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        UIView.animate(withDuration: 0.2, animations: {
             cell?.layer.opacity = 0.7
-            cell?.layer.backgroundColor = UIColor(white: 0.1, alpha: 1.0).CGColor
-        }
+            cell?.layer.backgroundColor = UIColor(white: 0.1, alpha: 1.0).cgColor
+        }) 
     }
 
-    func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
 
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
-        UIView.animateWithDuration(0.2) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        UIView.animate(withDuration: 0.2, animations: {
             cell?.layer.opacity = 1.0
-            cell?.layer.backgroundColor = UIColor.blackColor().CGColor
-        }
+            cell?.layer.backgroundColor = UIColor.black.cgColor
+        }) 
     }
 }
 
 extension CreatePlaylistViewController: UICollectionViewDataSource {
 
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         return playlist.items.count
     }
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MusicTrackCollectionViewCell.identifier, forIndexPath: indexPath) as! MusicTrackCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MusicTrackCollectionViewCell.identifier, for: indexPath) as! MusicTrackCollectionViewCell
         let music = playlist.items[indexPath.row]
 
         cell.trackNameLabel.text = music.trackName
@@ -193,37 +193,37 @@ extension CreatePlaylistViewController: UICollectionViewDataSource {
         return cell
     }
 
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 
-        let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: CreatePlaylistCollectionReusableView.identifier, forIndexPath: indexPath) as! CreatePlaylistCollectionReusableView
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CreatePlaylistCollectionReusableView.identifier, for: indexPath) as! CreatePlaylistCollectionReusableView
         header.playlistTitleLabel.text = playlist.playlistName
         header.descriptionLabel.text = playlist.playlistDiscription
 
         return header
     }
 
-    @objc private func trackCellPanGesture(sender: UIPanGestureRecognizer) {
+    @objc fileprivate func trackCellPanGesture(_ sender: UIPanGestureRecognizer) {
 
         guard let pannedIndexPath = pannedIndexPath,
-            cell = collectionView.cellForItemAtIndexPath(pannedIndexPath) as? MusicTrackCollectionViewCell else { return }
+            let cell = collectionView.cellForItem(at: pannedIndexPath) as? MusicTrackCollectionViewCell else { return }
 
         switch sender.state {
-        case .Began:
+        case .began:
             originalFrame = cell.frame
 
-        case .Changed:
-            let translation = sender.translationInView(cell)
-            cell.frame = translation.x < 0.0 ? CGRectOffset(originalFrame, translation.x, 0.0) : originalFrame
+        case .changed:
+            let translation = sender.translation(in: cell)
+            cell.frame = translation.x < 0.0 ? originalFrame.offsetBy(dx: translation.x, dy: 0.0) : originalFrame
 
 
-        case .Ended:
-            guard let indexPath = collectionView.indexPathForCell(cell)
-                where cell.frame.origin.x < -cell.frame.size.width / 2.0 else {
-                    UIView.animateWithDuration(0.2) { cell.frame = self.originalFrame }; return
+        case .ended:
+            guard let indexPath = collectionView.indexPath(for: cell)
+                , cell.frame.origin.x < -cell.frame.size.width / 2.0 else {
+                    UIView.animate(withDuration: 0.2, animations: { cell.frame = self.originalFrame }) ; return
             }
 
-            UIView.animateWithDuration(0.2, animations: {
-                cell.frame = CGRectOffset(self.originalFrame, -cell.frame.size.width, 0.0)
+            UIView.animate(withDuration: 0.2, animations: {
+                cell.frame = self.originalFrame.offsetBy(dx: -cell.frame.size.width, dy: 0.0)
 
                 }, completion: { _ in
                     cell.alpha = 0.0
@@ -236,15 +236,15 @@ extension CreatePlaylistViewController: UICollectionViewDataSource {
         }
     }
 
-    @objc private func removePlaylist(indexPath: NSIndexPath) {
+    @objc fileprivate func removePlaylist(_ indexPath: IndexPath) {
 
         guard let realm = try? Realm() else { return }
 
         do {
             try realm.write() {
                 collectionView.performBatchUpdates({
-                    self.playlist.items.removeAtIndex(indexPath.row)
-                    self.collectionView.deleteItemsAtIndexPaths([indexPath])
+                    self.playlist.items.remove(objectAtIndex: indexPath.row)
+                    self.collectionView.deleteItems(at: [indexPath])
                     }, completion: nil)
             }
         } catch {
@@ -255,20 +255,20 @@ extension CreatePlaylistViewController: UICollectionViewDataSource {
 
 extension CreatePlaylistViewController: UICollectionViewDelegateFlowLayout {
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let width = UIScreen.mainScreen().bounds.size.width
+        let width = UIScreen.main.bounds.size.width
         return CGSize(width: width, height: 60.0)
     }
 }
 
 extension CreatePlaylistViewController: UIScrollViewDelegate {
 
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
-        guard let header = collectionView.visibleSupplementaryViewsOfKind(UICollectionElementKindSectionHeader).first as? ArtistDetailCollectionReusableView else { return }
+        guard let header = collectionView.visibleSupplementaryViews(ofKind: UICollectionElementKindSectionHeader).first as? ArtistDetailCollectionReusableView else { return }
 
         let y = ((collectionView.contentOffset.y - header.frame.origin.y) / header.frame.height) * 25.0
-        header.offset(CGPointMake(0.0, y))
+        header.offset(CGPoint(x: 0.0, y: y))
     }
 }

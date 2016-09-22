@@ -19,24 +19,24 @@ class DismissInteractor: UIPercentDrivenInteractiveTransition {
 
 class DismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         guard let transitionContext = transitionContext else { return 0.3 }
 
-        return transitionContext.isInteractive() ? 0.6 : 0.3
+        return transitionContext.isInteractive ? 0.6 : 0.3
     }
 
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        guard let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) else { return }
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        guard let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) else { return }
 
-        let screenBounds = UIScreen.mainScreen().bounds
+        let screenBounds = UIScreen.main.bounds
         let finalFrame = CGRect(origin: CGPoint(x: 0, y: screenBounds.height), size: screenBounds.size)
-        let options: UIViewAnimationOptions = transitionContext.isInteractive() ? [UIViewAnimationOptions.CurveLinear] : []
+        let options: UIViewAnimationOptions = transitionContext.isInteractive ? [UIViewAnimationOptions.curveLinear] : []
 
-        UIView.animateWithDuration(transitionDuration(transitionContext), delay: 0.0, options: options, animations: { 
+        UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0.0, options: options, animations: { 
             fromViewController.view.frame = finalFrame
 
             }, completion: { _ in
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             }
         )
     }
@@ -50,7 +50,7 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var controlButton: UIButton!
     @IBOutlet weak var progressView: UIProgressView!
 
-    var timer = NSTimer()
+    var timer = Timer()
     var isDisplayed = true
     var isPlayingPlaylist = true
     let player = MPMusicPlayerController.systemMusicPlayer()
@@ -62,7 +62,7 @@ class PlayerViewController: UIViewController {
         didSet {
             guard let album = self.album else { return }
             isPlayingPlaylist = false
-            artworkImageView.kf_setImageWithURL(album.artworkUrl)
+            artworkImageView.kf.setImage(with: album.artworkUrl)
         }
     }
 
@@ -76,17 +76,17 @@ class PlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let notification = NSNotificationCenter.defaultCenter()
-        notification.addObserver(self, selector: #selector(playStateChanged), name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: player)
-        notification.addObserver(self, selector: #selector(playItemChanged), name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: player)
+        let notification = NotificationCenter.default
+        notification.addObserver(self, selector: #selector(playStateChanged), name: NSNotification.Name.MPMusicPlayerControllerPlaybackStateDidChange, object: player)
+        notification.addObserver(self, selector: #selector(playItemChanged), name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: player)
         player.beginGeneratingPlaybackNotifications()
-        player.repeatMode = .All
+        player.repeatMode = .all
 
         controlButton.contentEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-        if player.nowPlayingItem == nil { view.hidden = true }
+        if player.nowPlayingItem == nil { view.isHidden = true }
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         updateProgress()
@@ -100,16 +100,16 @@ class PlayerViewController: UIViewController {
 
     deinit {
 
-        let notification = NSNotificationCenter.defaultCenter()
+        let notification = NotificationCenter.default
         player.endGeneratingPlaybackNotifications()
-        notification.removeObserver(self, name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: player)
-        notification.removeObserver(self, name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: player)
+        notification.removeObserver(self, name: NSNotification.Name.MPMusicPlayerControllerPlaybackStateDidChange, object: player)
+        notification.removeObserver(self, name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: player)
     }
 
-    @IBAction func control(sender: UIButton) {
+    @IBAction func control(_ sender: UIButton) {
 
         switch player.playbackState {
-        case .Playing:
+        case .playing:
             player.pause()
 
         default:
@@ -117,44 +117,44 @@ class PlayerViewController: UIViewController {
         }
     }
 
-    @objc private func playStateChanged() {
+    @objc fileprivate func playStateChanged() {
 
         switch player.playbackState {
-        case .Playing:
-            controlButton.selected = true
+        case .playing:
+            controlButton.isSelected = true
 
-            if timer.valid == false {
-                timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
+            if timer.isValid == false {
+                timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
             }
 
         default:
-            controlButton.selected = false
+            controlButton.isSelected = false
             timer.invalidate()
         }
     }
 
-    @objc private func playItemChanged() {
+    @objc fileprivate func playItemChanged() {
 
-        if player.nowPlayingItem == nil && player.playbackState != .Playing && isDisplayed {
-            UIView.animateWithDuration(0.2, animations: {
+        if player.nowPlayingItem == nil && player.playbackState != .playing && isDisplayed {
+            UIView.animate(withDuration: 0.2, animations: {
                 self.isDisplayed = false
-                self.view.frame = CGRectOffset(self.view.frame, 0.0, self.view.bounds.height)
+                self.view.frame = self.view.frame.offsetBy(dx: 0.0, dy: self.view.bounds.height)
             }, completion: { _ in
-                if self.view.hidden { self.view.hidden = false }
+                if self.view.isHidden { self.view.isHidden = false }
             })
         } else if player.nowPlayingItem != nil && !isDisplayed {
-            UIView.animateWithDuration(0.2) {
+            UIView.animate(withDuration: 0.2, animations: {
                 self.isDisplayed = true
-                self.view.frame = CGRectOffset(self.view.frame, 0.0, -self.view.bounds.height)
-            }
+                self.view.frame = self.view.frame.offsetBy(dx: 0.0, dy: -self.view.bounds.height)
+            }) 
         }
 
         // FIXME: Get ArtWork from local player
         if isPlayingPlaylist, let playingTrack = playlist?.items
-            .filter({ $0.collectionName == player.nowPlayingItem?.albumTitle }).first,
+            .filter({ $0.collectionName == self.player.nowPlayingItem?.albumTitle }).first,
             let imageUrl = iTunesMusic.artworkUrl512(playingTrack.artworkUrl) {
 
-            artworkImageView.kf_setImageWithURL(imageUrl)
+            artworkImageView.kf.setImage(with: imageUrl)
         }
 
         progressView.progress = 0.0
@@ -162,34 +162,34 @@ class PlayerViewController: UIViewController {
         artistLabel.text = player.nowPlayingItem?.artist ?? artistLabel.text
     }
 
-    @objc private func updateProgress() {
+    @objc fileprivate func updateProgress() {
 
         if let durationTime = player.nowPlayingItem?.playbackDuration {
             progressView.setProgress(Float(player.currentPlaybackTime / durationTime), animated: false)
         }
     }
     
-    @IBAction func showPlayer(sender: UITapGestureRecognizer) {
+    @IBAction func showPlayer(_ sender: UITapGestureRecognizer) {
 
 
-        guard let mainViewController = UIStoryboard(name: "MainPlayer", bundle: nil).instantiateViewControllerWithIdentifier(MainPlayerViewController.identifier) as? MainPlayerViewController else { return }
+        guard let mainViewController = UIStoryboard(name: "MainPlayer", bundle: nil).instantiateViewController(withIdentifier: MainPlayerViewController.identifier) as? MainPlayerViewController else { return }
 
         mainViewController.album = album
         mainViewController.playlist = playlist
         mainViewController.isPlayingPlaylist = isPlayingPlaylist
         mainViewController.transitioningDelegate = self
         mainViewController.interactor = interactor
-        presentViewController(mainViewController, animated: true, completion: nil)
+        present(mainViewController, animated: true, completion: nil)
     }
 }
 
 extension PlayerViewController: UIViewControllerTransitioningDelegate {
 
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return DismissAnimator()
     }
 
-    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return interactor.hasStarted ? interactor : nil
     }
 }

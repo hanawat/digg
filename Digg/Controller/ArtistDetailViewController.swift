@@ -8,6 +8,7 @@
 
 import UIKit
 import APIKit
+import Himotoki
 import RealmSwift
 import MediaPlayer
 import StoreKit
@@ -15,16 +16,16 @@ import NVActivityIndicatorView
 
 protocol ArtistDetailPreviewItemDelegate: class {
 
-    func showMoreSimilarArtist(name: String)
+    func showMoreSimilarArtist(_ name: String)
 }
 
 extension UICollectionView {
 
-    public func indexPathForSupplementaryView(elementKind: String, atPoint point: CGPoint) -> NSIndexPath? {
+    public func indexPathForSupplementaryView(_ elementKind: String, atPoint point: CGPoint) -> IndexPath? {
 
-        for section in 0..<self.numberOfSections() {
-            let indexPath = NSIndexPath(forRow: 0, inSection: section)
-            if let layoutAttribute = self.collectionViewLayout.layoutAttributesForSupplementaryViewOfKind(elementKind, atIndexPath: indexPath) where layoutAttribute.frame.contains(point) { return indexPath }
+        for section in 0..<self.numberOfSections {
+            let indexPath = IndexPath(row: 0, section: section)
+            if let layoutAttribute = self.collectionViewLayout.layoutAttributesForSupplementaryView(ofKind: elementKind, at: indexPath) , layoutAttribute.frame.contains(point) { return indexPath }
         }
 
         return nil
@@ -44,8 +45,8 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
         }
     }
 
-    var originalFrame = CGRectZero
-    var pannedIndexPath: NSIndexPath?
+    var originalFrame = CGRect.zero
+    var pannedIndexPath: IndexPath?
 
     lazy var previewActions: [UIPreviewActionItem] = {
 
@@ -53,7 +54,7 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
 
             guard let artistName = self.artist?.name else { return nil }
 
-            return UIPreviewAction(title: "Dig in " + artistName, style: .Default) { _, _ in
+            return UIPreviewAction(title: "Dig in " + artistName, style: .default) { _, _ in
 
                 self.delegate?.showMoreSimilarArtist(artistName)
             }
@@ -62,9 +63,9 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
         func previewPlayAction() -> UIPreviewAction? {
 
             guard let artistName = self.artist?.name,
-                let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController else { return nil }
+                let playerViewController = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController else { return nil }
 
-            return UIPreviewAction(title: "Play " + artistName, style: .Default) { _, _ in
+            return UIPreviewAction(title: "Play " + artistName, style: .default) { _, _ in
 
                 let collectionIds = self.albums.flatMap { String($0.collectionId) }
                 playerViewController.player.setQueueWithStoreIDs(collectionIds)
@@ -82,26 +83,26 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
         super.viewDidLoad()
 
         SKCloudServiceController.requestAuthorization { _ in }
-        SKCloudServiceController().requestCapabilitiesWithCompletionHandler { _, _ in }
+        SKCloudServiceController().requestCapabilities { _, _ in }
 
         if let image = UIImage(named: "record-player") {
-            let barButtonItem = UIBarButtonItem(image: image, style: .Plain, target: self, action: #selector(addNewPlaylist))
+            let barButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(addNewPlaylist))
             navigationItem.rightBarButtonItem = barButtonItem
         }
 
-        if let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController {
+        if let playerViewController = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController {
             collectionView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: playerViewController.view.frame.size.height, right: 0.0)
         }
 
         if let artist = artist {
 
             navigationItem.title = artist.name
-            startAnimating(nil, type: .LineScalePulseOutRapid, color: nil, padding: nil)
+            startAnimating(nil, type: .lineScalePulseOutRapid, color: nil, padding: nil)
 
             let request = iTunesSearchRequest(term:artist.name , entity: .Song, attribute: .Artist, limit: 50)
-            Session.sendRequest(request) { result in
+            Session.send(request) { result in
                 switch result {
-                case .Success(let data):
+                case .success(let data):
 
                     if data.musics.isEmpty {
                         guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController() as? MessageViewController else { fatalError() }
@@ -115,20 +116,21 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
 
                     self.stopAnimating()
 
-                case .Failure(let error):
+                case .failure(let error):
 
                     print(error)
                     guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController() as? MessageViewController else { return }
 
                     switch error {
-                    case .InvalidResponseStructure(let object):
-                        viewController.message = object["message"] as? String
-
-                    case .ConnectionError(let error):
+                    case .responseError(let error):
+                        if error is DecodeError { break }
                         viewController.message = error.localizedDescription
 
-                    default:
-                        break
+                    case .requestError(let error):
+                        viewController.message = error.localizedDescription
+
+                    case .connectionError(let error):
+                        viewController.message = error.localizedDescription
                     }
 
                     self.stopAnimating()
@@ -142,22 +144,22 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
         super.didReceiveMemoryWarning()
     }
 
-    @objc private func addNewPlaylist() {
+    @objc fileprivate func addNewPlaylist() {
 
         guard let viewController = UIStoryboard(name: "CreatePlaylist", bundle: nil).instantiateInitialViewController() as? CreatePlaylistViewController else { return }
 
-        showViewController(viewController, sender: nil)
+        show(viewController, sender: nil)
     }
 }
 
 extension ArtistDetailViewController: UIGestureRecognizerDelegate {
 
-    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
 
         guard let panGesture = gestureRecognizer as? UIPanGestureRecognizer,
-            indexPath = collectionView.indexPathForItemAtPoint(gestureRecognizer.locationInView(collectionView)) else { return false }
+            let indexPath = collectionView.indexPathForItem(at: gestureRecognizer.location(in: collectionView)) else { return false }
 
-        let location = panGesture.translationInView(collectionView.cellForItemAtIndexPath(indexPath))
+        let location = panGesture.translation(in: collectionView.cellForItem(at: indexPath))
         pannedIndexPath = fabs(location.x) > fabs(location.y) ? indexPath : nil
         return fabs(location.x) > fabs(location.y) && location.x > 0.0 ? true : false
     }
@@ -165,57 +167,57 @@ extension ArtistDetailViewController: UIGestureRecognizerDelegate {
 
 extension ArtistDetailViewController: UICollectionViewDelegate {
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        guard let playerViewController = UIApplication.sharedApplication().keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController else { return }
+        guard let playerViewController = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController else { return }
 
-        let trackIds = albums[indexPath.section].tracks.flatMap { item -> String? in
+        let trackIds = albums[(indexPath as NSIndexPath).section].tracks.flatMap { item -> String? in
             guard let trackId = item.trackId else { return nil }
             return String(trackId)
         }
 
-        let selectedTrackIds = trackIds.enumerate().filter { $0.index >= indexPath.row }.map { $0.element } + trackIds.enumerate().filter { $0.index < indexPath.row }.map { $0.element }
+        let selectedTrackIds = trackIds.enumerated().filter { $0.offset >= (indexPath as NSIndexPath).row }.map { $0.element } + trackIds.enumerated().filter { $0.offset < (indexPath as NSIndexPath).row }.map { $0.element }
 
         playerViewController.playlist = nil
-        playerViewController.album = albums[indexPath.section]
+        playerViewController.album = albums[(indexPath as NSIndexPath).section]
         playerViewController.player.setQueueWithStoreIDs(selectedTrackIds)
         playerViewController.player.prepareToPlay()
         playerViewController.player.play()
     }
 
-    func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
 
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
-        UIView.animateWithDuration(0.2) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        UIView.animate(withDuration: 0.2, animations: {
             cell?.layer.opacity = 0.7
-            cell?.layer.backgroundColor = UIColor(white: 0.1, alpha: 1.0).CGColor
-        }
+            cell?.layer.backgroundColor = UIColor(white: 0.1, alpha: 1.0).cgColor
+        }) 
     }
 
-    func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
 
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
-        UIView.animateWithDuration(0.2) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        UIView.animate(withDuration: 0.2, animations: {
             cell?.layer.opacity = 1.0
-            cell?.layer.backgroundColor = UIColor.blackColor().CGColor
-        }
+            cell?.layer.backgroundColor = UIColor.black.cgColor
+        }) 
     }
 }
 
 extension ArtistDetailViewController: UICollectionViewDataSource {
 
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return albums.count
     }
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return albums[section].tracks.count
     }
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MusicTrackCollectionViewCell.identifier, forIndexPath: indexPath) as! MusicTrackCollectionViewCell
-        let music =  albums[indexPath.section].tracks[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MusicTrackCollectionViewCell.identifier, for: indexPath) as! MusicTrackCollectionViewCell
+        let music =  albums[(indexPath as NSIndexPath).section].tracks[(indexPath as NSIndexPath).row]
 
         cell.trackNameLabel.text = music.trackName
         cell.trackArtistLabel.text = music.artistName
@@ -225,10 +227,10 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
             cell.trackNameLabel.alpha = isStreamable ? 1.0 : 0.3
             cell.trackArtistLabel.alpha = isStreamable ? 0.7 : 0.3
             cell.trackTimeLabel.alpha = isStreamable ? 0.7 : 0.3
-            cell.userInteractionEnabled = isStreamable ? true : false
+            cell.isUserInteractionEnabled = isStreamable ? true : false
         }
 
-        if let isStreamable = albums[indexPath.section].tracks[indexPath.row].isStreamable where isStreamable {
+        if let isStreamable = albums[(indexPath as NSIndexPath).section].tracks[(indexPath as NSIndexPath).row].isStreamable , isStreamable {
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(trackCellPanGesture(_:)))
             panGesture.delegate = self
             cell.addGestureRecognizer(panGesture)
@@ -237,13 +239,13 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         return cell
     }
 
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 
-        let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: ArtistDetailCollectionReusableView.identifier, forIndexPath: indexPath) as! ArtistDetailCollectionReusableView
-        let album =  albums[indexPath.section]
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ArtistDetailCollectionReusableView.identifier, for: indexPath) as! ArtistDetailCollectionReusableView
+        let album =  albums[(indexPath as NSIndexPath).section]
         header.albumTitleLabel.text = album.collectionName
         header.albumArtistLabel.text = album.artistName
-        header.artworkImageView.kf_setImageWithURL(album.artworkUrl, placeholderImage: nil, optionsInfo: [.Transition(.Fade(1.0))], progressBlock: nil, completionHandler: nil)
+        header.artworkImageView.kf.setImage(with: album.artworkUrl, placeholder: nil, options: [.transition(.fade(1.0))], progressBlock: nil, completionHandler: nil)
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(playAlbum(_:)))
         header.addGestureRecognizer(tapGesture)
@@ -251,32 +253,32 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         return header
     }
 
-    @objc private func trackCellPanGesture(sender: UIPanGestureRecognizer) {
+    @objc fileprivate func trackCellPanGesture(_ sender: UIPanGestureRecognizer) {
 
         guard let pannedIndexPath = pannedIndexPath,
-            cell = collectionView.cellForItemAtIndexPath(pannedIndexPath) as? MusicTrackCollectionViewCell else { return }
+            let cell = collectionView.cellForItem(at: pannedIndexPath) as? MusicTrackCollectionViewCell else { return }
 
         switch sender.state {
-        case .Began:
+        case .began:
             originalFrame = cell.frame
 
-        case .Changed:
-            let translation = sender.translationInView(cell)
-            cell.frame = translation.x > 0.0 ? CGRectOffset(originalFrame, translation.x, 0.0) : originalFrame
+        case .changed:
+            let translation = sender.translation(in: cell)
+            cell.frame = translation.x > 0.0 ? originalFrame.offsetBy(dx: translation.x, dy: 0.0) : originalFrame
 
 
-        case .Ended:
-            guard let indexPath = collectionView.indexPathForCell(cell)
-                where cell.frame.origin.x > cell.frame.size.width / 2.0 else {
-                    UIView.animateWithDuration(0.2) { cell.frame = self.originalFrame }; return
+        case .ended:
+            guard let indexPath = collectionView.indexPath(for: cell)
+                , cell.frame.origin.x > cell.frame.size.width / 2.0 else {
+                    UIView.animate(withDuration: 0.2, animations: { cell.frame = self.originalFrame }) ; return
             }
 
-            UIView.animateWithDuration(0.2, animations: {
-                cell.frame = CGRectOffset(self.originalFrame, cell.frame.size.width, 0.0)
+            UIView.animate(withDuration: 0.2, animations: {
+                cell.frame = self.originalFrame.offsetBy(dx: cell.frame.size.width, dy: 0.0)
 
                 }, completion: { _ in
-                    cell.frame = CGRectOffset(self.originalFrame, -cell.frame.size.width, 0.0)
-                    UIView.animateWithDuration(0.2) { cell.frame = self.originalFrame }
+                    cell.frame = self.originalFrame.offsetBy(dx: -cell.frame.size.width, dy: 0.0)
+                    UIView.animate(withDuration: 0.2, animations: { cell.frame = self.originalFrame }) 
             })
 
             addPlaylist(indexPath)
@@ -286,13 +288,13 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         }
     }
 
-    @objc private func addPlaylist(indexPath: NSIndexPath) {
+    @objc fileprivate func addPlaylist(_ indexPath: IndexPath) {
 
         guard let realm = try? Realm() else { return }
 
-        let playlist = realm.objects(Playlist).last ?? Playlist()
+        let playlist = realm.objects(Playlist.self).last ?? Playlist()
         let item = PlaylistItem()
-        let track = albums[indexPath.section].tracks[indexPath.row]
+        let track = albums[(indexPath as NSIndexPath).section].tracks[(indexPath as NSIndexPath).row]
 
         item.collectionId = track.collectionId ?? 0
         item.collectionName = track.collectionName ?? ""
@@ -301,7 +303,7 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         item.artistId = track.artistId ?? 0
         item.artistName = track.artistName ?? ""
         item.trackTimeMillis = track.trackTimeMillis ?? 0
-        item.artworkUrl = track.artworkUrl100
+        item.artworkUrl = track.artworkUrl100 ?? ""
 
         do {
             try realm.write() {
@@ -313,7 +315,7 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         }
     }
 
-    @objc private func playAlbum(sender: UITapGestureRecognizer) {
+    @objc fileprivate func playAlbum(_ sender: UITapGestureRecognizer) {
 
         guard let artist = artist else { return }
 
@@ -325,22 +327,22 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
 
 extension ArtistDetailViewController: UICollectionViewDelegateFlowLayout {
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let width = UIScreen.mainScreen().bounds.size.width
+        let width = UIScreen.main.bounds.size.width
         return CGSize(width: width, height: 60.0)
     }
 }
 
 extension ArtistDetailViewController: UIScrollViewDelegate {
 
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
-        guard let visibleHeaders = collectionView.visibleSupplementaryViewsOfKind(UICollectionElementKindSectionHeader) as? [ArtistDetailCollectionReusableView] else { return }
+        guard let visibleHeaders = collectionView.visibleSupplementaryViews(ofKind: UICollectionElementKindSectionHeader) as? [ArtistDetailCollectionReusableView] else { return }
 
         visibleHeaders.forEach { header in
             let y = ((collectionView.contentOffset.y - header.frame.origin.y) / header.frame.height) * 25.0
-            header.offset(CGPointMake(0.0, y))
+            header.offset(CGPoint(x: 0.0, y: y))
         }
     }
 }

@@ -10,12 +10,12 @@ import Foundation
 import APIKit
 import Keys
 
-protocol LastfmRequestType: RequestType { }
+protocol LastfmRequestType: Request { }
 
 extension LastfmRequestType {
 
-    var baseURL: NSURL {
-        return NSURL(string: "http://ws.audioscrobbler.com")!
+    var baseURL: URL {
+        return URL(string: "http://ws.audioscrobbler.com")!
     }
 
     var path: String {
@@ -33,21 +33,21 @@ struct LastfmSimilarArtistRequest: LastfmRequestType {
 
     typealias Response = LastfmSimilarArtist
 
-    let method: HTTPMethod = .GET
+    let method: HTTPMethod = .get
 
-    var parameters: [String : AnyObject] {
+    var parameters: Any? {
         return [
-            "artist": artist,
-            "autocorrect": 1,
-            "api_key": apiKey,
-            "method": "artist.getsimilar",
-            "format": "json"
+            "artist": artist as AnyObject,
+            "autocorrect": 1 as AnyObject,
+            "api_key": apiKey as AnyObject,
+            "method": "artist.getsimilar" as AnyObject,
+            "format": "json" as AnyObject
         ]
     }
 
-    func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) -> Response? {
+    func response(from object: Any, urlResponse: HTTPURLResponse) throws -> LastfmSimilarArtist {
 
-        return try? LastfmSimilarArtist.decodeValue(object)
+        return try LastfmSimilarArtist.decodeValue(object)
     }
 }
 
@@ -58,22 +58,21 @@ struct LastfmSimilarTrackRequest: LastfmRequestType {
 
     typealias Response = LastfmSimilarTrack
 
-    let method: HTTPMethod = .GET
+    let method: HTTPMethod = .get
 
-    var parameters: [String : AnyObject] {
+    var parameters: Any? {
         return [
-            "artist": artist,
-            "track": track,
-            "autocorrect": 1,
-            "api_key": apiKey,
-            "method": "track.getsimilar",
-            "format": "json"
+            "artist": artist as AnyObject,
+            "track": track as AnyObject,
+            "autocorrect": 1 as AnyObject,
+            "api_key": apiKey as AnyObject,
+            "method": "track.getsimilar" as AnyObject,
+            "format": "json" as AnyObject
         ]
     }
 
-    func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) -> Response? {
+    func response(from object: Any, urlResponse: HTTPURLResponse) throws -> LastfmSimilarTrack {
 
-        do { return try LastfmSimilarTrack.decodeValue(object) }
-        catch { print(error); return nil }
+        return try LastfmSimilarTrack.decodeValue(object)
     }
 }

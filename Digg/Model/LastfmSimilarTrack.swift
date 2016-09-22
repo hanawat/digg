@@ -13,7 +13,7 @@ struct LastfmSimilarTrack: Decodable {
 
     let similartracks: [Track]
 
-    static func decode(e: Extractor) throws -> LastfmSimilarTrack {
+    static func decode(_ e: Extractor) throws -> LastfmSimilarTrack {
 
         return try LastfmSimilarTrack(similartracks: e.array(["similartracks", "track"]))
     }
@@ -23,17 +23,17 @@ struct LastfmSimilarTrack: Decodable {
         let name: String
         let playcount: Int
         let match: Int
-        let url: NSURL
+        let url: URL
         let streamable: Streamable
         let duration: Int
         let artist: Artist
         let images: [Image]
 
-        static func decode(e: Extractor) throws -> Track {
+        static func decode(_ e: Extractor) throws -> Track {
 
             let urlString = try e.value("url") as String
 
-            guard let url = NSURL(string: urlString) else {
+            guard let url = URL(string: urlString) else {
                 throw typeMismatch("NSURL", actual: urlString)
             }
 
@@ -55,7 +55,7 @@ struct LastfmSimilarTrack: Decodable {
         let text: String
         let fulltrack: String
 
-        static func decode(e: Extractor) throws -> Streamable {
+        static func decode(_ e: Extractor) throws -> Streamable {
 
             return try Streamable(
                 text: e.value("#text"),
@@ -67,13 +67,13 @@ struct LastfmSimilarTrack: Decodable {
     struct Artist: Decodable {
 
         let name: String
-        let url: NSURL
+        let url: URL
 
-        static func decode(e: Extractor) throws -> Artist {
+        static func decode(_ e: Extractor) throws -> Artist {
 
             let urlString = try e.value("url") as String
 
-            guard let url = NSURL(string: urlString) else {
+            guard let url = URL(string: urlString) else {
                 throw typeMismatch("NSURL", actual: urlString)
             }
 
@@ -86,14 +86,14 @@ struct LastfmSimilarTrack: Decodable {
 
     struct Image: Decodable {
 
-        let url: NSURL
+        let url: URL
         let size: String
 
-        static func decode(e: Extractor) throws -> Image {
+        static func decode(_ e: Extractor) throws -> Image {
 
             let urlString = try e.value("#text") as String
 
-            guard let url = NSURL(string: urlString) else {
+            guard let url = URL(string: urlString) else {
                 throw typeMismatch("NSURL", actual: urlString)
             }
 

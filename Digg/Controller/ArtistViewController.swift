@@ -9,6 +9,32 @@
 import UIKit
 import MediaPlayer
 
+extension MutableCollection where Indices.Iterator.Element == Index {
+
+    /// Shuffles the contents of this collection.
+    mutating func shuffle() {
+        let c = count
+        guard c > 1 else { return }
+
+        for (unshuffledCount, firstUnshuffled) in zip(stride(from: c, to: 1, by: -1), indices) {
+            let d: IndexDistance = numericCast(arc4random_uniform(numericCast(unshuffledCount)))
+            guard d != 0 else { continue }
+            let i = index(firstUnshuffled, offsetBy: d)
+            swap(&self[firstUnshuffled], &self[i])
+        }
+    }
+}
+
+extension Sequence {
+
+    /// Returns an array with the contents of this sequence, shuffled.
+    func shuffled() -> [Iterator.Element] {
+        var result = Array(self)
+        result.shuffle()
+        return result
+    }
+}
+
 class ArtistViewController: UIViewController {
 
     @IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer!
@@ -16,12 +42,13 @@ class ArtistViewController: UIViewController {
 
     var artists = ["The Beatles"]
     var songs: [MPMediaItem] = []
+
     var searchBar: UISearchBar = {
 
         let searchBar = UISearchBar()
         searchBar.showsCancelButton = true
-        searchBar.searchBarStyle = .Minimal
-        searchBar.barStyle = .BlackTranslucent
+        searchBar.searchBarStyle = .minimal
+        searchBar.barStyle = .blackTranslucent
         searchBar.placeholder = "Artist Name"
 
         return searchBar
@@ -30,30 +57,25 @@ class ArtistViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let songs = MPMediaQuery.artistsQuery().items where !songs.isEmpty {
+        loadArtists()
 
-            artists = NSOrderedSet(array: songs.flatMap { $0.albumArtist }).array as! [String]
-            self.songs = songs
-        } else {
-
-            guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController() as? MessageViewController else { fatalError() }
-            viewController.message = "Your Music application doesn't contain any tracks."
-            view.addSubview(viewController.view)
-        }
-
-        if self.traitCollection.forceTouchCapability == .Available {
-            registerForPreviewingWithDelegate(self, sourceView: view)
+        if self.traitCollection.forceTouchCapability == .available {
+            registerForPreviewing(with: self, sourceView: view)
         }
 
         let titleImageView = UIImageView(image: UIImage(named: "title")!)
         navigationItem.titleView = titleImageView
+
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(loadArtists), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-    @IBAction func showSearchBar(sender: UIBarButtonItem) {
+    @IBAction func showSearchBar(_ sender: UIBarButtonItem) {
 
         if let frame = navigationController?.navigationBar.bounds {
             searchBar.frame = frame
@@ -63,54 +85,84 @@ class ArtistViewController: UIViewController {
         navigationItem.titleView = searchBar
         navigationItem.titleView?.alpha = 0.0
 
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             self.navigationItem.rightBarButtonItem = nil
             self.navigationItem.titleView?.alpha = 1.0
-        }) { _ in
+        }, completion: { _ in
             self.navigationItem.titleView?.becomeFirstResponder()
-        }
+        }) 
     }
 
-    @IBAction func hiddenKeybord(sender: UITapGestureRecognizer) {
+    @IBAction func hiddenKeybord(_ sender: UITapGestureRecognizer) {
         hiddenSearchBar()
     }
 
-    private func hiddenSearchBar() {
 
-        tapGestureRecognizer.enabled = false
+    @objc private func loadArtists() {
 
-        UIView.animateWithDuration(0.5, animations: {
+        if let songs = MPMediaQuery.artists().items , !songs.isEmpty {
+
+            let randomSongs = Array(songs.shuffled().prefix(100))
+            artists = NSOrderedSet(array: randomSongs.flatMap { $0.albumArtist }).array as! [String]
+            self.songs = randomSongs
+
+            if collectionView.refreshControl == nil {
+                collectionView.reloadData()
+                return
+            }
+
+        } else {
+
+            guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController() as? MessageViewController else { fatalError() }
+
+            viewController.message = "Your Music application doesn't contain any tracks."
+            view.addSubview(viewController.view)
+            return
+        }
+
+        let delayTime = DispatchTime.now() + Double(Int64(1.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: delayTime) {
+            self.collectionView.refreshControl?.endRefreshing()
+            self.collectionView.reloadData()
+        }
+    }
+
+    fileprivate func hiddenSearchBar() {
+
+        tapGestureRecognizer.isEnabled = false
+
+        UIView.animate(withDuration: 0.5, animations: {
             self.navigationItem.titleView?.alpha = 0.0
-        }) { _ in
+        }, completion: { _ in
 
             self.navigationItem.titleView?.endEditing(true)
-            let barButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(self.showSearchBar))
+            let barButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(self.showSearchBar))
             self.navigationItem.rightBarButtonItem = barButton
 
             let titleImageView = UIImageView(image: UIImage(named: "title")!)
             self.navigationItem.titleView = titleImageView
-            UIView.animateWithDuration(0.5) {
+            UIView.animate(withDuration: 0.5, animations: {
                 self.navigationItem.titleView?.alpha = 1.0
-            }
-        }
+            }) 
+        }) 
     }
 }
 
 extension ArtistViewController: UIViewControllerPreviewingDelegate {
 
-    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
 
-        guard let indexPath = collectionView.indexPathForItemAtPoint(collectionView.convertPoint(location, fromView: view)),
-            cell = collectionView.cellForItemAtIndexPath(indexPath),
-            viewController = UIStoryboard(name: "SimilarArtist", bundle: nil).instantiateInitialViewController() as?SimilarArtistViewController  else { return nil }
+        guard let indexPath = collectionView.indexPathForItem(at: collectionView.convert(location, from: view)),
+            let cell = collectionView.cellForItem(at: indexPath),
+            let viewController = UIStoryboard(name: "SimilarArtist", bundle: nil).instantiateInitialViewController() as?SimilarArtistViewController  else { return nil }
 
-        previewingContext.sourceRect = collectionView.convertRect(cell.frame, toView: view)
-        viewController.artist = artists[indexPath.row]
+        previewingContext.sourceRect = collectionView.convert(cell.frame, to: view)
+        viewController.artist = artists[(indexPath as NSIndexPath).row]
 
         return viewController
     }
 
-    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
 
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
@@ -118,11 +170,11 @@ extension ArtistViewController: UIViewControllerPreviewingDelegate {
 
 extension ArtistViewController: UISearchBarDelegate {
 
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        tapGestureRecognizer.enabled = true
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        tapGestureRecognizer.isEnabled = true
     }
 
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 
         searchBar.resignFirstResponder()
         let viewController = UIStoryboard(name: "SimilarArtist", bundle: nil).instantiateInitialViewController() as! SimilarArtistViewController
@@ -130,50 +182,50 @@ extension ArtistViewController: UISearchBarDelegate {
         navigationController?.pushViewController(viewController, animated: true)
     }
 
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         hiddenSearchBar()
     }
 }
 
 extension ArtistViewController: UICollectionViewDelegate {
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         let viewController = UIStoryboard(name: "SimilarArtist", bundle: nil).instantiateInitialViewController() as! SimilarArtistViewController
-        viewController.artist = artists[indexPath.row]
+        viewController.artist = artists[(indexPath as NSIndexPath).row]
         navigationController?.pushViewController(viewController, animated: true)
     }
 
-    func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
 
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
-        UIView.animateWithDuration(0.2) { cell?.layer.opacity = 0.7 }
+        let cell = collectionView.cellForItem(at: indexPath)
+        UIView.animate(withDuration: 0.2, animations: { cell?.layer.opacity = 0.7 }) 
     }
 
-    func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
 
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
-        UIView.animateWithDuration(0.2) { cell?.layer.opacity = 1.0 }
+        let cell = collectionView.cellForItem(at: indexPath)
+        UIView.animate(withDuration: 0.2, animations: { cell?.layer.opacity = 1.0 }) 
     }
 }
 
 extension ArtistViewController: UICollectionViewDataSource {
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ArtistCollectionViewCell.identifier, forIndexPath: indexPath) as! ArtistCollectionViewCell
-        cell.artistLabel.text = artists[indexPath.row] ?? "No Name"
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ArtistCollectionViewCell.identifier, for: indexPath) as! ArtistCollectionViewCell
+        cell.artistLabel.text = artists[(indexPath as NSIndexPath).row]
 
-        let artworks = songs.filter { $0.albumArtist == artists[indexPath.row] }.flatMap { $0.artwork }
-        cell.artworkImageView.image = artworks.first?.imageWithSize(cell.frame.size)
+        let artworks = songs.filter { $0.albumArtist == artists[(indexPath as NSIndexPath).row] }.flatMap { $0.artwork }
+        cell.artworkImageView.image = artworks.first?.image(at: cell.frame.size)
 
-        let genre = songs.filter { $0.albumArtist == artists[indexPath.row] }.flatMap { $0.genre }
+        let genre = songs.filter { $0.albumArtist == artists[(indexPath as NSIndexPath).row] }.flatMap { $0.genre }
         cell.genreLabel.text = genre.first ?? "No Genre"
 
         return cell
     }
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         return artists.count
     }
@@ -181,7 +233,7 @@ extension ArtistViewController: UICollectionViewDataSource {
 
 extension ArtistViewController: UIScrollViewDelegate {
 
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 
         if velocity.y > 0.0 {
             navigationController?.hiddenNavigationBar(true)
@@ -190,42 +242,42 @@ extension ArtistViewController: UIScrollViewDelegate {
         }
     }
 
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
-        guard let cells = collectionView.visibleCells() as? [ArtistCollectionViewCell] else { return }
+        guard let cells = collectionView.visibleCells as? [ArtistCollectionViewCell] else { return }
 
         cells.forEach { cell in
             let y = ((collectionView.contentOffset.y - cell.frame.origin.y) / cell.frame.height) * 25.0
-            cell.offset(CGPointMake(0.0, y))
+            cell.offset(CGPoint(x: 0.0, y: y))
         }
     }
 }
 
 extension UINavigationController {
 
-    func hiddenNavigationBar(animation: Bool) {
+    func hiddenNavigationBar(_ animation: Bool) {
 
         let originalFrame = self.navigationBar.frame
-        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
+        let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
         let offsetHeight = originalFrame.size.height + statusBarHeight
 
         guard originalFrame.origin.y == statusBarHeight else { return }
 
-        UIView.animateWithDuration(0.2) {
-            self.navigationBar.frame = CGRectOffset(originalFrame, 0.0, -offsetHeight)
-        }
+        UIView.animate(withDuration: 0.2, animations: {
+            self.navigationBar.frame = originalFrame.offsetBy(dx: 0.0, dy: -offsetHeight)
+        }) 
     }
 
-    func showNavigationBar(animation: Bool) {
+    func showNavigationBar(_ animation: Bool) {
 
         let originalFrame = self.navigationBar.frame
-        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
+        let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
         let offsetHeight = originalFrame.size.height + statusBarHeight
 
         guard originalFrame.origin.y == -originalFrame.size.height else { return }
 
-        UIView.animateWithDuration(0.2) {
-            self.navigationBar.frame = CGRectOffset(originalFrame, 0.0, offsetHeight)
-        }
+        UIView.animate(withDuration: 0.2, animations: {
+            self.navigationBar.frame = originalFrame.offsetBy(dx: 0.0, dy: offsetHeight)
+        }) 
     }
 }

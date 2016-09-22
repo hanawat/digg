@@ -17,7 +17,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
 
     static let identifier = "ArtistCollectionViewCell"
 
-    func offset(offset: CGPoint) {
-        artworkImageView.layer.frame = CGRectOffset(artworkImageView.bounds, offset.x, offset.y)
+    func offset(_ offset: CGPoint) {
+        artworkImageView.layer.frame = artworkImageView.bounds.offsetBy(dx: offset.x, dy: offset.y)
     }
 }

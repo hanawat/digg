@@ -20,7 +20,7 @@ class MainPlayerViewController: UIViewController {
     static let identifier = "MainPlayerViewController"
 
     let player = MPMusicPlayerController.systemMusicPlayer()
-    var timer = NSTimer()
+    var timer = Timer()
     var interactor: DismissInteractor?
     var isPlayingPlaylist = true
     var currentPage = 0
@@ -31,9 +31,9 @@ class MainPlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let notification = NSNotificationCenter.defaultCenter()
-        notification.addObserver(self, selector: #selector(playStateChanged), name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: player)
-        notification.addObserver(self, selector: #selector(playItemChanged), name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: player)
+        let notification = NotificationCenter.default
+        notification.addObserver(self, selector: #selector(playStateChanged), name: NSNotification.Name.MPMusicPlayerControllerPlaybackStateDidChange, object: player)
+        notification.addObserver(self, selector: #selector(playItemChanged), name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: player)
         player.beginGeneratingPlaybackNotifications()
 
         updateProgress()
@@ -41,7 +41,7 @@ class MainPlayerViewController: UIViewController {
         playStateChanged()
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         changeArtwork()
@@ -53,45 +53,45 @@ class MainPlayerViewController: UIViewController {
 
     deinit {
 
-        let notification = NSNotificationCenter.defaultCenter()
+        let notification = NotificationCenter.default
         player.endGeneratingPlaybackNotifications()
-        notification.removeObserver(self, name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: player)
-        notification.removeObserver(self, name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: player)
+        notification.removeObserver(self, name: NSNotification.Name.MPMusicPlayerControllerPlaybackStateDidChange, object: player)
+        notification.removeObserver(self, name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: player)
     }
 
-    @IBAction func handlePanGesture(sender: UIPanGestureRecognizer) {
+    @IBAction func handlePanGesture(_ sender: UIPanGestureRecognizer) {
 
         guard let interactor = interactor else { return }
 
-        let translation = sender.translationInView(view)
+        let translation = sender.translation(in: view)
         let progress = translation.y / view.bounds.height
 
         switch sender.state {
-        case .Began:
+        case .began:
             interactor.hasStarted = true
-            dismissViewControllerAnimated(true, completion: nil)
-        case .Changed:
+            dismiss(animated: true, completion: nil)
+        case .changed:
             interactor.shouldFinish = progress > 0.3
-            interactor.updateInteractiveTransition(progress)
-        case .Cancelled:
+            interactor.update(progress)
+        case .cancelled:
             interactor.hasStarted = false
-            interactor.cancelInteractiveTransition()
-        case .Ended:
+            interactor.cancel()
+        case .ended:
             interactor.hasStarted = false
-            interactor.shouldFinish ? interactor.finishInteractiveTransition() : interactor.cancelInteractiveTransition()
+            interactor.shouldFinish ? interactor.finish() : interactor.cancel()
         default:
             break
         }
     }
 
-    @IBAction func close(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func close(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func control(sender: UIButton) {
+    @IBAction func control(_ sender: UIButton) {
 
         switch player.playbackState {
-        case .Playing:
+        case .playing:
             player.pause()
 
         default:
@@ -99,31 +99,31 @@ class MainPlayerViewController: UIViewController {
         }
     }
 
-    @IBAction func next(sender: UIButton) {
+    @IBAction func next(_ sender: UIButton) {
         player.skipToNextItem()
     }
 
-    @IBAction func previous(sender: UIButton) {
+    @IBAction func previous(_ sender: UIButton) {
         player.skipToPreviousItem()
     }
 
-    @objc private func playStateChanged() {
+    @objc fileprivate func playStateChanged() {
 
         switch player.playbackState {
-        case .Playing:
-            controlButton.selected = true
+        case .playing:
+            controlButton.isSelected = true
 
-            if timer.valid == false {
-                timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
+            if timer.isValid == false {
+                timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
             }
 
         default:
-            controlButton.selected = false
+            controlButton.isSelected = false
             timer.invalidate()
         }
     }
 
-    @objc private func playItemChanged() {
+    @objc fileprivate func playItemChanged() {
 
         trackLabel.text = player.nowPlayingItem?.title ?? trackLabel.text
         artistLabel.text = player.nowPlayingItem?.artist ?? artistLabel.text
@@ -131,9 +131,9 @@ class MainPlayerViewController: UIViewController {
         changeArtwork()
     }
 
-    @objc private func updateProgress() {
+    @objc fileprivate func updateProgress() {
 
-        guard let cell = collectionView.visibleCells().first as? PlaylistCollectionViewCell else { return }
+        guard let cell = collectionView.visibleCells.first as? PlaylistCollectionViewCell else { return }
 
         // FIXME: Progress View
         if let durationTime = player.nowPlayingItem?.playbackDuration {
@@ -141,20 +141,20 @@ class MainPlayerViewController: UIViewController {
         }
     }
 
-    private func changeArtwork() {
+    fileprivate func changeArtwork() {
 
-        if player.indexOfNowPlayingItem == NSNotFound && player.playbackState != .Playing {
-            dismissViewControllerAnimated(true, completion: nil)
+        if player.indexOfNowPlayingItem == NSNotFound && player.playbackState != .playing {
+            dismiss(animated: true, completion: nil)
 
         } else if album != nil || playlist != nil {
 
-            let indexOfAlbum = album?.tracks.indexOf({ $0.trackName == player.nowPlayingItem?.title && $0.collectionName == player.nowPlayingItem?.albumTitle })
-            let indexOfPlaylist = playlist?.items.indexOf({ $0.trackName == player.nowPlayingItem?.title && $0.collectionName == player.nowPlayingItem?.albumTitle })
+            let indexOfAlbum = album?.tracks.index(where: { $0.trackName == player.nowPlayingItem?.title && $0.collectionName == player.nowPlayingItem?.albumTitle })
+            let indexOfPlaylist = playlist?.items.index(where: { $0.trackName == player.nowPlayingItem?.title && $0.collectionName == player.nowPlayingItem?.albumTitle })
 
             if let indexOfNowPlayingItem = indexOfAlbum ?? indexOfPlaylist {
 
-                let indexPath = NSIndexPath(forItem: indexOfNowPlayingItem, inSection: 0)
-                collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredHorizontally, animated: true)
+                let indexPath = IndexPath(item: indexOfNowPlayingItem, section: 0)
+                collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
                 collectionView.reloadData()
 
                 currentPage = indexOfNowPlayingItem
@@ -165,24 +165,24 @@ class MainPlayerViewController: UIViewController {
 
 extension MainPlayerViewController: UICollectionViewDataSource {
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         return isPlayingPlaylist ? playlist?.items.count ?? 1 : album?.tracks.count ?? 1
     }
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PlaylistCollectionViewCell.identifier, forIndexPath: indexPath) as! PlaylistCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaylistCollectionViewCell.identifier, for: indexPath) as! PlaylistCollectionViewCell
 
         cell.progressView.setProgress(0.0, animated: false)
 
         if isPlayingPlaylist, let imageUrl = iTunesMusic.artworkUrl512(playlist?.items[indexPath.row].artworkUrl) {
 
-            cell.artworkImageView.kf_setImageWithURL(imageUrl)
+            cell.artworkImageView.kf.setImage(with: imageUrl)
 
         } else if let imageUrl = album?.artworkUrl {
 
-            cell.artworkImageView.kf_setImageWithURL(imageUrl)
+            cell.artworkImageView.kf.setImage(with: imageUrl)
         }
 
         return cell
@@ -191,16 +191,16 @@ extension MainPlayerViewController: UICollectionViewDataSource {
 
 extension MainPlayerViewController: UICollectionViewDelegateFlowLayout {
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let size = UIScreen.mainScreen().bounds.size.width
+        let size = UIScreen.main.bounds.size.width
         return CGSize(width: size, height: size)
     }
 }
 
 extension MainPlayerViewController: UIScrollViewDelegate {
 
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 
         let currentPage = Int(ceil(collectionView.contentOffset.x / collectionView.bounds.size.width))
         if currentPage == self.currentPage { return }
@@ -217,7 +217,7 @@ extension MainPlayerViewController: UIScrollViewDelegate {
             trackIds = playlist.items.flatMap { String($0.trackId) }
         }
 
-        let selectedTrackIds = trackIds.enumerate().filter { $0.index >= currentPage }.map { $0.element } + trackIds.enumerate().filter { $0.index < currentPage }.map { $0.element }
+        let selectedTrackIds = trackIds.enumerated().filter { $0.offset >= currentPage }.map { $0.element } + trackIds.enumerated().filter { $0.offset < currentPage }.map { $0.element }
 
         player.setQueueWithStoreIDs(selectedTrackIds)
         player.prepareToPlay()
