@@ -40,8 +40,8 @@ class ArtistViewController: UIViewController {
     @IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer!
     @IBOutlet weak var collectionView: UICollectionView!
 
-    var artists = ["The Beatles"]
-    var songs: [MPMediaItem] = []
+    var artists = [String]()
+    var songs = [MPMediaItem]()
 
     var searchBar: UISearchBar = {
 
@@ -57,7 +57,16 @@ class ArtistViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        loadArtists()
+        switch MPMediaLibrary.authorizationStatus() {
+        case .authorized:
+            loadArtists()
+        default:
+            MPMediaLibrary.requestAuthorization{ status in
+                if status == .authorized {
+                    self.loadArtists()
+                }
+            }
+        }
 
         if self.traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: view)
