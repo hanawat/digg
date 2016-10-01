@@ -87,7 +87,7 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
         SKCloudServiceController().requestCapabilities { _, _ in }
 
         if let image = UIImage(named: "record-player") {
-            let barButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(addNewPlaylist))
+            let barButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(showPlaylist))
             navigationItem.rightBarButtonItem = barButtonItem
         }
 
@@ -106,6 +106,8 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
                 case .success(let data):
 
                     if data.musics.isEmpty {
+
+                        // TODO: UIViewController Extension
                         guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController() as? MessageViewController else { fatalError() }
 
                         viewController.message = "The artist you supplied could not be found"
@@ -145,7 +147,7 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
         super.didReceiveMemoryWarning()
     }
 
-    @objc fileprivate func addNewPlaylist() {
+    @objc fileprivate func showPlaylist() {
 
         guard let viewController = UIStoryboard(name: "CreatePlaylist", bundle: nil).instantiateInitialViewController() as? CreatePlaylistViewController else { return }
 
@@ -189,7 +191,7 @@ extension ArtistDetailViewController: UICollectionViewDelegate {
                 playerViewController.player.play()
             } else {
 
-                // TODO: Show Modal
+                self.showAlertMessage(error?.localizedDescription)
                 print(error?.localizedDescription)
             }
         })
@@ -255,7 +257,7 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
         let album =  albums[(indexPath as NSIndexPath).section]
         header.albumTitleLabel.text = album.collectionName
         header.albumArtistLabel.text = album.artistName
-        header.artworkImageView.kf.setImage(with: album.artworkUrl, placeholder: nil, options: [.transition(.fade(1.0))], progressBlock: nil, completionHandler: nil)
+        header.artworkImageView.kf.setImage(with: album.artworkUrl, placeholder: UIImage(named: "logo-long"), options: [.transition(.fade(1.0))], progressBlock: nil, completionHandler: nil)
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(playAlbum(_:)))
         header.addGestureRecognizer(tapGesture)

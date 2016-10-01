@@ -135,15 +135,18 @@ class PlayerViewController: UIViewController {
     @objc fileprivate func playItemChanged() {
 
         if player.nowPlayingItem == nil && player.playbackState != .playing && isDisplayed {
+
+            self.isDisplayed = false
             UIView.animate(withDuration: 0.2, animations: {
-                self.isDisplayed = false
                 self.view.frame = self.view.frame.offsetBy(dx: 0.0, dy: self.view.bounds.height)
             }, completion: { _ in
                 if self.view.isHidden { self.view.isHidden = false }
             })
+
         } else if player.nowPlayingItem != nil && !isDisplayed {
+
+            self.isDisplayed = true
             UIView.animate(withDuration: 0.2, animations: {
-                self.isDisplayed = true
                 self.view.frame = self.view.frame.offsetBy(dx: 0.0, dy: -self.view.bounds.height)
             }) 
         }
@@ -162,7 +165,7 @@ class PlayerViewController: UIViewController {
             artworkImageView.kf.setImage(with: imageUrl)
 
         } else if let artwork = player.nowPlayingItem?.artwork {
-            artworkImageView.image = artwork.image(at: artwork.bounds.size)
+            artworkImageView.image = artwork.image(at: artwork.bounds.size) ?? UIImage(named: "logo-short")
         }
 
         progressView.progress = 0.0

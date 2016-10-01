@@ -48,8 +48,13 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
 
     @objc fileprivate func createiTunesPlaylist() {
 
+        if playlist.items.isEmpty {
+            showAlertMessage("Please add several songs.")
+            return
+        }
+
         navigationItem.rightBarButtonItem?.isEnabled = false
-        startAnimating(nil, type: .lineScaleParty, color: nil, padding: nil)
+        startAnimating(nil, message:"Exports to Music...", type: .lineScaleParty, color: nil, padding: nil)
 
         let library = MPMediaLibrary.default()
         let metadata = MPMediaPlaylistCreationMetadata(name: playlist.playlistName)
@@ -60,16 +65,15 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
 
             let delayTime = DispatchTime.now() + Double(Int64(5.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             DispatchQueue.main.asyncAfter(deadline: delayTime) {
+
                 let trackIds = self.playlist.items.map { String($0.trackId) }
+                let offset = trackIds.count - 1
+                trackIds.enumerated().forEach { trackId in
 
-                var addedPlaylistItemsCount = 0
-                trackIds.forEach { trackId in
+                    playlist?.addItem(withProductID: trackId.element) { error in
 
-                    playlist?.addItem(withProductID: trackId) { error in
                         if error != nil { print(error) }
-
-                        addedPlaylistItemsCount += 1
-                        if addedPlaylistItemsCount == trackIds.count {
+                        if trackId.offset == offset {
 
                             DispatchQueue.main.async {
                                 self.stopAnimating()
@@ -151,7 +155,7 @@ extension CreatePlaylistViewController: UICollectionViewDelegate {
                 playerViewController.player.play()
             } else {
 
-                // TODO: Show Modal
+                self.showAlertMessage(error?.localizedDescription)
                 print(error?.localizedDescription)
             }
         })

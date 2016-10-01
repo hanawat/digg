@@ -181,8 +181,10 @@ extension MainPlayerViewController: UICollectionViewDataSource {
             cell.artworkImageView.kf.setImage(with: imageUrl)
 
         } else if let imageUrl = album?.artworkUrl {
+            cell.artworkImageView.kf.setImage(with: imageUrl)
 
-             cell.artworkImageView.kf.setImage(with: imageUrl)
+        } else if let artwork = player.nowPlayingItem?.artwork {
+            cell.artworkImageView.image = artwork.image(at: artwork.bounds.size) ?? UIImage(named: "logo-short")
         }
 
         return cell
@@ -226,7 +228,7 @@ extension MainPlayerViewController: UIScrollViewDelegate {
                 self.player.play()
             } else {
 
-                // TODO: Show Modal
+                self.showAlertMessage(error?.localizedDescription)
                 print(error?.localizedDescription)
             }
         })

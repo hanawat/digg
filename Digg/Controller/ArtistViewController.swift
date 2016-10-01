@@ -84,6 +84,12 @@ class ArtistViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
 
+    @IBAction func showPlaylist(_ sender: AnyObject) {
+        guard let viewController = UIStoryboard(name: "CreatePlaylist", bundle: nil).instantiateInitialViewController() as? CreatePlaylistViewController else { return }
+
+        show(viewController, sender: nil)
+    }
+
     @IBAction func showSearchBar(_ sender: UIBarButtonItem) {
 
         if let frame = navigationController?.navigationBar.bounds {
@@ -226,7 +232,7 @@ extension ArtistViewController: UICollectionViewDataSource {
         cell.artistLabel.text = artists[(indexPath as NSIndexPath).row]
 
         let artworks = songs.filter { $0.albumArtist == artists[(indexPath as NSIndexPath).row] }.flatMap { $0.artwork }
-        cell.artworkImageView.image = artworks.first?.image(at: cell.frame.size)
+        cell.artworkImageView.image = artworks.first?.image(at: cell.frame.size) ?? UIImage(named: "logo-long")
 
         let genre = songs.filter { $0.albumArtist == artists[(indexPath as NSIndexPath).row] }.flatMap { $0.genre }
         cell.genreLabel.text = genre.first ?? "No Genre"

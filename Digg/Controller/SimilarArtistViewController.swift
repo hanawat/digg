@@ -26,7 +26,7 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
 
     lazy var previewActions: [UIPreviewActionItem] = {
 
-        func previewDiggAction(_ title: String = "Play diggin' ", style: UIPreviewActionStyle = .default) -> UIPreviewAction? {
+        func previewDiggAction(_ title: String = "Play ", style: UIPreviewActionStyle = .default) -> UIPreviewAction? {
 
             guard let artistName = self.artist else { return nil }
 
@@ -186,7 +186,7 @@ extension SimilarArtistViewController: UICollectionViewDataSource {
         let imageUrl = similarArtist.images.filter { $0.size == "large" }.first?.url ?? similarArtist.images.first?.url
 
         if let imageUrl = imageUrl {
-            cell.similarArtistImageView.kf.setImage(with: imageUrl, placeholder: nil, options: [.transition(.flipFromLeft(1.0))], progressBlock: nil, completionHandler: nil)
+            cell.similarArtistImageView.kf.setImage(with: imageUrl, placeholder: UIImage(named: "logo-short"), options: [.transition(.flipFromLeft(1.0))], progressBlock: nil, completionHandler: nil)
         }
 
         return cell
