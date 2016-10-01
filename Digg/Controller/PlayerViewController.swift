@@ -60,9 +60,8 @@ class PlayerViewController: UIViewController {
 
     var album: iTunesMusic.Album? {
         didSet {
-            guard let album = self.album else { return }
+            guard let _ = self.album else { return }
             isPlayingPlaylist = false
-            artworkImageView.kf.setImage(with: album.artworkUrl)
         }
     }
 
@@ -155,6 +154,15 @@ class PlayerViewController: UIViewController {
             let imageUrl = iTunesMusic.artworkUrl512(playingTrack.artworkUrl) {
 
             artworkImageView.kf.setImage(with: imageUrl)
+
+        } else if let playingTrack = album?.tracks
+            .filter({ $0.collectionName == self.player.nowPlayingItem?.albumTitle }).first,
+            let imageUrl = iTunesMusic.artworkUrl512(playingTrack.artworkUrl100) {
+
+            artworkImageView.kf.setImage(with: imageUrl)
+
+        } else if let artwork = player.nowPlayingItem?.artwork {
+            artworkImageView.image = artwork.image(at: artwork.bounds.size)
         }
 
         progressView.progress = 0.0

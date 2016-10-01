@@ -137,14 +137,24 @@ extension CreatePlaylistViewController: UICollectionViewDelegate {
 
         guard let playerViewController = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController else { return }
 
-        let trackIds = playlist.items.map { String($0.trackId) }
-        let selectedTrackIds = trackIds.enumerated().filter { $0.offset >= indexPath.row }.map { $0.element } + trackIds.enumerated().filter { $0.offset < indexPath.row }.map { $0.element }
+        let trackIds = playlist.items.flatMap { String($0.trackId) } as [String]
 
         playerViewController.album = nil
         playerViewController.playlist = playlist
-        playerViewController.player.setQueueWithStoreIDs(selectedTrackIds)
-        playerViewController.player.prepareToPlay()
-        playerViewController.player.play()
+
+        let descriptor = MPMusicPlayerStoreQueueDescriptor(storeIDs: trackIds)
+        descriptor.startItemID = trackIds[indexPath.row]
+        playerViewController.player.setQueueWith(descriptor)
+
+        playerViewController.player.prepareToPlay(completionHandler: { error in
+            if error == nil {
+                playerViewController.player.play()
+            } else {
+
+                // TODO: Show Modal
+                print(error?.localizedDescription)
+            }
+        })
     }
 
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {

@@ -42,6 +42,7 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
                             return String(trackId)
                         }
 
+                        // TODO: Make All Tracks Album
                         let player = MPMusicPlayerController.systemMusicPlayer()
                         player.setQueueWithStoreIDs(storeIds)
                         player.prepareToPlay()

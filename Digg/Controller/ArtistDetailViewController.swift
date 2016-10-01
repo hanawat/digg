@@ -67,6 +67,7 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
 
             return UIPreviewAction(title: "Play " + artistName, style: .default) { _, _ in
 
+                // TODO: Make All Track Album
                 let collectionIds = self.albums.flatMap { String($0.collectionId) }
                 playerViewController.player.setQueueWithStoreIDs(collectionIds)
                 playerViewController.player.play()
@@ -171,18 +172,27 @@ extension ArtistDetailViewController: UICollectionViewDelegate {
 
         guard let playerViewController = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController else { return }
 
-        let trackIds = albums[(indexPath as NSIndexPath).section].tracks.flatMap { item -> String? in
+        let trackIds = albums[indexPath.section].tracks.flatMap { item -> String? in
             guard let trackId = item.trackId else { return nil }
             return String(trackId)
         }
 
-        let selectedTrackIds = trackIds.enumerated().filter { $0.offset >= (indexPath as NSIndexPath).row }.map { $0.element } + trackIds.enumerated().filter { $0.offset < (indexPath as NSIndexPath).row }.map { $0.element }
-
         playerViewController.playlist = nil
-        playerViewController.album = albums[(indexPath as NSIndexPath).section]
-        playerViewController.player.setQueueWithStoreIDs(selectedTrackIds)
-        playerViewController.player.prepareToPlay()
-        playerViewController.player.play()
+        playerViewController.album = albums[indexPath.section]
+
+        let descriptor = MPMusicPlayerStoreQueueDescriptor(storeIDs: trackIds)
+        descriptor.startItemID = trackIds[indexPath.row]
+        playerViewController.player.setQueueWith(descriptor)
+
+        playerViewController.player.prepareToPlay(completionHandler: { error in
+            if error == nil {
+                playerViewController.player.play()
+            } else {
+
+                // TODO: Show Modal
+                print(error?.localizedDescription)
+            }
+        })
     }
 
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {

@@ -182,7 +182,7 @@ extension MainPlayerViewController: UICollectionViewDataSource {
 
         } else if let imageUrl = album?.artworkUrl {
 
-            cell.artworkImageView.kf.setImage(with: imageUrl)
+             cell.artworkImageView.kf.setImage(with: imageUrl)
         }
 
         return cell
@@ -217,11 +217,19 @@ extension MainPlayerViewController: UIScrollViewDelegate {
             trackIds = playlist.items.flatMap { String($0.trackId) }
         }
 
-        let selectedTrackIds = trackIds.enumerated().filter { $0.offset >= currentPage }.map { $0.element } + trackIds.enumerated().filter { $0.offset < currentPage }.map { $0.element }
+        let descriptor = MPMusicPlayerStoreQueueDescriptor(storeIDs: trackIds)
+        descriptor.startItemID = trackIds[currentPage]
+        player.setQueueWith(descriptor)
 
-        player.setQueueWithStoreIDs(selectedTrackIds)
-        player.prepareToPlay()
-        player.play()
+        player.prepareToPlay(completionHandler: { error in
+            if error == nil {
+                self.player.play()
+            } else {
+
+                // TODO: Show Modal
+                print(error?.localizedDescription)
+            }
+        })
 
         self.currentPage = currentPage
     }
