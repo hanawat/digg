@@ -205,7 +205,7 @@ extension MainPlayerViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 
         let currentPage = Int(ceil(collectionView.contentOffset.x / collectionView.bounds.size.width))
-        if currentPage == self.currentPage { return }
+        guard currentPage != self.currentPage else { return }
 
         var trackIds: [String] = []
         if let album = self.album {
@@ -214,10 +214,13 @@ extension MainPlayerViewController: UIScrollViewDelegate {
                 guard let trackId = item.trackId else { return nil }
                 return String(trackId)
             }
+
         } else if let playlist = self.playlist {
 
             trackIds = playlist.items.flatMap { String($0.trackId) }
         }
+
+        guard (0..<trackIds.count) ~= currentPage else { return }
 
         let descriptor = MPMusicPlayerStoreQueueDescriptor(storeIDs: trackIds)
         descriptor.startItemID = trackIds[currentPage]
