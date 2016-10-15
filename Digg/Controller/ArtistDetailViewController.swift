@@ -11,7 +11,6 @@ import APIKit
 import Himotoki
 import RealmSwift
 import MediaPlayer
-import StoreKit
 import NVActivityIndicatorView
 
 protocol ArtistDetailPreviewItemDelegate: class {
@@ -82,9 +81,6 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        SKCloudServiceController.requestAuthorization { _ in }
-        SKCloudServiceController().requestCapabilities { _, _ in }
 
         if let image = UIImage(named: "record-player") {
             let barButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(showPlaylist))
@@ -187,6 +183,7 @@ extension ArtistDetailViewController: UICollectionViewDelegate {
         playerViewController.player.setQueueWith(descriptor)
 
         playerViewController.player.prepareToPlay(completionHandler: { error in
+
             if error == nil {
                 playerViewController.player.play()
             } else {

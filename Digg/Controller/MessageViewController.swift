@@ -16,10 +16,30 @@ extension UIViewController {
 
         viewController.message = message
         viewController.view.alpha = 0.0
-        present(viewController, animated: false) { 
-            UIView.animate(withDuration: 0.2, animations: { 
+        viewController.view.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+
+        present(viewController, animated: false) {
+            UIView.animate(withDuration: 0.2, animations: {
+                viewController.view.transform = CGAffineTransform.identity
                 viewController.view.alpha = 1.0
             })
+        }
+    }
+}
+
+class IntroductionViewController:UIViewController {
+
+    static let identifier = "IntroductionViewController"
+
+    @IBAction func getStarted(_ sender: UIButton) {
+
+        guard let viewController = UIStoryboard(name: "Artist", bundle: nil).instantiateInitialViewController(),
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate else { fatalError() }
+
+        UIView.animate(withDuration: 0.2, animations: { 
+            self.view.alpha = 0.0
+        }) { _ in
+            appDelegate.window?.rootViewController = viewController
         }
     }
 }
@@ -61,9 +81,10 @@ class AlertMessageViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        let delayTime = DispatchTime.now() + Double(Int64(3.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        let delayTime = DispatchTime.now() + Double(Int64(2.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
         DispatchQueue.main.asyncAfter(deadline: delayTime) {
             UIView.animate(withDuration: 0.2, animations: {
+                self.view.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
                 self.view.alpha = 0.0
             }) { _ in
                 self.dismiss(animated: false, completion: nil)

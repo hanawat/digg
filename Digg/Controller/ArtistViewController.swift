@@ -8,6 +8,7 @@
 
 import UIKit
 import MediaPlayer
+import NVActivityIndicatorView
 
 extension MutableCollection where Indices.Iterator.Element == Index {
 
@@ -35,7 +36,7 @@ extension Sequence {
     }
 }
 
-class ArtistViewController: UIViewController {
+class ArtistViewController: UIViewController, NVActivityIndicatorViewable {
 
     @IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -61,9 +62,26 @@ class ArtistViewController: UIViewController {
         case .authorized:
             loadArtists()
         default:
+            let userDefaults = UserDefaults.standard
+            userDefaults.register(defaults: ["isShowedAuthorizationAlert": true])
+            userDefaults.set(false, forKey: "isShowedAuthorizationAlert")
+            userDefaults.synchronize()
+
+            startAnimating(nil, type: .lineScalePulseOutRapid, color: nil, padding: nil)
             MPMediaLibrary.requestAuthorization{ status in
-                if status == .authorized {
-                    self.loadArtists()
+
+                switch status {
+                case .authorized:
+                    let delayTime = DispatchTime.now() + Double(Int64(1.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                    DispatchQueue.main.asyncAfter(deadline: delayTime) {
+                        self.loadArtists()
+                        self.stopAnimating()
+                    }
+                default:
+                    DispatchQueue.main.async {
+                        self.showAlertMessage("Access to the Music Library is unauthorized.")
+                        self.stopAnimating()
+                    }
                 }
             }
         }

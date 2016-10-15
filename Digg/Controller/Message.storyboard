@@ -65,8 +65,7 @@
                                     <frame key="frameInset"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Error" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uvw-Ab-crZ">
-                                            <frame key="frameInset" minX="38" minY="65" width="227" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uvw-Ab-crZ">
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -104,5 +103,87 @@
             </objects>
             <point key="canvasLocation" x="1301.5999999999999" y="375.56221889055473"/>
         </scene>
+        <!--Introduction View Controller-->
+        <scene sceneID="2bF-MF-z6E">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ql6-sM-H8i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="IntroductionViewController" id="uQQ-9f-yds" customClass="IntroductionViewController" customModule="Digg" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="L0N-E8-kk2"/>
+                        <viewControllerLayoutGuide type="bottom" id="iRL-g9-Beg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PN2-za-oaz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="duftpunk" translatesAutoresizingMaskIntoConstraints="NO" id="GAu-jM-tEO"/>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k6C-Ai-V1M">
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="XlD-nd-SYH">
+                                    <frame key="frameInset"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="title_introduction" translatesAutoresizingMaskIntoConstraints="NO" id="ZXd-ew-vBH">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="240" id="3MA-Re-tcM"/>
+                                                <constraint firstAttribute="height" constant="90" id="6HO-jg-gFC"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anyway you should tap on the ok button." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="hXg-jW-qCO">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alert_finger_applemusic" translatesAutoresizingMaskIntoConstraints="NO" id="uE0-wb-FHD">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="215" id="uPd-mY-Wz1"/>
+                                                <constraint firstAttribute="width" constant="240" id="zxk-Z3-VI0"/>
+                                            </constraints>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dlp-QD-kQt">
+                                            <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="25"/>
+                                            <state key="normal" title="Get Started">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="getStarted:" destination="uQQ-9f-yds" eventType="touchUpInside" id="QUx-gD-2RQ"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="hXg-jW-qCO" firstAttribute="top" secondItem="ZXd-ew-vBH" secondAttribute="bottom" constant="20" id="7m7-rx-hnl"/>
+                                        <constraint firstItem="ZXd-ew-vBH" firstAttribute="top" secondItem="XlD-nd-SYH" secondAttribute="top" constant="60" id="A42-9e-ZUu"/>
+                                        <constraint firstItem="hXg-jW-qCO" firstAttribute="leading" secondItem="XlD-nd-SYH" secondAttribute="leading" constant="50" id="LKY-AM-M6P"/>
+                                        <constraint firstAttribute="trailing" secondItem="hXg-jW-qCO" secondAttribute="trailing" constant="50" id="W1V-cJ-8cL"/>
+                                        <constraint firstItem="uE0-wb-FHD" firstAttribute="top" secondItem="hXg-jW-qCO" secondAttribute="bottom" constant="20" id="bZa-Xk-Mqi"/>
+                                        <constraint firstItem="dlp-QD-kQt" firstAttribute="centerX" secondItem="ZXd-ew-vBH" secondAttribute="centerX" id="bdJ-o7-caj"/>
+                                        <constraint firstItem="uE0-wb-FHD" firstAttribute="centerX" secondItem="ZXd-ew-vBH" secondAttribute="centerX" id="fRU-Sz-TOm"/>
+                                        <constraint firstAttribute="bottom" secondItem="dlp-QD-kQt" secondAttribute="bottom" constant="60" id="qxL-7q-Oom"/>
+                                        <constraint firstItem="ZXd-ew-vBH" firstAttribute="centerX" secondItem="XlD-nd-SYH" secondAttribute="centerX" id="wYa-1c-tHx"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="k6C-Ai-V1M" firstAttribute="top" secondItem="PN2-za-oaz" secondAttribute="top" id="MFw-GI-lTG"/>
+                            <constraint firstItem="iRL-g9-Beg" firstAttribute="top" secondItem="k6C-Ai-V1M" secondAttribute="bottom" id="QqA-fI-bnZ"/>
+                            <constraint firstAttribute="trailing" secondItem="k6C-Ai-V1M" secondAttribute="trailing" id="R1p-vp-LOQ"/>
+                            <constraint firstItem="iRL-g9-Beg" firstAttribute="top" secondItem="GAu-jM-tEO" secondAttribute="bottom" id="U9d-Cy-doM"/>
+                            <constraint firstItem="GAu-jM-tEO" firstAttribute="leading" secondItem="PN2-za-oaz" secondAttribute="leading" id="aiH-DP-hU4"/>
+                            <constraint firstItem="k6C-Ai-V1M" firstAttribute="leading" secondItem="PN2-za-oaz" secondAttribute="leading" id="dP7-NX-47e"/>
+                            <constraint firstItem="GAu-jM-tEO" firstAttribute="top" secondItem="PN2-za-oaz" secondAttribute="top" id="iAQ-YM-MRu"/>
+                            <constraint firstAttribute="trailing" secondItem="GAu-jM-tEO" secondAttribute="trailing" id="sux-hI-XSW"/>
+                        </constraints>
+                    </view>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2080.8000000000002" y="375.56221889055473"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="alert_finger_applemusic" width="700" height="613"/>
+        <image name="duftpunk" width="2560" height="1600"/>
+        <image name="title_introduction" width="240" height="90"/>
+    </resources>
 </document>

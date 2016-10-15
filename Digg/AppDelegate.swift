@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        showIntroductionIfNeeded()
+
         return true
     }
 
@@ -40,6 +42,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    fileprivate func showIntroductionIfNeeded() {
 
+        let userDefaults = UserDefaults.standard
+        userDefaults.register(defaults: ["isShowedAuthorizationAlert": true])
+
+        if userDefaults.bool(forKey: "isShowedAuthorizationAlert") {
+            guard let viewController = UIStoryboard(name: "Message", bundle: nil).instantiateViewController(withIdentifier: IntroductionViewController.identifier) as? IntroductionViewController else { fatalError() }
+
+            window?.rootViewController = viewController
+        }
+    }
 }
 

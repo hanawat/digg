@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import MediaPlayer
+import StoreKit
 import NVActivityIndicatorView
 
 class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewable {
@@ -29,6 +30,25 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        SKCloudServiceController.requestAuthorization { status in
+            switch status {
+            case .denied:
+                DispatchQueue.main.async {
+                    self.showAlertMessage("Access to the Apple Music is unauthorized.")
+                }
+            default:
+                break
+            }
+        }
+
+        SKCloudServiceController().requestCapabilities { capabilities, error in
+            if error != nil {
+                DispatchQueue.main.async {
+                    self.showAlertMessage(error?.localizedDescription)
+                }
+            }
+        }
 
         guard let realm = try? Realm() else { return }
         playlist = realm.objects(Playlist.self).last ?? Playlist()
@@ -73,7 +93,17 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
         metadata.descriptionText = playlist.playlistDiscription
 
         library.getPlaylist(with: UUID(), creationMetadata: metadata) { playlist, error in
-            if error != nil { print(error); return }
+
+            if error != nil {
+
+                DispatchQueue.main.async {
+                    self.stopAnimating()
+                    self.showAlertMessage(error?.localizedDescription)
+                    self.navigationItem.rightBarButtonItem?.isEnabled = true
+                }
+
+                return
+            }
 
             let delayTime = DispatchTime.now() + Double(Int64(5.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             DispatchQueue.main.asyncAfter(deadline: delayTime) {
@@ -84,8 +114,19 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
 
                     playlist?.addItem(withProductID: trackId.element) { error in
 
-                        if error != nil { print(error) }
-                        if trackId.offset == offset {
+                        if error != nil {
+
+                            if trackId.offset == 0 {
+                                DispatchQueue.main.async {
+                                    self.stopAnimating()
+                                    self.showAlertMessage(error?.localizedDescription)
+                                    self.navigationItem.rightBarButtonItem?.isEnabled = true
+                                }
+                            }
+
+                            return
+
+                        } else if trackId.offset == offset {
 
                             DispatchQueue.main.async {
                                 self.stopAnimating()
