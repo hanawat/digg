@@ -284,10 +284,16 @@ extension CreatePlaylistViewController: UICollectionViewDataSource {
             let translation = sender.translation(in: cell)
             cell.frame = translation.x < 0.0 ? originalFrame.offsetBy(dx: translation.x, dy: 0.0) : originalFrame
 
+            let percentage = translation.x < 0.0 ? abs(translation.x / cell.bounds.width) : 0.0
+            cell.contentView.backgroundColor = UIColor(red: percentage, green: 0.0, blue: percentage, alpha: 1.0)
 
         case .ended:
+            UIView.animate(withDuration: 0.2, animations: {
+                cell.contentView.backgroundColor = UIColor.black
+            })
+
             guard let indexPath = collectionView.indexPath(for: cell)
-                , cell.frame.origin.x < -cell.frame.size.width / 2.0 else {
+                , cell.frame.origin.x < -cell.frame.size.width / 3.0 else {
                     UIView.animate(withDuration: 0.2, animations: { cell.frame = self.originalFrame }) ; return
             }
 

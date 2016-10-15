@@ -105,6 +105,24 @@ class PlayerViewController: UIViewController {
         notification.removeObserver(self, name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: player)
     }
 
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.view.layer.backgroundColor = UIColor(white: 0.1, alpha: 1.0).cgColor
+        })
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.view.layer.backgroundColor = UIColor.clear.cgColor
+        })
+    }
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.view.layer.backgroundColor = UIColor.clear.cgColor
+        })
+    }
+
     @IBAction func control(_ sender: UIButton) {
 
         switch player.playbackState {
@@ -166,6 +184,8 @@ class PlayerViewController: UIViewController {
 
         } else if let artwork = player.nowPlayingItem?.artwork {
             artworkImageView.image = artwork.image(at: artwork.bounds.size) ?? UIImage(named: "logo-short")
+            playlist = nil
+            album = nil
         }
 
         progressView.progress = 0.0
