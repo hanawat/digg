@@ -229,7 +229,7 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MusicTrackCollectionViewCell.identifier, for: indexPath) as! MusicTrackCollectionViewCell
-        let music =  albums[(indexPath as NSIndexPath).section].tracks[(indexPath as NSIndexPath).row]
+        let music =  albums[(indexPath as NSIndexPath).section].tracks[indexPath.row]
 
         cell.trackNameLabel.text = music.trackName
         cell.trackArtistLabel.text = music.artistName
@@ -242,7 +242,7 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
             cell.isUserInteractionEnabled = isStreamable ? true : false
         }
 
-        if let isStreamable = albums[(indexPath as NSIndexPath).section].tracks[(indexPath as NSIndexPath).row].isStreamable , isStreamable {
+        if let isStreamable = albums[(indexPath as NSIndexPath).section].tracks[indexPath.row].isStreamable , isStreamable {
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(trackCellPanGesture(_:)))
             panGesture.delegate = self
             cell.addGestureRecognizer(panGesture)
@@ -306,7 +306,7 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
 
         let playlist = realm.objects(Playlist.self).last ?? Playlist()
         let item = PlaylistItem()
-        let track = albums[(indexPath as NSIndexPath).section].tracks[(indexPath as NSIndexPath).row]
+        let track = albums[(indexPath as NSIndexPath).section].tracks[indexPath.row]
 
         item.collectionId = track.collectionId ?? 0
         item.collectionName = track.collectionName ?? ""

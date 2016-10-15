@@ -87,7 +87,12 @@ class ArtistViewController: UIViewController {
     @IBAction func showPlaylist(_ sender: AnyObject) {
         guard let viewController = UIStoryboard(name: "CreatePlaylist", bundle: nil).instantiateInitialViewController() as? CreatePlaylistViewController else { return }
 
-        show(viewController, sender: nil)
+        viewController.isModal = true
+
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.navigationBar.barStyle = .black
+        navigationController.navigationBar.tintColor = UIColor.white
+        present(navigationController, animated: true, completion: nil)
     }
 
     @IBAction func showSearchBar(_ sender: UIBarButtonItem) {
@@ -172,7 +177,7 @@ extension ArtistViewController: UIViewControllerPreviewingDelegate {
             let viewController = UIStoryboard(name: "SimilarArtist", bundle: nil).instantiateInitialViewController() as?SimilarArtistViewController  else { return nil }
 
         previewingContext.sourceRect = collectionView.convert(cell.frame, to: view)
-        viewController.artist = artists[(indexPath as NSIndexPath).row]
+        viewController.artist = artists[indexPath.row]
 
         return viewController
     }
@@ -207,7 +212,7 @@ extension ArtistViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         let viewController = UIStoryboard(name: "SimilarArtist", bundle: nil).instantiateInitialViewController() as! SimilarArtistViewController
-        viewController.artist = artists[(indexPath as NSIndexPath).row]
+        viewController.artist = artists[indexPath.row]
         navigationController?.pushViewController(viewController, animated: true)
     }
 
@@ -229,12 +234,14 @@ extension ArtistViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ArtistCollectionViewCell.identifier, for: indexPath) as! ArtistCollectionViewCell
-        cell.artistLabel.text = artists[(indexPath as NSIndexPath).row]
 
-        let artworks = songs.filter { $0.albumArtist == artists[(indexPath as NSIndexPath).row] }.flatMap { $0.artwork }
+        let artist = artists[indexPath.row]
+        cell.artistLabel.text = artist
+
+        let artworks = songs.filter { $0.albumArtist == artist || $0.artist == artist }.flatMap { $0.artwork }
         cell.artworkImageView.image = artworks.first?.image(at: cell.frame.size) ?? UIImage(named: "logo-long")
 
-        let genre = songs.filter { $0.albumArtist == artists[(indexPath as NSIndexPath).row] }.flatMap { $0.genre }
+        let genre = songs.filter { $0.albumArtist == artist }.flatMap { $0.genre }
         cell.genreLabel.text = genre.first ?? "No Genre"
 
         return cell

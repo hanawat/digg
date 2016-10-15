@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11517.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -47,6 +48,9 @@
                                         </stackView>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Hy3-fJ-IcV">
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="Hy3-fJ-IcV" secondAttribute="height" multiplier="1:1" id="dF4-TS-r0w"/>
+                                            </constraints>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="VLT-Du-BGd">
                                                 <size key="itemSize" width="375" height="375"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -55,13 +59,13 @@
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlaylistCollectionViewCell" id="7GJ-2a-1N0" customClass="PlaylistCollectionViewCell" customModule="Digg" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="-10" width="375" height="375"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-short" translatesAutoresizingMaskIntoConstraints="NO" id="VjV-J2-w4H"/>
+                                                            <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-short" translatesAutoresizingMaskIntoConstraints="NO" id="VjV-J2-w4H"/>
                                                             <progressView opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MMj-lB-YuD">
                                                                 <color key="progressTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <color key="trackTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -176,9 +180,6 @@
                                                     </mask>
                                                 </variation>
                                             </view>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="165" id="gcO-Fd-Psa"/>
-                                            </constraints>
                                             <vibrancyEffect>
                                                 <blurEffect style="dark"/>
                                             </vibrancyEffect>
@@ -186,23 +187,17 @@
                                     </subviews>
                                     <gestureRecognizers/>
                                     <constraints>
-                                        <constraint firstItem="p16-c3-706" firstAttribute="top" secondItem="bDK-x8-6AI" secondAttribute="top" constant="70" id="2vt-dh-6wF"/>
+                                        <constraint firstItem="p16-c3-706" firstAttribute="top" secondItem="bDK-x8-6AI" secondAttribute="top" constant="40" id="2vt-dh-6wF"/>
+                                        <constraint firstItem="Hy3-fJ-IcV" firstAttribute="leading" secondItem="bDK-x8-6AI" secondAttribute="leading" id="BKj-oY-ezR"/>
                                         <constraint firstItem="p16-c3-706" firstAttribute="leading" secondItem="bDK-x8-6AI" secondAttribute="leading" constant="10" id="D1J-61-cGE"/>
                                         <constraint firstItem="tgP-ge-ZeZ" firstAttribute="leading" secondItem="bDK-x8-6AI" secondAttribute="leading" id="DjY-xH-ubE"/>
-                                        <constraint firstItem="tgP-ge-ZeZ" firstAttribute="top" secondItem="Hy3-fJ-IcV" secondAttribute="bottom" constant="10" id="Drj-Gr-Aew"/>
+                                        <constraint firstItem="Hy3-fJ-IcV" firstAttribute="top" secondItem="p16-c3-706" secondAttribute="bottom" constant="15" id="QYY-3O-zTv"/>
+                                        <constraint firstAttribute="trailing" secondItem="Hy3-fJ-IcV" secondAttribute="trailing" id="TwD-T8-uaB"/>
                                         <constraint firstAttribute="bottom" secondItem="tgP-ge-ZeZ" secondAttribute="bottom" id="U3J-R4-zxe"/>
                                         <constraint firstAttribute="trailing" secondItem="p16-c3-706" secondAttribute="trailing" constant="10" id="YYG-pI-T5p"/>
-                                        <constraint firstItem="Hy3-fJ-IcV" firstAttribute="top" secondItem="p16-c3-706" secondAttribute="bottom" constant="15" id="llY-Yi-ZQO"/>
-                                        <constraint firstAttribute="trailing" secondItem="Hy3-fJ-IcV" secondAttribute="trailing" id="mIT-Gg-4Zd"/>
-                                        <constraint firstItem="Hy3-fJ-IcV" firstAttribute="leading" secondItem="bDK-x8-6AI" secondAttribute="leading" id="oza-kw-jcw"/>
+                                        <constraint firstItem="tgP-ge-ZeZ" firstAttribute="top" secondItem="Hy3-fJ-IcV" secondAttribute="bottom" constant="15" id="Zbs-1V-OE4"/>
                                         <constraint firstAttribute="trailing" secondItem="tgP-ge-ZeZ" secondAttribute="trailing" id="s8N-ER-ttd"/>
-                                        <constraint firstItem="Hy3-fJ-IcV" firstAttribute="top" secondItem="p16-c3-706" secondAttribute="bottom" constant="20" id="vTV-2k-Zr9"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="vTV-2k-Zr9"/>
-                                        </mask>
-                                    </variation>
                                     <connections>
                                         <outletCollection property="gestureRecognizers" destination="Y9M-jc-gkd" appends="YES" id="AgO-1u-Vyv"/>
                                     </connections>

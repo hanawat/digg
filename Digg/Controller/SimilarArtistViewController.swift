@@ -132,7 +132,7 @@ extension SimilarArtistViewController: UIViewControllerPreviewingDelegate {
             let viewController = UIStoryboard(name: "ArtistDetail", bundle: nil).instantiateInitialViewController() as? ArtistDetailViewController  else { return nil }
 
         previewingContext.sourceRect = collectionView.convert(cell.frame, to: view)
-        viewController.artist = similarArtists[(indexPath as NSIndexPath).row]
+        viewController.artist = similarArtists[indexPath.row]
         viewController.delegate = self
 
         return viewController
@@ -159,7 +159,7 @@ extension SimilarArtistViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         let viewController = UIStoryboard(name: "ArtistDetail", bundle: nil).instantiateInitialViewController() as! ArtistDetailViewController
-        viewController.artist = similarArtists[(indexPath as NSIndexPath).row]
+        viewController.artist = similarArtists[indexPath.row]
         navigationController?.pushViewController(viewController, animated: true)
     }
 
@@ -181,7 +181,7 @@ extension SimilarArtistViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SimilarArtistCollectionViewCell.identifier, for: indexPath) as! SimilarArtistCollectionViewCell
-        let similarArtist = similarArtists[(indexPath as NSIndexPath).row]
+        let similarArtist = similarArtists[indexPath.row]
         cell.similarArtistNameLabel.text = similarArtist.name
         let imageUrl = similarArtist.images.filter { $0.size == "large" }.first?.url ?? similarArtist.images.first?.url
 

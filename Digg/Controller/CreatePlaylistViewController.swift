@@ -25,6 +25,7 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
 
     var originalFrame = CGRect.zero
     var pannedIndexPath: IndexPath?
+    var isModal = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +33,16 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
         guard let realm = try? Realm() else { return }
         playlist = realm.objects(Playlist.self).last ?? Playlist()
 
+        navigationItem.title = playlist.playlistName
+
         if let image = UIImage(named: "itunes-logo") {
             let barButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(createiTunesPlaylist))
             navigationItem.rightBarButtonItem = barButtonItem
+        }
+
+        if isModal {
+            let barButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close))
+            navigationItem.leftBarButtonItem = barButtonItem
         }
 
         if let playerViewController = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers[1] as? PlayerViewController {
@@ -44,6 +52,10 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+
+    @objc fileprivate func close() {
+        dismiss(animated: true, completion: nil)
     }
 
     @objc fileprivate func createiTunesPlaylist() {
@@ -130,6 +142,8 @@ extension CreatePlaylistViewController: UITextFieldDelegate {
         } catch {
             print("Realm writing error.")
         }
+
+        navigationItem.title = playlist.playlistName
 
         return true
     }
