@@ -201,6 +201,13 @@ extension CreatePlaylistViewController: UICollectionViewDelegate {
         playerViewController.album = nil
         playerViewController.playlist = playlist
 
+        if let mainPlayerViewController = presentingViewController as? MainPlayerViewController {
+
+            mainPlayerViewController.album = nil
+            mainPlayerViewController.playlist = playlist
+            mainPlayerViewController.collectionView.reloadData()
+        }
+
         let descriptor = MPMusicPlayerStoreQueueDescriptor(storeIDs: trackIds)
         descriptor.startItemID = trackIds[indexPath.row]
         playerViewController.player.setQueueWith(descriptor)
@@ -297,11 +304,13 @@ extension CreatePlaylistViewController: UICollectionViewDataSource {
                     UIView.animate(withDuration: 0.2, animations: { cell.frame = self.originalFrame }) ; return
             }
 
+            collectionView.isUserInteractionEnabled = false
             UIView.animate(withDuration: 0.2, animations: {
                 cell.frame = self.originalFrame.offsetBy(dx: -cell.frame.size.width, dy: 0.0)
 
                 }, completion: { _ in
                     cell.alpha = 0.0
+                    self.collectionView.isUserInteractionEnabled = true
                     self.removePlaylist(indexPath)
             })
 

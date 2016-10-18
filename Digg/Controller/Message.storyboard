@@ -106,7 +106,6 @@
         <!--Introduction View Controller-->
         <scene sceneID="2bF-MF-z6E">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ql6-sM-H8i" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="IntroductionViewController" id="uQQ-9f-yds" customClass="IntroductionViewController" customModule="Digg" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L0N-E8-kk2"/>
@@ -177,6 +176,7 @@
                         </constraints>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ql6-sM-H8i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2080.8000000000002" y="375.56221889055473"/>
         </scene>

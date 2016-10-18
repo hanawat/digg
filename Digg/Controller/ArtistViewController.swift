@@ -102,17 +102,6 @@ class ArtistViewController: UIViewController, NVActivityIndicatorViewable {
         super.didReceiveMemoryWarning()
     }
 
-    @IBAction func showPlaylist(_ sender: AnyObject) {
-        guard let viewController = UIStoryboard(name: "CreatePlaylist", bundle: nil).instantiateInitialViewController() as? CreatePlaylistViewController else { return }
-
-        viewController.isModal = true
-
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.navigationBar.barStyle = .black
-        navigationController.navigationBar.tintColor = UIColor.white
-        present(navigationController, animated: true, completion: nil)
-    }
-
     @IBAction func showSearchBar(_ sender: UIBarButtonItem) {
 
         if let frame = navigationController?.navigationBar.bounds {
@@ -275,6 +264,8 @@ extension ArtistViewController: UIScrollViewDelegate {
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 
+        guard scrollView.contentOffset.y > -40.0 else { return }
+
         if velocity.y > 0.0 {
             navigationController?.hiddenNavigationBar(true)
         } else {
@@ -283,6 +274,10 @@ extension ArtistViewController: UIScrollViewDelegate {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+        if scrollView.contentOffset.y < -40.0 {
+            navigationController?.showNavigationBar(true)
+        }
 
         guard let cells = collectionView.visibleCells as? [ArtistCollectionViewCell] else { return }
 

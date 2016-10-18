@@ -288,12 +288,19 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
                     UIView.animate(withDuration: 0.2, animations: { cell.frame = self.originalFrame }) ; return
             }
 
+            collectionView.isUserInteractionEnabled = false
             UIView.animate(withDuration: 0.2, animations: {
                 cell.frame = self.originalFrame.offsetBy(dx: cell.frame.size.width, dy: 0.0)
 
                 }, completion: { _ in
                     cell.frame = self.originalFrame.offsetBy(dx: -cell.frame.size.width, dy: 0.0)
-                    UIView.animate(withDuration: 0.2, animations: { cell.frame = self.originalFrame }) 
+
+                    UIView.animate(withDuration: 0.2, animations: {
+                        cell.frame = self.originalFrame
+
+                    }, completion: { _ in
+                        self.collectionView.isUserInteractionEnabled = true
+                    })
             })
 
             addPlaylist(indexPath)

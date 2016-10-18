@@ -84,6 +84,18 @@ class MainPlayerViewController: UIViewController {
         }
     }
 
+    @IBAction func showPlaylist(_ sender: AnyObject) {
+        guard let viewController = UIStoryboard(name: "CreatePlaylist", bundle: nil).instantiateInitialViewController() as? CreatePlaylistViewController else { return }
+
+        viewController.isModal = true
+        viewController.modalTransitionStyle = .flipHorizontal
+
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.navigationBar.barStyle = .black
+        navigationController.navigationBar.tintColor = UIColor.white
+        present(navigationController, animated: true, completion: nil)
+    }
+
     @IBAction func close(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
@@ -154,9 +166,15 @@ class MainPlayerViewController: UIViewController {
             if let indexOfNowPlayingItem = indexOfAlbum ?? indexOfPlaylist {
 
                 let indexPath = IndexPath(item: indexOfNowPlayingItem, section: 0)
+                collectionView.isUserInteractionEnabled = false
                 collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-                collectionView.reloadData()
 
+                let delayTime = DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                DispatchQueue.main.asyncAfter(deadline: delayTime) {
+                    self.collectionView.isUserInteractionEnabled = true
+                }
+
+                collectionView.reloadData()
                 currentPage = indexOfNowPlayingItem
             }
         }
