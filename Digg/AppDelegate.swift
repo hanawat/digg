@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        registerCountryCode()
         showIntroductionIfNeeded()
 
         return true
@@ -40,6 +42,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+
+    fileprivate func registerCountryCode() {
+
+        let userDefaults = UserDefaults.standard
+        userDefaults.register(defaults: ["countryCode": "JP"])
+
+        let cloudServiceController = SKCloudServiceController()
+        cloudServiceController.requestStorefrontIdentifier { identifier, error in
+
+            guard error == nil else { print(error); return }
+
+            guard let storefrontIdentifier = identifier?.components(separatedBy: "-").first,
+                let countryCode = CountriesPlistManager.countries()
+                    .filter({ $0.storefrontIdentifier == storefrontIdentifier }).first?.countryCode else { return }
+
+            userDefaults.set(countryCode, forKey: "countryCode")
+            userDefaults.synchronize()
+        }
     }
 
     fileprivate func showIntroductionIfNeeded() {

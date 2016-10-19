@@ -193,7 +193,7 @@
                                     </subviews>
                                     <gestureRecognizers/>
                                     <constraints>
-                                        <constraint firstItem="Hy3-fJ-IcV" firstAttribute="centerY" secondItem="bDK-x8-6AI" secondAttribute="centerY" constant="-50" id="4iL-Z8-rDl"/>
+                                        <constraint firstItem="Hy3-fJ-IcV" firstAttribute="centerY" secondItem="bDK-x8-6AI" secondAttribute="centerY" constant="-15" id="4iL-Z8-rDl"/>
                                         <constraint firstItem="5rr-U0-k7a" firstAttribute="leading" secondItem="bDK-x8-6AI" secondAttribute="leading" constant="15" id="8GS-Bp-tEq"/>
                                         <constraint firstItem="Hy3-fJ-IcV" firstAttribute="leading" secondItem="bDK-x8-6AI" secondAttribute="leading" id="BKj-oY-ezR"/>
                                         <constraint firstItem="p16-c3-706" firstAttribute="leading" secondItem="bDK-x8-6AI" secondAttribute="leading" constant="50" id="D1J-61-cGE"/>
@@ -202,7 +202,7 @@
                                         <constraint firstAttribute="trailing" secondItem="Hy3-fJ-IcV" secondAttribute="trailing" id="TwD-T8-uaB"/>
                                         <constraint firstAttribute="bottom" secondItem="tgP-ge-ZeZ" secondAttribute="bottom" id="U3J-R4-zxe"/>
                                         <constraint firstAttribute="trailing" secondItem="p16-c3-706" secondAttribute="trailing" constant="50" id="YYG-pI-T5p"/>
-                                        <constraint firstItem="tgP-ge-ZeZ" firstAttribute="top" secondItem="Hy3-fJ-IcV" secondAttribute="bottom" constant="15" id="Zbs-1V-OE4"/>
+                                        <constraint firstItem="tgP-ge-ZeZ" firstAttribute="top" secondItem="Hy3-fJ-IcV" secondAttribute="bottom" constant="10" id="Zbs-1V-OE4"/>
                                         <constraint firstItem="5rr-U0-k7a" firstAttribute="top" secondItem="bDK-x8-6AI" secondAttribute="top" constant="30" id="s5X-6M-bjr"/>
                                         <constraint firstAttribute="trailing" secondItem="tgP-ge-ZeZ" secondAttribute="trailing" id="s8N-ER-ttd"/>
                                     </constraints>

@@ -63,7 +63,6 @@ class ArtistViewController: UIViewController, NVActivityIndicatorViewable {
             loadArtists()
         default:
             let userDefaults = UserDefaults.standard
-            userDefaults.register(defaults: ["isShowedAuthorizationAlert": true])
             userDefaults.set(false, forKey: "isShowedAuthorizationAlert")
             userDefaults.synchronize()
 

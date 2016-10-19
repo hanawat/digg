@@ -59,7 +59,7 @@
         <scene sceneID="CaQ-8o-u0X">
             <objects>
                 <navigationController id="Ybl-df-Stm" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="eBc-de-lac">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="eBc-de-lac">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -163,7 +163,7 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="Md9-NY-YP5">
-                        <barButtonItem key="leftBarButtonItem" image="BBB113F8-2053-4544-9FC2-947AD6A70A4A" id="5c8-X9-jj4">
+                        <barButtonItem key="leftBarButtonItem" image="4D1EAFC2-8C14-4643-B08B-4CFD501469ED" id="5c8-X9-jj4">
                             <connections>
                                 <action selector="showPlaylist:" destination="amy-OG-eO1" id="3vZ-LH-zEo"/>
                             </connections>
@@ -306,7 +306,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BBB113F8-2053-4544-9FC2-947AD6A70A4A" width="22" height="22">
+        <image name="4D1EAFC2-8C14-4643-B08B-4CFD501469ED" width="22" height="22">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

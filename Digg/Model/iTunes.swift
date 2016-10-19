@@ -9,6 +9,15 @@
 import Foundation
 import APIKit
 
+class Utility {
+
+    static var isJapanese: Bool {
+
+        guard let language = Locale.preferredLanguages.first else { return false }
+        return language.hasPrefix("ja-")
+    }
+}
+
 protocol iTunesRequestType: Request { }
 
 extension iTunesRequestType {
@@ -44,12 +53,12 @@ struct iTunesSearchRequest: iTunesRequestType {
     }
 
     let term: String
-    let country = "JP"
+    let country = UserDefaults.standard.string(forKey: "countryCode")
     let media = "music"
     let entity: SearchRequestEntity
     let attribute: SearchRequestAttribute
     let limit: Int
-    let lang = "ja_jp"
+    let lang = Utility.isJapanese ? "ja_jp" : "en_us"
 
     typealias Response = iTunesMusic
 
