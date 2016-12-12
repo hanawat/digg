@@ -11,37 +11,6 @@ import MediaPlayer
 import RealmSwift
 import APIKit
 
-class DismissInteractor: UIPercentDrivenInteractiveTransition {
-
-    var hasStarted = false
-    var shouldFinish = false
-}
-
-class DismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-
-    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        guard let transitionContext = transitionContext else { return 0.3 }
-
-        return transitionContext.isInteractive ? 0.6 : 0.3
-    }
-
-    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) else { return }
-
-        let screenBounds = UIScreen.main.bounds
-        let finalFrame = CGRect(origin: CGPoint(x: 0, y: screenBounds.height), size: screenBounds.size)
-        let options: UIViewAnimationOptions = transitionContext.isInteractive ? [UIViewAnimationOptions.curveLinear] : []
-
-        UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0.0, options: options, animations: { 
-            fromViewController.view.frame = finalFrame
-
-            }, completion: { _ in
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-            }
-        )
-    }
-}
-
 class PlayerViewController: UIViewController {
 
     @IBOutlet weak var artworkImageView: UIImageView!
@@ -71,6 +40,8 @@ class PlayerViewController: UIViewController {
             isPlayingPlaylist = true
         }
     }
+
+    // MARK: - Lifecycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,6 +94,8 @@ class PlayerViewController: UIViewController {
         })
     }
 
+    // MARK: - Action Methods
+
     @IBAction func control(_ sender: UIButton) {
 
         switch player.playbackState {
@@ -133,6 +106,21 @@ class PlayerViewController: UIViewController {
             player.play()
         }
     }
+
+    @IBAction func showPlayer(_ sender: UITapGestureRecognizer) {
+
+
+        guard let mainViewController = UIStoryboard(name: "MainPlayer", bundle: nil).instantiateViewController(withIdentifier: MainPlayerViewController.identifier) as? MainPlayerViewController else { return }
+
+        mainViewController.album = album
+        mainViewController.playlist = playlist
+        mainViewController.isPlayingPlaylist = isPlayingPlaylist
+        mainViewController.transitioningDelegate = self
+        mainViewController.interactor = interactor
+        present(mainViewController, animated: true, completion: nil)
+    }
+
+    // MARK: - Private Methods
 
     @objc fileprivate func playStateChanged() {
 
@@ -199,21 +187,9 @@ class PlayerViewController: UIViewController {
             progressView.setProgress(Float(player.currentPlaybackTime / durationTime), animated: false)
         }
     }
-    
-    @IBAction func showPlayer(_ sender: UITapGestureRecognizer) {
-
-
-        guard let mainViewController = UIStoryboard(name: "MainPlayer", bundle: nil).instantiateViewController(withIdentifier: MainPlayerViewController.identifier) as? MainPlayerViewController else { return }
-
-        mainViewController.album = album
-        mainViewController.playlist = playlist
-        mainViewController.isPlayingPlaylist = isPlayingPlaylist
-        mainViewController.transitioningDelegate = self
-        mainViewController.interactor = interactor
-        present(mainViewController, animated: true, completion: nil)
-    }
 }
 
+// MARK: - UIViewControllerTransitioningDelegate
 extension PlayerViewController: UIViewControllerTransitioningDelegate {
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {

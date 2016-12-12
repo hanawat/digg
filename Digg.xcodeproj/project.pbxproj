@@ -10,6 +10,12 @@
 		3C0B9C251CF3D6AF003ED34D /* ArtistDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0B9C241CF3D6AF003ED34D /* ArtistDetailViewController.swift */; };
 		3C0B9C271CF3D6D1003ED34D /* ArtistDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C0B9C261CF3D6D1003ED34D /* ArtistDetail.storyboard */; };
 		3C0B9C291CF3D7CD003ED34D /* MusicTrackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0B9C281CF3D7CD003ED34D /* MusicTrackCollectionViewCell.swift */; };
+		3C1982051DFEEABB006A73E6 /* Collection+Shuffle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1982041DFEEABB006A73E6 /* Collection+Shuffle.swift */; };
+		3C1982071DFEEC3F006A73E6 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1982061DFEEC3F006A73E6 /* Utility.swift */; };
+		3C1982091DFEECBE006A73E6 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1982081DFEECBE006A73E6 /* Playlist.swift */; };
+		3C19820B1DFEED37006A73E6 /* UINavigationController+Hidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C19820A1DFEED37006A73E6 /* UINavigationController+Hidden.swift */; };
+		3C19820D1DFEEE4D006A73E6 /* DismissTransioningAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C19820C1DFEEE4D006A73E6 /* DismissTransioningAnimator.swift */; };
+		3C19820F1DFEF0FB006A73E6 /* IntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C19820E1DFEF0FB006A73E6 /* IntroductionViewController.swift */; };
 		3C3B14091CF1B86B0053F783 /* ArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B14081CF1B86B0053F783 /* ArtistViewController.swift */; };
 		3C3B140C1CF1B8C60053F783 /* Artist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C3B140B1CF1B8C60053F783 /* Artist.storyboard */; };
 		3C3B140F1CF1BBDF0053F783 /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B140E1CF1BBDF0053F783 /* ArtistCollectionViewCell.swift */; };
@@ -57,6 +63,12 @@
 		3C0B9C261CF3D6D1003ED34D /* ArtistDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArtistDetail.storyboard; sourceTree = "<group>"; };
 		3C0B9C281CF3D7CD003ED34D /* MusicTrackCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicTrackCollectionViewCell.swift; sourceTree = "<group>"; };
 		3C19337B1D6048E800E17C2E /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
+		3C1982041DFEEABB006A73E6 /* Collection+Shuffle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Shuffle.swift"; sourceTree = "<group>"; };
+		3C1982061DFEEC3F006A73E6 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		3C1982081DFEECBE006A73E6 /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
+		3C19820A1DFEED37006A73E6 /* UINavigationController+Hidden.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Hidden.swift"; sourceTree = "<group>"; };
+		3C19820C1DFEEE4D006A73E6 /* DismissTransioningAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissTransioningAnimator.swift; sourceTree = "<group>"; };
+		3C19820E1DFEF0FB006A73E6 /* IntroductionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroductionViewController.swift; sourceTree = "<group>"; };
 		3C3B14081CF1B86B0053F783 /* ArtistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; };
 		3C3B140B1CF1B8C60053F783 /* Artist.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Artist.storyboard; sourceTree = "<group>"; };
 		3C3B140E1CF1BBDF0053F783 /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -113,6 +125,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3C1982031DFEEA63006A73E6 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				3C1982041DFEEABB006A73E6 /* Collection+Shuffle.swift */,
+				3C1982061DFEEC3F006A73E6 /* Utility.swift */,
+				3C19820A1DFEED37006A73E6 /* UINavigationController+Hidden.swift */,
+				3C19820C1DFEEE4D006A73E6 /* DismissTransioningAnimator.swift */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
 		3C3B140A1CF1B87F0053F783 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +152,7 @@
 				3C3E0F981D04375F008C1467 /* CreatePlaylist.storyboard */,
 				3C9F39951D6CA1470069D0D8 /* MessageViewController.swift */,
 				3C9F39931D6C993D0069D0D8 /* Message.storyboard */,
+				3C19820E1DFEF0FB006A73E6 /* IntroductionViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -170,6 +194,7 @@
 		3CA086171CDDCEA500504387 /* Digg */ = {
 			isa = PBXGroup;
 			children = (
+				3C1982031DFEEA63006A73E6 /* Library */,
 				3CA086381CDF669700504387 /* Model */,
 				3C3B140A1CF1B87F0053F783 /* Controller */,
 				3C3B140D1CF1BBA60053F783 /* View */,
@@ -200,6 +225,7 @@
 				3CA0863B1CDF748B00504387 /* LastfmSimilarTrack.swift */,
 				3C4670BD1CE0C5AA00AF10B8 /* LastfmSimilarArtist.swift */,
 				3CAFF4DD1CE8C55100E4ED8E /* iTunesMusic.swift */,
+				3C1982081DFEECBE006A73E6 /* Playlist.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -395,14 +421,20 @@
 				3C3B14091CF1B86B0053F783 /* ArtistViewController.swift in Sources */,
 				3C0B9C251CF3D6AF003ED34D /* ArtistDetailViewController.swift in Sources */,
 				3CA0863C1CDF748B00504387 /* LastfmSimilarTrack.swift in Sources */,
+				3C1982091DFEECBE006A73E6 /* Playlist.swift in Sources */,
+				3C19820B1DFEED37006A73E6 /* UINavigationController+Hidden.swift in Sources */,
+				3C19820F1DFEF0FB006A73E6 /* IntroductionViewController.swift in Sources */,
 				3C7A689D1CF1F10E0084F8D9 /* SimilarArtistViewController.swift in Sources */,
 				3C3B140F1CF1BBDF0053F783 /* ArtistCollectionViewCell.swift in Sources */,
 				3C4670BE1CE0C5AA00AF10B8 /* LastfmSimilarArtist.swift in Sources */,
 				3CAFF4DE1CE8C55100E4ED8E /* iTunesMusic.swift in Sources */,
 				3C3E0F971D04374B008C1467 /* CreatePlaylistViewController.swift in Sources */,
+				3C19820D1DFEEE4D006A73E6 /* DismissTransioningAnimator.swift in Sources */,
+				3C1982071DFEEC3F006A73E6 /* Utility.swift in Sources */,
 				3CA086191CDDCEA500504387 /* AppDelegate.swift in Sources */,
 				3C7A68A11CF1F2B00084F8D9 /* SimilarArtistCollectionViewCell.swift in Sources */,
 				3C9F39961D6CA1470069D0D8 /* MessageViewController.swift in Sources */,
+				3C1982051DFEEABB006A73E6 /* Collection+Shuffle.swift in Sources */,
 				3C995D9E1DB7C39E008A2038 /* Country.swift in Sources */,
 				3CA813331CFF225C0039605B /* PlayerViewController.swift in Sources */,
 			);

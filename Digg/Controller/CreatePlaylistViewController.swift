@@ -28,6 +28,8 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
     var pannedIndexPath: IndexPath?
     var isModal = false
 
+    // MARK: - Lifecycle Methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -73,6 +75,8 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+
+    // MARK: - Private Methods
 
     @objc fileprivate func close() {
         dismiss(animated: true, completion: nil)
@@ -151,6 +155,7 @@ class CreatePlaylistViewController: UIViewController, NVActivityIndicatorViewabl
     }
 }
 
+// MARK: - UIGestureRecognizerDelegate
 extension CreatePlaylistViewController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -164,6 +169,7 @@ extension CreatePlaylistViewController: UIGestureRecognizerDelegate {
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension CreatePlaylistViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -190,6 +196,7 @@ extension CreatePlaylistViewController: UITextFieldDelegate {
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension CreatePlaylistViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -242,6 +249,7 @@ extension CreatePlaylistViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension CreatePlaylistViewController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -337,6 +345,7 @@ extension CreatePlaylistViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension CreatePlaylistViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -346,6 +355,7 @@ extension CreatePlaylistViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - UIScrollViewDelegate
 extension CreatePlaylistViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

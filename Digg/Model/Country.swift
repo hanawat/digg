@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Country code with itunes store identifier model.
 struct Country {
 
     let countryCode: String
@@ -15,7 +16,8 @@ struct Country {
 }
 
 class CountriesPlistManager {
-
+    
+    /// Return Country models from Country plist.
     class func countries() -> [Country] {
 
         guard let url = Bundle.main.url(forResource: "Country", withExtension: "plist"),

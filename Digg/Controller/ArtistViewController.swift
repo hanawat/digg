@@ -10,32 +10,6 @@ import UIKit
 import MediaPlayer
 import NVActivityIndicatorView
 
-extension MutableCollection where Indices.Iterator.Element == Index {
-
-    /// Shuffles the contents of this collection.
-    mutating func shuffle() {
-        let c = count
-        guard c > 1 else { return }
-
-        for (unshuffledCount, firstUnshuffled) in zip(stride(from: c, to: 1, by: -1), indices) {
-            let d: IndexDistance = numericCast(arc4random_uniform(numericCast(unshuffledCount)))
-            guard d != 0 else { continue }
-            let i = index(firstUnshuffled, offsetBy: d)
-            swap(&self[firstUnshuffled], &self[i])
-        }
-    }
-}
-
-extension Sequence {
-
-    /// Returns an array with the contents of this sequence, shuffled.
-    func shuffled() -> [Iterator.Element] {
-        var result = Array(self)
-        result.shuffle()
-        return result
-    }
-}
-
 class ArtistViewController: UIViewController, NVActivityIndicatorViewable {
 
     @IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer!
@@ -54,6 +28,8 @@ class ArtistViewController: UIViewController, NVActivityIndicatorViewable {
 
         return searchBar
     }()
+
+    // MARK: - Lifecycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,6 +77,8 @@ class ArtistViewController: UIViewController, NVActivityIndicatorViewable {
         super.didReceiveMemoryWarning()
     }
 
+    // MARK: - Action Methods
+
     @IBAction func showSearchBar(_ sender: UIBarButtonItem) {
 
         if let frame = navigationController?.navigationBar.bounds {
@@ -123,6 +101,7 @@ class ArtistViewController: UIViewController, NVActivityIndicatorViewable {
         hiddenSearchBar()
     }
 
+    // MARK: - Private Methods
 
     @objc private func loadArtists() {
 
@@ -174,6 +153,7 @@ class ArtistViewController: UIViewController, NVActivityIndicatorViewable {
     }
 }
 
+// MARK: - UIViewControllerPreviewingDelegate
 extension ArtistViewController: UIViewControllerPreviewingDelegate {
 
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
@@ -194,6 +174,7 @@ extension ArtistViewController: UIViewControllerPreviewingDelegate {
     }
 }
 
+// MARK: - UISearchBarDelegate
 extension ArtistViewController: UISearchBarDelegate {
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -213,6 +194,7 @@ extension ArtistViewController: UISearchBarDelegate {
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension ArtistViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -231,10 +213,11 @@ extension ArtistViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
 
         let cell = collectionView.cellForItem(at: indexPath)
-        UIView.animate(withDuration: 0.2, animations: { cell?.layer.opacity = 1.0 }) 
+        UIView.animate(withDuration: 0.2, animations: { cell?.layer.opacity = 1.0 })
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension ArtistViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -259,6 +242,7 @@ extension ArtistViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UIScrollViewDelegate
 extension ArtistViewController: UIScrollViewDelegate {
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -284,34 +268,5 @@ extension ArtistViewController: UIScrollViewDelegate {
             let y = ((collectionView.contentOffset.y - cell.frame.origin.y) / cell.frame.height) * 25.0
             cell.offset(CGPoint(x: 0.0, y: y))
         }
-    }
-}
-
-extension UINavigationController {
-
-    func hiddenNavigationBar(_ animation: Bool) {
-
-        let originalFrame = self.navigationBar.frame
-        let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
-        let offsetHeight = originalFrame.size.height + statusBarHeight
-
-        guard originalFrame.origin.y == statusBarHeight else { return }
-
-        UIView.animate(withDuration: 0.2, animations: {
-            self.navigationBar.frame = originalFrame.offsetBy(dx: 0.0, dy: -offsetHeight)
-        }) 
-    }
-
-    func showNavigationBar(_ animation: Bool) {
-
-        let originalFrame = self.navigationBar.frame
-        let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
-        let offsetHeight = originalFrame.size.height + statusBarHeight
-
-        guard originalFrame.origin.y == -originalFrame.size.height else { return }
-
-        UIView.animate(withDuration: 0.2, animations: {
-            self.navigationBar.frame = originalFrame.offsetBy(dx: 0.0, dy: offsetHeight)
-        }) 
     }
 }

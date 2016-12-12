@@ -9,15 +9,6 @@
 import Foundation
 import APIKit
 
-class Utility {
-
-    static var isJapanese: Bool {
-
-        guard let language = Locale.preferredLanguages.first else { return false }
-        return language.hasPrefix("ja-")
-    }
-}
-
 protocol iTunesRequestType: Request { }
 
 extension iTunesRequestType {

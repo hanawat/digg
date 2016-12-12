@@ -20,7 +20,7 @@ protocol ArtistDetailPreviewItemDelegate: class {
 
 extension UICollectionView {
 
-    public func indexPathForSupplementaryView(_ elementKind: String, atPoint point: CGPoint) -> IndexPath? {
+    func indexPathForSupplementaryView(_ elementKind: String, atPoint point: CGPoint) -> IndexPath? {
 
         for section in 0..<self.numberOfSections {
             let indexPath = IndexPath(row: 0, section: section)
@@ -78,6 +78,8 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
 
         return [dig, play]
     }()
+
+    // MARK: - Lifecycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,6 +145,8 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
         super.didReceiveMemoryWarning()
     }
 
+    // MARK: - Private Methods
+
     @objc fileprivate func showPlaylist() {
 
         guard let viewController = UIStoryboard(name: "CreatePlaylist", bundle: nil).instantiateInitialViewController() as? CreatePlaylistViewController else { return }
@@ -151,6 +155,7 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
     }
 }
 
+// MARK: - UIGestureRecognizerDelegate
 extension ArtistDetailViewController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -164,6 +169,7 @@ extension ArtistDetailViewController: UIGestureRecognizerDelegate {
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension ArtistDetailViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -213,6 +219,7 @@ extension ArtistDetailViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension ArtistDetailViewController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -347,6 +354,7 @@ extension ArtistDetailViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension ArtistDetailViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -356,6 +364,7 @@ extension ArtistDetailViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - UIScrollViewDelegate
 extension ArtistDetailViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

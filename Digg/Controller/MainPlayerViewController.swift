@@ -28,6 +28,8 @@ class MainPlayerViewController: UIViewController {
     var album: iTunesMusic.Album?
     var playlist: Playlist?
 
+    // MARK: - Lifecycle Methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -58,6 +60,8 @@ class MainPlayerViewController: UIViewController {
         notification.removeObserver(self, name: NSNotification.Name.MPMusicPlayerControllerPlaybackStateDidChange, object: player)
         notification.removeObserver(self, name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: player)
     }
+
+    // MARK: - Action Methods
 
     @IBAction func handlePanGesture(_ sender: UIPanGestureRecognizer) {
 
@@ -118,6 +122,8 @@ class MainPlayerViewController: UIViewController {
     @IBAction func previous(_ sender: UIButton) {
         player.skipToPreviousItem()
     }
+
+    // MARK: - Private Methods
 
     @objc fileprivate func playStateChanged() {
 
@@ -181,6 +187,7 @@ class MainPlayerViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension MainPlayerViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -209,6 +216,7 @@ extension MainPlayerViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension MainPlayerViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -218,6 +226,7 @@ extension MainPlayerViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - UIScrollViewDelegate
 extension MainPlayerViewController: UIScrollViewDelegate {
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

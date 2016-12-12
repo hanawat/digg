@@ -27,23 +27,6 @@ extension UIViewController {
     }
 }
 
-class IntroductionViewController:UIViewController {
-
-    static let identifier = "IntroductionViewController"
-
-    @IBAction func getStarted(_ sender: UIButton) {
-
-        guard let viewController = UIStoryboard(name: "Artist", bundle: nil).instantiateInitialViewController(),
-            let appDelegate = UIApplication.shared.delegate as? AppDelegate else { fatalError() }
-
-        UIView.animate(withDuration: 0.2, animations: { 
-            self.view.alpha = 0.0
-        }) { _ in
-            appDelegate.window?.rootViewController = viewController
-        }
-    }
-}
-
 class MessageViewController: UIViewController {
 
     @IBOutlet weak var messageLabel: UILabel!

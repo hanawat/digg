@@ -59,6 +59,8 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
         return [action]
     }()
 
+    // MARK: - Lifecycle Methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -123,6 +125,7 @@ class SimilarArtistViewController: UIViewController, NVActivityIndicatorViewable
     }
 }
 
+// MARK: - UIViewControllerPreviewingDelegate
 extension SimilarArtistViewController: UIViewControllerPreviewingDelegate {
 
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
@@ -144,6 +147,7 @@ extension SimilarArtistViewController: UIViewControllerPreviewingDelegate {
     }
 }
 
+// MARK: - ArtistDetailPreviewItemDelegate
 extension SimilarArtistViewController: ArtistDetailPreviewItemDelegate {
 
     func showMoreSimilarArtist(_ name: String) {
@@ -154,6 +158,7 @@ extension SimilarArtistViewController: ArtistDetailPreviewItemDelegate {
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension SimilarArtistViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -176,6 +181,7 @@ extension SimilarArtistViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension SimilarArtistViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -198,6 +204,7 @@ extension SimilarArtistViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension SimilarArtistViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
