@@ -7,6 +7,10 @@ target 'Digg' do
   pod 'Kingfisher', '~> 3.0'
   pod 'RealmSwift', '~> 1.1.0'
   pod 'NVActivityIndicatorView'
+
+  target "DiggTests" do
+    inherit! :search_paths
+  end
 end
 
 plugin 'cocoapods-keys', {
