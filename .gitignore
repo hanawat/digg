@@ -20,6 +20,9 @@ DerivedData
 Pods/*
 Podfile.lock
 
+# Bundler
+vendor/bundle/*
+
 # others
 *.swp
 !.gitkeep
