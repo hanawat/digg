@@ -183,6 +183,12 @@ class MainPlayerViewController: UIViewController {
                 collectionView.reloadData()
                 currentPage = indexOfNowPlayingItem
             }
+
+        } else if let _ = player.nowPlayingItem?.artwork {
+
+            playlist = nil
+            album = nil
+            collectionView.reloadData()
         }
     }
 }
@@ -254,12 +260,12 @@ extension MainPlayerViewController: UIScrollViewDelegate {
         player.setQueueWith(descriptor)
 
         player.prepareToPlay(completionHandler: { error in
-            if error == nil {
-                self.player.play()
-            } else {
 
-                self.showAlertMessage(error?.localizedDescription)
-                print(error?.localizedDescription)
+            if let error = error {
+                self.showAlertMessage(error.localizedDescription)
+                print(error.localizedDescription)
+            } else {
+                self.player.play()
             }
         })
 

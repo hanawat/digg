@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let cloudServiceController = SKCloudServiceController()
         cloudServiceController.requestStorefrontIdentifier { identifier, error in
 
-            guard error == nil else { print(error); return }
+            guard error == nil else { print(error!.localizedDescription); return }
 
             guard let storefrontIdentifier = identifier?.components(separatedBy: "-").first,
                 let countryCode = CountriesPlistManager.countries()

@@ -225,7 +225,7 @@ extension CreatePlaylistViewController: UICollectionViewDelegate {
             } else {
 
                 self.showAlertMessage(error?.localizedDescription)
-                print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "")
             }
         })
     }

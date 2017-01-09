@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 import APIKit
 import Himotoki
 import RealmSwift
@@ -116,6 +117,7 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
                     }
 
                     self.stopAnimating()
+                    self.showSetUpViewControllerIfNeeded()
 
                 case .failure(let error):
 
@@ -146,6 +148,35 @@ class ArtistDetailViewController: UIViewController, NVActivityIndicatorViewable 
     }
 
     // MARK: - Private Methods
+
+    func showSetUpViewControllerIfNeeded() {
+
+        SKCloudServiceController.requestAuthorization { status in
+            switch status {
+            case .denied :
+                DispatchQueue.main.async {
+                    self.showAlertMessage("Access to the Apple Music is unauthorized.")
+                }
+            case .authorized:
+
+                SKCloudServiceController().requestCapabilities { capabilities, error in
+                    guard capabilities.contains(.musicCatalogSubscriptionEligible)
+                        || !capabilities.contains(.musicCatalogPlayback) else { return }
+
+                    let controller = SKCloudServiceSetupViewController()
+                    let options: [SKCloudServiceSetupOptionsKey: Any?] = [
+                        .action: SKCloudServiceSetupAction.subscribe,
+                        .iTunesItemIdentifier: self.albums.first?.collectionId
+                    ]
+
+                    controller.load(options: options)
+                    self.present(controller, animated: true, completion: nil)
+                }
+            default:
+                break
+            }
+        }
+    }
 
     @objc fileprivate func showPlaylist() {
 
@@ -190,12 +221,11 @@ extension ArtistDetailViewController: UICollectionViewDelegate {
 
         playerViewController.player.prepareToPlay(completionHandler: { error in
 
-            if error == nil {
-                playerViewController.player.play()
+            if let error = error {
+                self.showAlertMessage(error.localizedDescription)
+                print(error.localizedDescription)
             } else {
-
-                self.showAlertMessage(error?.localizedDescription)
-                print(error?.localizedDescription)
+                playerViewController.player.play()
             }
         })
     }
