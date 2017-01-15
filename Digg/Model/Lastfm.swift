@@ -23,7 +23,7 @@ extension LastfmRequestType {
     }
 
     var apiKey: String {
-        return DiggKeys().lastfmAPIKey()
+        return DiggKeys().lastfmAPIKey
     }
 }
 
