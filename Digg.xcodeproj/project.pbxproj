@@ -302,11 +302,12 @@
 				TargetAttributes = {
 					3CA086141CDDCEA500504387 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = J5XVB5T4HX;
+						DevelopmentTeam = T95UR28PV2;
 						LastSwiftMigration = 0800;
 					};
 					3CA086281CDDCEA500504387 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = T95UR28PV2;
 						LastSwiftMigration = 0800;
 						TestTargetID = 3CA086141CDDCEA500504387;
 					};
@@ -570,6 +571,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = T95UR28PV2;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Digg/Info.plist;
 				INSTALL_PATH = "@rpath";
@@ -590,6 +592,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = T95UR28PV2;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Digg/Info.plist;
 				INSTALL_PATH = "@rpath";
@@ -606,6 +609,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = T95UR28PV2;
 				INFOPLIST_FILE = DiggTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.next-group-HanawaTakuro.DiggTests";
@@ -619,6 +623,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = T95UR28PV2;
 				INFOPLIST_FILE = DiggTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.next-group-HanawaTakuro.DiggTests";
