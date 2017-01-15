@@ -10,6 +10,9 @@ target 'Digg' do
 
   target "DiggTests" do
     inherit! :search_paths
+
+    pod 'Quick'
+    pod 'Nimble'
   end
 end
 
